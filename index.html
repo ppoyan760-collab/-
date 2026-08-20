@@ -1,647 +1,104 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#0f172a" />
-  <title>سامانه کارت هوشمند روستای محمودیه - Admin V6</title>
-  <style>
-    :root{--bg:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--primary:#2563eb;--primary2:#1d4ed8;--danger:#dc2626;--ok:#16a34a;--shadow:0 18px 50px rgba(15,23,42,.12);--r:22px}
-    *{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Tahoma,"Vazirmatn","Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f8fafc 38%,#f1f5f9 100%);color:var(--ink)}
-    body{min-height:100dvh}.app{width:min(100%,720px);margin:auto;padding:max(18px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:11px}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:white;box-shadow:0 10px 24px rgba(37,99,235,.25);font-weight:900}.brand h1{font-size:18px;margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}.badge{padding:8px 10px;border-radius:999px;background:#e2e8f0;color:#475569;font-size:11px;white-space:nowrap}.badge.ok{background:#dcfce7;color:#166534}.badge.err{background:#fee2e2;color:#991b1b}
-    .screen{display:none}.screen.active{display:block}.panel{background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.8);border-radius:var(--r);box-shadow:var(--shadow);padding:20px}.hero{padding:26px 20px;text-align:center}.hero-icon{width:82px;height:82px;margin:0 auto 16px;border-radius:26px;background:#dbeafe;display:grid;place-items:center;font-size:36px}.hero h2{margin:0 0 8px;font-size:23px}.hero p{margin:0 auto;color:var(--muted);line-height:1.9;font-size:14px;max-width:460px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
-    button{appearance:none;border:0;font:inherit;cursor:pointer}.btn{min-height:54px;border-radius:16px;padding:12px 16px;font-weight:800;transition:.18s transform,.18s opacity,.18s background}.btn:active{transform:scale(.98)}.btn.primary{background:var(--primary);color:#fff}.btn.primary:hover{background:var(--primary2)}.btn.secondary{background:#eef2ff;color:#1e40af}.btn.ghost{background:#f8fafc;color:#334155;border:1px solid var(--line)}.btn.danger{background:#fee2e2;color:#991b1b}.btn:disabled{opacity:.45;cursor:not-allowed}
-    .screen-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.screen-head h2{margin:0;font-size:18px}.back{width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--line);font-size:20px;color:#334155}.hint{border:1px dashed #93c5fd;background:#eff6ff;color:#1e3a8a;padding:12px 14px;border-radius:15px;font-size:13px;line-height:1.8;margin-bottom:14px}
-    .card{background:linear-gradient(145deg,#0f172a,#1e293b);color:white;border-radius:24px;padding:20px;box-shadow:0 22px 48px rgba(15,23,42,.24);position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(59,130,246,.18);left:-70px;top:-70px}.card-title{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.card-title strong{font-size:16px}.uid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;direction:ltr;text-align:left;font-size:11px;background:rgba(255,255,255,.1);padding:7px 9px;border-radius:10px;max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fields{position:relative;display:grid;gap:10px}.field{display:grid;grid-template-columns:145px 1fr;align-items:center;gap:10px}.field label{font-size:12px;color:#cbd5e1}.value,.input{min-height:43px;border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:flex-start}.value{background:rgba(255,255,255,.08);font-size:14px;min-width:0;word-break:break-word}.input{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);color:white;outline:none;font:inherit}.input::placeholder{color:#94a3b8}.input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,.14)}.input[readonly]{opacity:.8}.ltr{direction:ltr;text-align:right}.footer-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-    .status{margin-top:14px;padding:11px 13px;border-radius:13px;font-size:13px;display:none}.status.show{display:block}.status.info{background:#eff6ff;color:#1e40af}.status.ok{background:#dcfce7;color:#166534}.status.err{background:#fee2e2;color:#991b1b}.status.warn{background:#fef3c7;color:#92400e}
-    .overlay{position:fixed;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.overlay.show{display:flex}.modal{width:min(100%,420px);background:#fff;border-radius:22px;padding:20px;box-shadow:0 26px 70px rgba(15,23,42,.3)}.modal h3{margin:0 0 8px;font-size:18px}.modal p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.8}.modal input{width:100%;height:50px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none}.modal input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.attempts{font-size:12px;color:var(--danger);min-height:18px;margin-top:8px}
-    .nfc-warning{display:none;margin-bottom:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.8}.nfc-warning.show{display:block}
-
-    .test-panel{display:none;margin-top:14px;background:#0b1220;color:#e2e8f0;border:1px solid #334155;border-radius:18px;padding:14px}.test-panel.show{display:block}.test-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.test-title strong{font-size:14px}.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.test-panel .btn{min-height:46px;font-size:13px}.test-note{font-size:12px;color:#94a3b8;line-height:1.8;margin-top:10px}.test-uid{width:100%;height:44px;border-radius:12px;border:1px solid #334155;background:#111827;color:white;padding:0 12px;font:inherit;direction:ltr;text-align:left;margin-top:8px}.test-state{margin-top:10px;padding:9px 11px;border-radius:12px;background:#111827;color:#cbd5e1;font-size:12px;line-height:1.7}.logo.test-on{outline:3px solid #f59e0b;box-shadow:0 0 0 6px rgba(245,158,11,.15)}
-    .bulk-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:14px}.bulk-box h3{margin:0 0 10px;font-size:15px}.bulk-file{width:100%;border:1px dashed #93c5fd;background:#eff6ff;border-radius:14px;padding:14px;font:inherit}.bulk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:10px;text-align:center}.stat b{display:block;font-size:18px}.stat span{font-size:11px;color:var(--muted)}.bulk-current{margin-top:12px;background:#0f172a;color:#fff;border-radius:16px;padding:14px}.bulk-current .row{display:grid;grid-template-columns:130px 1fr;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08)}.bulk-current .row:last-child{border-bottom:0}.bulk-current label{font-size:11px;color:#cbd5e1}.bulk-current div{font-size:13px;word-break:break-word}.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:12px}.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2563eb,#60a5fa);transition:.2s width}.bulk-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.bulk-log{margin-top:12px;max-height:190px;overflow:auto;background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:9px;font-size:12px;line-height:1.8}.log-ok{color:#166534}.log-err{color:#991b1b}.log-info{color:#1e40af}.fixed-pass{display:inline-block;direction:ltr;font-family:ui-monospace,monospace;background:#e2e8f0;padding:2px 7px;border-radius:7px}
-    .auth-wrap{position:fixed;inset:0;z-index:100;background:linear-gradient(160deg,#dbeafe,#f8fafc 55%,#e2e8f0);display:flex;align-items:center;justify-content:center;padding:18px}.auth-wrap.hidden{display:none}.auth-card{width:min(100%,430px);background:#fff;border:1px solid #e2e8f0;border-radius:26px;padding:24px;box-shadow:0 26px 70px rgba(15,23,42,.18)}.auth-logo{width:72px;height:72px;border-radius:22px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:#fff;font-size:30px;font-weight:900;margin:0 auto 14px}.auth-card h2{text-align:center;margin:0 0 6px;font-size:21px}.auth-card p{text-align:center;margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.8}.auth-field{margin-bottom:12px}.auth-field label{display:block;margin:0 0 6px;font-size:12px;color:#475569}.auth-field input{width:100%;height:52px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none}.auth-field input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.auth-error{min-height:22px;color:#b91c1c;font-size:12px;margin-top:8px;text-align:center}.admin-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:center}.admin-tools .btn{min-height:44px;font-size:12px}.security-note{margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff7ed;color:#9a3412;font-size:12px;line-height:1.8}.modal .stack{display:grid;gap:10px}.modal .stack input{margin:0}.excel-lock-note{font-size:12px;color:#475569;line-height:1.8;margin-top:8px;padding:9px 11px;background:#f8fafc;border-radius:11px;border:1px solid var(--line)}
-    @media(max-width:520px){.bulk-stats{grid-template-columns:1fr 1fr}.bulk-current .row{grid-template-columns:1fr}.bulk-actions{grid-template-columns:1fr}.brand h1{font-size:15px;line-height:1.55}.app{padding-left:12px;padding-right:12px}.panel{padding:15px}.actions{grid-template-columns:1fr}.field{grid-template-columns:1fr;gap:5px}.field label{font-size:11px}.card{padding:16px}.card-title{align-items:flex-start;flex-direction:column}.uid{max-width:100%}.footer-actions{grid-template-columns:1fr}.brand p{display:none}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0f172a" />
+<title>سامانه کارت هوشمند روستای محمودیه</title>
+<style>
+:root{--bg:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--primary:#2563eb;--primary2:#1d4ed8;--danger:#dc2626;--ok:#16a34a;--shadow:0 18px 50px rgba(15,23,42,.12);--r:22px}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Tahoma,"Vazirmatn","Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f8fafc 38%,#f1f5f9 100%);color:var(--ink)}body{min-height:100dvh}.app{width:min(100%,720px);margin:auto;padding:max(18px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:11px}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:white;box-shadow:0 10px 24px rgba(37,99,235,.25);font-weight:900;user-select:none}.logo.test-on{outline:4px solid #fbbf24}.brand h1{font-size:18px;margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}.badge{padding:8px 10px;border-radius:999px;background:#e2e8f0;color:#475569;font-size:11px;white-space:nowrap}.badge.ok{background:#dcfce7;color:#166534}.badge.err{background:#fee2e2;color:#991b1b}.screen{display:none}.screen.active{display:block}.panel{background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.8);border-radius:var(--r);box-shadow:var(--shadow);padding:20px}.hero{padding:26px 20px;text-align:center}.hero-icon{width:82px;height:82px;margin:0 auto 16px;border-radius:26px;background:#dbeafe;display:grid;place-items:center;font-size:36px}.hero h2{margin:0 0 8px;font-size:23px}.hero p{margin:0 auto;color:var(--muted);line-height:1.9;font-size:14px;max-width:500px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}button{appearance:none;border:0;font:inherit;cursor:pointer}.btn{min-height:54px;border-radius:16px;padding:12px 16px;font-weight:800;transition:.18s transform,.18s opacity,.18s background}.btn:active{transform:scale(.98)}.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#eef2ff;color:#1e40af}.btn.ghost{background:#f8fafc;color:#334155;border:1px solid var(--line)}.btn.danger{background:#fee2e2;color:#991b1b}.btn:disabled{opacity:.45;cursor:not-allowed}.screen-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.screen-head h2{margin:0;font-size:18px}.back{width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--line);font-size:20px;color:#334155}.hint{border:1px dashed #93c5fd;background:#eff6ff;color:#1e3a8a;padding:12px 14px;border-radius:15px;font-size:13px;line-height:1.8;margin-bottom:14px}.card{background:linear-gradient(145deg,#0f172a,#1e293b);color:white;border-radius:24px;padding:20px;box-shadow:0 22px 48px rgba(15,23,42,.24);position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(59,130,246,.18);left:-70px;top:-70px}.card-title{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.card-title strong{font-size:16px}.uid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;direction:ltr;text-align:left;font-size:11px;background:rgba(255,255,255,.1);padding:7px 9px;border-radius:10px;max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fields{position:relative;display:grid;gap:10px}.field{display:grid;grid-template-columns:145px 1fr;align-items:center;gap:10px}.field label{font-size:12px;color:#cbd5e1}.value,.input{min-height:43px;border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:flex-start}.value{background:rgba(255,255,255,.08);font-size:14px;min-width:0;word-break:break-word}.input{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);color:white;outline:none;font:inherit}.input::placeholder{color:#94a3b8}.input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,.14)}.ltr{direction:ltr;text-align:right}.footer-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.status{margin-top:14px;padding:11px 13px;border-radius:13px;font-size:13px;display:none}.status.show{display:block}.status.info{background:#eff6ff;color:#1e40af}.status.ok{background:#dcfce7;color:#166534}.status.err{background:#fee2e2;color:#991b1b}.status.warn{background:#fef3c7;color:#92400e}.nfc-warning{display:none;margin-bottom:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.8}.nfc-warning.show{display:block}.overlay{position:fixed;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.overlay.show{display:flex}.modal{width:min(100%,430px);background:#fff;border-radius:22px;padding:20px;box-shadow:0 26px 70px rgba(15,23,42,.3)}.modal h3{margin:0 0 8px;font-size:18px}.modal p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.8}.modal input,.modal select{width:100%;height:50px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none;background:#fff}.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.modal .stack{display:grid;gap:10px}.attempts{font-size:12px;color:var(--danger);min-height:18px;margin-top:8px}.auth-wrap{position:fixed;inset:0;z-index:100;background:linear-gradient(160deg,#dbeafe,#f8fafc 55%,#e2e8f0);display:flex;align-items:center;justify-content:center;padding:18px}.auth-wrap.hidden{display:none}.auth-card{width:min(100%,430px);background:#fff;border:1px solid #e2e8f0;border-radius:26px;padding:24px;box-shadow:0 26px 70px rgba(15,23,42,.18)}.auth-logo{width:72px;height:72px;border-radius:22px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:#fff;font-size:30px;font-weight:900;margin:0 auto 14px}.auth-card h2{text-align:center;margin:0 0 6px;font-size:21px}.auth-card p{text-align:center;margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.8}.auth-field{margin-bottom:12px}.auth-field label{display:block;margin:0 0 6px;font-size:12px;color:#475569}.auth-field input,.auth-field select{width:100%;height:52px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none;background:#fff}.auth-error{min-height:22px;color:#b91c1c;font-size:12px;margin-top:8px;text-align:center}.admin-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:center}.admin-tools .btn{min-height:44px;font-size:12px}.security-note{margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff7ed;color:#9a3412;font-size:12px;line-height:1.8}.test-panel{display:none;margin-top:16px;background:#111827;color:#fff;border-radius:18px;padding:15px}.test-panel.show{display:block}.test-title{display:flex;justify-content:space-between;align-items:center}.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.test-uid{width:100%;margin-top:10px;height:46px;border:1px solid #475569;border-radius:12px;background:#1f2937;color:#fff;padding:0 12px;font-family:monospace;direction:ltr}.test-state,.test-note{margin-top:9px;font-size:12px;line-height:1.8;color:#cbd5e1}.bulk-box,.settings-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}.bulk-box h3,.settings-box h3{margin:0 0 12px;font-size:15px}.bulk-file{width:100%;padding:12px;border:1px dashed #94a3b8;border-radius:13px;background:#f8fafc}.bulk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.stat{text-align:center;padding:10px;border:1px solid var(--line);border-radius:13px}.stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--muted)}.progress{height:8px;border-radius:999px;background:#e2e8f0;overflow:hidden}.progress i{display:block;height:100%;width:0;background:#2563eb}.bulk-current{display:grid;gap:7px}.bulk-current .row{display:grid;grid-template-columns:150px 1fr;gap:10px;border-bottom:1px dashed #e2e8f0;padding:8px 0}.bulk-current label{font-size:12px;color:#64748b}.bulk-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.bulk-log{margin-top:12px;max-height:220px;overflow:auto;background:#0f172a;color:#cbd5e1;border-radius:13px;padding:10px;font-size:11px;line-height:1.8}.log-ok{color:#86efac}.log-err{color:#fca5a5}.fixed-pass{font-family:monospace;direction:ltr}.settings-actions{display:grid;gap:10px}.log-select{width:100%;height:48px;border:1px solid var(--line);border-radius:13px;padding:0 12px;font:inherit;background:#fff}.small-note{font-size:12px;line-height:1.8;color:#64748b;margin-top:9px}.reader-live{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:#166534;background:#dcfce7;border-radius:14px;padding:10px 12px;font-size:13px}.pulse{width:10px;height:10px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 1.5s infinite}@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+@media(max-width:520px){.app{padding-left:12px;padding-right:12px}.panel{padding:15px}.actions,.footer-actions,.bulk-actions{grid-template-columns:1fr}.field{grid-template-columns:1fr;gap:5px}.card{padding:16px}.card-title{align-items:flex-start;flex-direction:column}.uid{max-width:100%}.brand h1{font-size:15px;line-height:1.55}.brand p{display:none}.bulk-current .row{grid-template-columns:1fr}.bulk-stats{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
 <div id="loginGate" class="auth-wrap">
   <div class="auth-card">
     <div class="auth-logo">م</div>
-    <h2>ورود مدیر سامانه</h2>
+    <h2>ورود به سامانه</h2>
     <p>سامانه کارت هوشمند روستای محمودیه</p>
-    <div class="auth-field"><label>نام کاربری</label><input id="loginUser" autocomplete="username" value="admin" /></div>
+    <div class="auth-field"><label>نام کاربری</label><select id="loginUser"><option value="user" selected>user</option><option value="admin">admin</option></select></div>
     <div class="auth-field"><label>رمز عبور</label><input id="loginPass" type="password" autocomplete="current-password" /></div>
     <button id="loginBtn" class="btn primary" style="width:100%">ورود</button>
     <div id="loginError" class="auth-error"></div>
   </div>
 </div>
-<div class="app" id="mainApp">
-  <header class="topbar">
-    <div class="brand"><div class="logo" id="appLogo" title="">م</div><div><h1>سامانه کارت هوشمند روستای محمودیه</h1><p>ثبت و مشاهده اطلاعات کارت ملک</p></div></div>
-    <div id="nfcBadge" class="badge">در حال بررسی NFC</div>
-  </header>
-
-  <div id="nfcWarning" class="nfc-warning">NFC در دسترس نیست یا خاموش است. NFC گوشی را از تنظیمات سریع/Settings روشن کنید و سپس دوباره دکمه خواندن یا نوشتن را بزنید.</div>
-
-  <section id="homeScreen" class="screen active">
-    <div class="panel hero">
-      <div class="hero-icon">📶</div>
-      <h2>سامانه کارت هوشمند روستای محمودیه</h2>
-      <p>برای مشاهده اطلاعات کارت «خواندن»، برای ویرایش «نوشتن» و برای صدور تعداد زیاد کارت از روی فایل Excel گزینه «تعریف پشت‌سرهم کارت‌ها» را انتخاب کنید.</p>
-      <div class="actions">
-        <button class="btn primary" id="goRead">خواندن کارت</button>
-        <button class="btn secondary" id="goWrite">نوشتن / ویرایش کارت</button>
-        <button class="btn ghost" id="goBulk" style="grid-column:1/-1">تعریف پشت‌سرهم کارت‌ها از Excel</button>
-      </div>
-      <div class="admin-tools">
-        <button class="btn ghost" id="changeAdminPass">🔐 تغییر رمز مدیر</button>
-        <button class="btn ghost" id="logoutAdmin">خروج از حساب</button>
-      </div>
-      <div class="security-note" id="defaultPassNotice" style="display:none">رمز مدیر هنوز مقدار اولیه «admin» است. برای امنیت، آن را از گزینه «تغییر رمز مدیر» عوض کنید.</div>
-    </div>
-
-    <div id="testPanel" class="test-panel">
-      <div class="test-title"><strong>حالت آزمایش کارت مجازی</strong><span class="badge">TEST MODE</span></div>
-      <div class="test-grid">
-        <button id="testCreateCard" class="btn secondary">ساخت کارت مجازی خالی</button>
-        <button id="testInsertCard" class="btn primary">نزدیک‌کردن کارت مجازی</button>
-        <button id="testRemoveCard" class="btn ghost">دورکردن کارت مجازی</button>
-        <button id="testDeleteCard" class="btn danger">پاک‌کردن کارت مجازی</button>
-      </div>
-      <input id="testUidInput" class="test-uid" value="04A1B2C3D4E5F6" aria-label="UID کارت مجازی" />
-      <div id="testState" class="test-state">کارت مجازی آماده است، اما هنوز نزدیک گوشی نیست.</div>
-      <div class="test-note">این بخش فقط منطق برنامه را شبیه‌سازی می‌کند و سیگنال NFC واقعی تولید نمی‌کند. برای خروج، دوباره ۵ بار روی لوگوی «م» بزنید.</div>
-    </div>
-  </section>
-
-  <section id="readScreen" class="screen">
-    <div class="screen-head"><h2>خواندن کارت</h2><button class="back" data-home aria-label="بازگشت">←</button></div>
-    <div class="hint">دکمه «شروع خواندن» را بزنید، سپس کارت NFC را به پشت گوشی نزدیک کنید. فیلدها فقط نمایشی هستند و قابل تغییر نیستند.</div>
-    <div class="card">
-      <div class="card-title"><strong>مشخصات کارت هوشمند ملک</strong><span id="readUid" class="uid">UID: —</span></div>
-      <div id="readFields" class="fields"></div>
-    </div>
-    <div class="footer-actions"><button id="startRead" class="btn primary">شروع خواندن</button><button class="btn ghost" data-home>بازگشت</button></div>
-    <div id="readStatus" class="status"></div>
-  </section>
-
-  <section id="writeScreen" class="screen">
-    <div class="screen-head"><h2>نوشتن / ویرایش کارت</h2><button class="back" data-home aria-label="بازگشت">←</button></div>
-    <div class="hint">ابتدا کارت را بخوانید. اگر کارت قبلاً رمز داشته باشد، برای فعال شدن ویرایش باید رمز صحیح وارد شود. کارت جدید هنگام اولین ذخیره باید رمز دریافت کند.</div>
-    <div class="card">
-      <div class="card-title"><strong>ویرایش مشخصات کارت هوشمند ملک</strong><span id="writeUid" class="uid">UID: —</span></div>
-      <div id="writeFields" class="fields"></div>
-    </div>
-    <div class="footer-actions"><button id="scanForEdit" class="btn secondary">خواندن کارت برای ویرایش</button><button id="saveCard" class="btn primary" disabled>ذخیره روی کارت</button></div>
-    <div id="writeStatus" class="status"></div>
-  </section>
-
-  <section id="bulkScreen" class="screen">
-    <div class="screen-head"><h2>تعریف پشت‌سرهم کارت‌ها</h2><button class="back" data-home aria-label="بازگشت">←</button></div>
-    <div class="hint">فایل Excel شامل ۶ ستون اطلاعات را انتخاب کنید. صدور از اولین ردیف داده شروع می‌شود و تا آخرین ردیفی که «شماره قطعه زمین» دارد ادامه پیدا می‌کند. خالی بودن سایر فیلدها مانع صدور کارت نیست. رمز تمام کارت‌های این بخش <span class="fixed-pass">12345</span> است.</div>
-    <div class="bulk-box">
-      <h3>۱) انتخاب فایل Excel</h3>
-      <input id="bulkFile" class="bulk-file" type="file" accept=".xlsx,.xls" />
-      <div id="bulkMapInfo" class="status"></div>
-      <div class="bulk-stats">
-        <div class="stat"><b id="bulkTotal">0</b><span>کل کارت‌ها</span></div>
-        <div class="stat"><b id="bulkDone">0</b><span>صادر شده</span></div>
-        <div class="stat"><b id="bulkRemain">0</b><span>باقی‌مانده</span></div>
-      </div>
-      <div class="progress"><i id="bulkProgress"></i></div>
-    </div>
-    <div class="bulk-box">
-      <h3>۲) ردیف آماده صدور</h3>
-      <div id="bulkCurrent" class="bulk-current"><div class="row"><label>وضعیت</label><div>ابتدا فایل Excel را انتخاب کنید.</div></div></div>
-      <div class="bulk-actions">
-        <button id="bulkStart" class="btn primary" disabled>شروع صدور پشت‌سرهم</button>
-        <button id="bulkStop" class="btn danger" disabled>توقف</button>
-        <button id="bulkSimNext" class="btn secondary" style="display:none">شبیه‌سازی کارت بعدی</button>
-        <button id="bulkDownload" class="btn ghost" disabled>دانلود Excel به‌روزشده</button>
-      </div>
-      <div id="bulkStatus" class="status"></div>
-      <div class="excel-lock-note">فایل Excel خروجی با <b>رمز فعلی مدیر</b> رمزگذاری می‌شود و برای باز شدن در Excel/Office به همان رمز نیاز دارد.</div>
-      <div id="bulkLog" class="bulk-log">گزارش عملیات اینجا نمایش داده می‌شود.</div>
-    </div>
-  </section>
+<div class="app">
+<header class="topbar"><div class="brand"><div class="logo" id="appLogo">م</div><div><h1>سامانه کارت هوشمند روستای محمودیه</h1><p id="roleText">—</p></div></div><div id="nfcBadge" class="badge">در حال بررسی NFC</div></header>
+<div id="nfcWarning" class="nfc-warning">NFC در دسترس نیست یا خاموش است.</div>
+<section id="homeScreen" class="screen active">
+ <div class="panel hero">
+  <div class="hero-icon">📶</div><h2>سامانه کارت هوشمند روستای محمودیه</h2><p id="homeDescription">برای مشاهده اطلاعات کارت، گزینه «خواندن کارت» را انتخاب کنید.</p>
+  <div class="actions"><button class="btn primary" id="goRead">خواندن کارت</button><button class="btn secondary admin-only" id="goWrite">نوشتن / ویرایش کارت</button><button class="btn ghost admin-only" id="goBulk" style="grid-column:1/-1">تعریف پشت‌سرهم کارت‌ها از Excel</button></div>
+  <div class="admin-tools"><button class="btn ghost admin-only" id="goSettings">⚙️ تنظیمات</button><button class="btn ghost" id="logoutBtn">خروج از حساب</button></div>
+  <div class="security-note admin-only" id="defaultPassNotice" style="display:none"></div>
+ </div>
+ <div id="testPanel" class="test-panel admin-only"><div class="test-title"><strong>حالت آزمایش کارت مجازی</strong><span class="badge">TEST MODE</span></div><div class="test-grid"><button id="testCreateCard" class="btn secondary">ساخت کارت مجازی خالی</button><button id="testInsertCard" class="btn primary">نزدیک‌کردن کارت مجازی</button><button id="testRemoveCard" class="btn ghost">دورکردن کارت مجازی</button><button id="testDeleteCard" class="btn danger">پاک‌کردن کارت مجازی</button></div><input id="testUidInput" class="test-uid" value="04A1B2C3D4E5F6"/><div id="testState" class="test-state">کارت مجازی آماده است.</div><div class="test-note">برای خروج، دوباره ۵ بار روی لوگوی «م» بزنید.</div></div>
+</section>
+<section id="readScreen" class="screen"><div class="screen-head"><h2>خواندن کارت</h2><button class="back" data-home>←</button></div><div class="reader-live"><span class="pulse"></span><span id="readerLiveText">در انتظار نزدیک شدن کارت NFC…</span></div><div class="card"><div class="card-title"><strong>مشخصات کارت هوشمند ملک</strong><span id="readUid" class="uid">UID: —</span></div><div id="readFields" class="fields"></div></div><div class="footer-actions"><button class="btn ghost" data-home>بازگشت</button></div><div id="readStatus" class="status"></div></section>
+<section id="writeScreen" class="screen admin-only"><div class="screen-head"><h2>نوشتن / ویرایش کارت</h2><button class="back" data-home>←</button></div><div class="hint">ابتدا کارت را بخوانید. برای کارت رمزدار، رمز صحیح لازم است.</div><div class="card"><div class="card-title"><strong>ویرایش مشخصات کارت هوشمند ملک</strong><span id="writeUid" class="uid">UID: —</span></div><div id="writeFields" class="fields"></div></div><div class="footer-actions"><button id="scanForEdit" class="btn secondary">خواندن کارت برای ویرایش</button><button id="saveCard" class="btn primary" disabled>ذخیره روی کارت</button></div><div id="writeStatus" class="status"></div></section>
+<section id="bulkScreen" class="screen admin-only"><div class="screen-head"><h2>تعریف پشت‌سرهم کارت‌ها</h2><button class="back" data-home>←</button></div><div class="hint">صدور تا اولین ردیفی ادامه دارد که شماره قطعه آن خالی باشد. سایر فیلدها می‌توانند خالی باشند. رمز همه کارت‌های این بخش <span class="fixed-pass">12345</span> است.</div><div class="bulk-box"><h3>۱) انتخاب فایل Excel</h3><input id="bulkFile" class="bulk-file" type="file" accept=".xlsx,.xls"/><div id="bulkMapInfo" class="status"></div><div class="bulk-stats"><div class="stat"><b id="bulkTotal">0</b><span>کل</span></div><div class="stat"><b id="bulkDone">0</b><span>صادر شده</span></div><div class="stat"><b id="bulkRemain">0</b><span>باقی‌مانده</span></div></div><div class="progress"><i id="bulkProgress"></i></div></div><div class="bulk-box"><h3>۲) ردیف آماده صدور</h3><div id="bulkCurrent" class="bulk-current"></div><div class="bulk-actions"><button id="bulkStart" class="btn primary" disabled>شروع صدور پشت‌سرهم</button><button id="bulkStop" class="btn danger" disabled>توقف</button><button id="bulkSimNext" class="btn secondary" style="display:none">شبیه‌سازی کارت بعدی</button><button id="bulkDownload" class="btn ghost" disabled>دانلود Excel به‌روزشده</button></div><div id="bulkStatus" class="status"></div><div id="bulkLog" class="bulk-log">گزارش عملیات اینجا نمایش داده می‌شود.</div></div></section>
+<section id="settingsScreen" class="screen admin-only"><div class="screen-head"><h2>تنظیمات</h2><button class="back" data-home>←</button></div><div class="settings-box"><h3>رمزهای ورود</h3><div class="settings-actions"><button id="changeAdminPass" class="btn primary">تغییر رمز مدیر</button><button id="changeUserPass" class="btn secondary">تغییر رمز کاربر</button></div><div class="small-note">کاربر user امکان تغییر رمز ندارد؛ رمز user فقط توسط مدیر تغییر می‌کند.</div></div><div class="settings-box"><h3>گزارش‌های اسکن</h3><select id="logPlotSelect" class="log-select"><option value="">هنوز گزارشی ثبت نشده است</option></select><div class="settings-actions" style="margin-top:10px"><button id="downloadScanLog" class="btn ghost" disabled>دانلود Excel رمزدار قطعه انتخاب‌شده</button></div><div id="logStatus" class="status"></div><div class="small-note">در نسخه وب، گزارش هر قطعه در فضای داخلی برنامه نگهداری و بعد از هر اسکن به‌روزرسانی می‌شود. فایل دانلودی با رمز فعلی مدیر باز می‌شود.</div></div></section>
 </div>
-
-<div id="passwordOverlay" class="overlay" role="dialog" aria-modal="true">
-  <div class="modal">
-    <h3 id="passwordTitle">رمز کارت را وارد کنید</h3>
-    <p id="passwordText">برای ویرایش اطلاعات این کارت، رمز آن را وارد کنید.</p>
-    <input id="passwordInput" type="password" inputmode="numeric" autocomplete="off" maxlength="32" placeholder="رمز کارت" />
-    <div id="attemptsText" class="attempts"></div>
-    <div class="row"><button id="passwordConfirm" class="btn primary">تأیید</button><button id="passwordCancel" class="btn ghost">انصراف</button></div>
-  </div>
-</div>
-
-<div id="adminPasswordOverlay" class="overlay" role="dialog" aria-modal="true">
-  <div class="modal">
-    <h3>تغییر رمز مدیر</h3>
-    <p>رمز جدید از این پس برای ورود مدیر و رمزگذاری فایل‌های Excel خروجی استفاده می‌شود.</p>
-    <div class="stack">
-      <input id="adminOldPass" type="password" autocomplete="current-password" placeholder="رمز فعلی" />
-      <input id="adminNewPass" type="password" autocomplete="new-password" placeholder="رمز جدید (حداقل ۶ کاراکتر)" />
-      <input id="adminNewPass2" type="password" autocomplete="new-password" placeholder="تکرار رمز جدید" />
-    </div>
-    <div id="adminPassError" class="attempts"></div>
-    <div class="row"><button id="adminPassSave" class="btn primary">ذخیره رمز جدید</button><button id="adminPassCancel" class="btn ghost">انصراف</button></div>
-  </div>
-</div>
-
+<div id="passwordOverlay" class="overlay"><div class="modal"><h3 id="passwordTitle">رمز کارت را وارد کنید</h3><p id="passwordText"></p><input id="passwordInput" type="password" inputmode="numeric" maxlength="32" placeholder="رمز کارت"/><div id="attemptsText" class="attempts"></div><div class="row"><button id="passwordConfirm" class="btn primary">تأیید</button><button id="passwordCancel" class="btn ghost">انصراف</button></div></div></div>
+<div id="changePassOverlay" class="overlay"><div class="modal"><h3 id="changePassTitle">تغییر رمز</h3><p id="changePassText"></p><div class="stack"><input id="changeOldPass" type="password" placeholder="رمز فعلی"/><input id="changeNewPass" type="password" placeholder="رمز جدید (حداقل ۴ کاراکتر)"/><input id="changeNewPass2" type="password" placeholder="تکرار رمز جدید"/></div><div id="changePassError" class="attempts"></div><div class="row"><button id="changePassSave" class="btn primary">ذخیره</button><button id="changePassCancel" class="btn ghost">انصراف</button></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx-populate@1.21.0/browser/xlsx-populate.min.js"></script>
 <script>
 'use strict';
-
-const APP_MIME = 'application/vnd.landcard.v1+json';
-const AUTH_KEY='mahmoudieh_admin_auth_v1';
-let sessionAdminPassword='';
-let authenticated=false;
-const FIELD_DEFS = [
-  ['fullName','نام و نام خانوادگی','مثال: علی رضایی',false],
-  ['nationalId','کد ملی','۱۰ رقم',true],
-  ['postalCode','کد پستی ملک','۱۰ رقم',true],
-  ['mobile','شماره تلفن موبایل','09xxxxxxxxx',true],
-  ['plotNumber','شماره قطعه زمین','شماره قطعه',false],
-  ['streetName','اسم خیابان محل قطعه زمین','نام خیابان',false]
-];
-
-let mode = 'home';
-let currentUid = '';
-let currentPayload = null;
-let editUnlocked = false;
-let pendingPasswordAction = null;
-let passwordAttempts = 0;
-let simulatorMode = false;
-let testMode = false;
-let virtualCardPresent = false;
-let logoTapCount = 0;
-let logoTapTimer = null;
-const SIM_KEY = 'mahmoudieh_nfc_demo_card_v1';
-let SIM_UID = '04A1B2C3D4E5F6';
-
-// Bulk issuing state
-const BULK_PASSWORD = '12345';
-let bulkWorkbook = null, bulkSheet = null, bulkSheetName = '', bulkRows = [], bulkHeaders = [], bulkMap = {};
-let bulkQueue = [], bulkIndex = 0, bulkRunning = false, bulkLastUid = '', bulkReader = null, bulkAbort = null, bulkFileName = 'cards.xlsx';
-let bulkUidHeader = 'UID کارت';
-
-const $ = s => document.querySelector(s);
-const screens = [...document.querySelectorAll('.screen')];
-
-function showScreen(name){
-  mode = name;
-  screens.forEach(x => x.classList.remove('active'));
-  $('#' + name + 'Screen').classList.add('active');
-  clearStatus('#readStatus'); clearStatus('#writeStatus');
-}
-
-function renderFields(){
-  $('#readFields').innerHTML = FIELD_DEFS.map(([key,label]) => `<div class="field"><label>${label}</label><div class="value" id="read_${key}">—</div></div>`).join('');
-  $('#writeFields').innerHTML = FIELD_DEFS.map(([key,label,ph,ltr]) => `<div class="field"><label for="write_${key}">${label}</label><input class="input ${ltr?'ltr':''}" id="write_${key}" data-key="${key}" placeholder="${ph}" disabled></div>`).join('');
-}
+const APP_MIME='application/vnd.landcard.v1+json', AUTH_KEY='mahmoudieh_auth_v7', SIM_STORE_KEY='mahmoudieh_nfc_demo_card_v1_BY_UID', LOG_KEY='mahmoudieh_scan_logs_v1', BG_SECRET='mahmoudieh_bg_admin_secret_v1';
+const FIELD_DEFS=[['fullName','نام و نام خانوادگی','مثال: علی رضایی',false],['nationalId','کد ملی','۱۰ رقم',true],['postalCode','کد پستی ملک','۱۰ رقم',true],['mobile','شماره تلفن موبایل','09xxxxxxxxx',true],['plotNumber','شماره قطعه زمین','شماره قطعه',false],['streetName','اسم خیابان محل قطعه زمین','نام خیابان',false]];
+const $=s=>document.querySelector(s), screens=[...document.querySelectorAll('.screen')];
+let currentRole='',sessionPassword='',mode='home',currentUid='',currentPayload=null,editUnlocked=false,pendingPasswordAction=null,passwordAttempts=0,simulatorMode=false,testMode=false,virtualCardPresent=false,SIM_UID='04A1B2C3D4E5F6',logoTapCount=0,logoTapTimer=null,readReader=null,readAbort=null,lastLoggedUid='',lastLoggedAt=0;
+let bulkWorkbook=null,bulkSheet=null,bulkSheetName='',bulkHeaders=[],bulkMap={},bulkQueue=[],bulkIndex=0,bulkRunning=false,bulkLastUid='',bulkReader=null,bulkAbort=null,bulkFileName='cards.xlsx',bulkUidHeader='UID کارت'; const BULK_PASSWORD='12345';
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function showScreen(name){stopContinuousRead();mode=name;screens.forEach(x=>x.classList.remove('active'));$('#'+name+'Screen').classList.add('active');clearStatus('#readStatus');clearStatus('#writeStatus');if(name==='settings')refreshLogSelect();}
+function renderFields(){ $('#readFields').innerHTML=FIELD_DEFS.map(([k,l])=>`<div class="field"><label>${l}</label><div class="value" id="read_${k}">—</div></div>`).join(''); $('#writeFields').innerHTML=FIELD_DEFS.map(([k,l,p,lr])=>`<div class="field"><label>${l}</label><input class="input ${lr?'ltr':''}" id="write_${k}" placeholder="${p}" disabled></div>`).join(''); }
 renderFields();
-
-function setStatus(sel,msg,type='info'){
-  const el=$(sel); el.textContent=msg; el.className=`status show ${type}`;
-}
-function clearStatus(sel){ const el=$(sel); el.textContent=''; el.className='status'; }
-function normalizeUid(uid){ return (uid || '').replace(/[^a-fA-F0-9]/g,'').toUpperCase() || 'UNKNOWN'; }
-function setUid(uid){ currentUid=normalizeUid(uid); $('#readUid').textContent='UID: '+currentUid; $('#writeUid').textContent='UID: '+currentUid; }
-function emptyData(){ return Object.fromEntries(FIELD_DEFS.map(([k])=>[k,''])); }
-function fillRead(data={}){ FIELD_DEFS.forEach(([k])=>$('#read_'+k).textContent=(data[k] ?? '') || '—'); }
-function fillWrite(data={}){ FIELD_DEFS.forEach(([k])=>$('#write_'+k).value=data[k] ?? ''); }
-function setWriteEnabled(enabled){ FIELD_DEFS.forEach(([k])=>$('#write_'+k).disabled=!enabled); $('#saveCard').disabled=!enabled; editUnlocked=enabled; }
-function collectWriteData(){ const d={}; FIELD_DEFS.forEach(([k])=>d[k]=$('#write_'+k).value.trim()); return d; }
-
-async function sha256Hex(text){
-  const b = new TextEncoder().encode(text);
-  const h = await crypto.subtle.digest('SHA-256', b);
-  return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');
-}
-function randomSalt(){ const a=crypto.getRandomValues(new Uint8Array(16)); return [...a].map(x=>x.toString(16).padStart(2,'0')).join(''); }
-async function authHash(password,salt){ return sha256Hex(`${salt}|${password}|MAHMOUDIEH-ADMIN-V1`); }
-async function ensureAdminAuth(){
-  let a=null; try{a=JSON.parse(localStorage.getItem(AUTH_KEY)||'null')}catch{}
-  if(!a?.salt||!a?.hash){ const salt=randomSalt(); a={user:'admin',salt,hash:await authHash('admin',salt)}; localStorage.setItem(AUTH_KEY,JSON.stringify(a)); }
-  return a;
-}
-async function verifyAdmin(user,pass){ const a=await ensureAdminAuth(); return String(user||'').trim()==='admin' && (await authHash(pass,a.salt))===a.hash; }
-async function saveAdminPassword(newPass){ const salt=randomSalt(); localStorage.setItem(AUTH_KEY,JSON.stringify({user:'admin',salt,hash:await authHash(newPass,salt)})); sessionAdminPassword=newPass; }
-function setAuthenticated(on){ authenticated=on; $('#loginGate').classList.toggle('hidden',on); if(on){ $('#loginPass').value=''; $('#loginError').textContent=''; } }
-async function updateDefaultPassNotice(){ if(!authenticated)return; $('#defaultPassNotice').style.display=(await verifyAdmin('admin','admin'))?'block':'none'; }
-
-$('#loginBtn').addEventListener('click',async()=>{ const user=$('#loginUser').value, pass=$('#loginPass').value; if(await verifyAdmin(user,pass)){ sessionAdminPassword=pass; setAuthenticated(true); await updateDefaultPassNotice(); checkNfcCapability(); } else { $('#loginError').textContent='نام کاربری یا رمز عبور صحیح نیست.'; } });
-$('#loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')$('#loginBtn').click()});
-$('#logoutAdmin').addEventListener('click',()=>{ sessionAdminPassword=''; setAuthenticated(false); showScreen('home'); });
-$('#changeAdminPass').addEventListener('click',()=>{ $('#adminOldPass').value='';$('#adminNewPass').value='';$('#adminNewPass2').value='';$('#adminPassError').textContent='';$('#adminPasswordOverlay').classList.add('show'); setTimeout(()=>$('#adminOldPass').focus(),80); });
-$('#adminPassCancel').addEventListener('click',()=>$('#adminPasswordOverlay').classList.remove('show'));
-$('#adminPassSave').addEventListener('click',async()=>{ const oldp=$('#adminOldPass').value, np=$('#adminNewPass').value, np2=$('#adminNewPass2').value; if(!(await verifyAdmin('admin',oldp))){$('#adminPassError').textContent='رمز فعلی اشتباه است.';return;} if(np.length<6){$('#adminPassError').textContent='رمز جدید حداقل ۶ کاراکتر باشد.';return;} if(np!==np2){$('#adminPassError').textContent='تکرار رمز جدید مطابقت ندارد.';return;} await saveAdminPassword(np); $('#adminPasswordOverlay').classList.remove('show'); await updateDefaultPassNotice(); alert('رمز مدیر با موفقیت تغییر کرد. فایل‌های Excel بعدی با همین رمز رمزگذاری می‌شوند.'); });
-async function makePasswordHash(password,salt,uid){ return sha256Hex(`${salt}|${uid}|${password}|LANDCARD-V1`); }
-async function verifyPassword(password,payload){
-  if(!payload?.security?.salt || !payload?.security?.passwordHash) return false;
-  const h=await makePasswordHash(password,payload.security.salt,currentUid);
-  return h===payload.security.passwordHash;
-}
-
-function parseNdefMessage(message){
-  for(const record of message.records){
-    try{
-      const media=(record.mediaType||'').toLowerCase();
-      if(record.recordType==='mime' && media===APP_MIME){
-        const txt=new TextDecoder(record.encoding || 'utf-8').decode(record.data);
-        return JSON.parse(txt);
-      }
-      if(record.recordType==='text'){
-        const txt=new TextDecoder(record.encoding || 'utf-8').decode(record.data);
-        const obj=JSON.parse(txt);
-        if(obj?.app==='landcard' && obj?.version===1) return obj;
-      }
-    }catch(e){ console.warn('Record parse failed',e); }
-  }
-  return null;
-}
-
-function makePayload(data, security){
-  return {app:'landcard',version:1,uid:currentUid,data,security,updatedAt:new Date().toISOString()};
-}
-
-async function scanOnce(){
-  if(!('NDEFReader' in window)) throw new Error('WEB_NFC_UNSUPPORTED');
-  const ndef=new NDEFReader();
-  const controller=new AbortController();
-  return new Promise(async(resolve,reject)=>{
-    let settled=false;
-    const finish=(fn,val)=>{ if(settled)return; settled=true; try{controller.abort();}catch{} fn(val); };
-    ndef.addEventListener('reading', e=>finish(resolve,e), {once:true});
-    ndef.addEventListener('readingerror', ()=>finish(reject,new Error('READ_ERROR')), {once:true});
-    try{ await ndef.scan({signal:controller.signal}); }
-    catch(err){ finish(reject,err); }
-  });
-}
-
-function friendlyNfcError(err){
-  const name=err?.name||''; const msg=String(err?.message||err||'');
-  if(msg.includes('VIRTUAL_CARD_NOT_PRESENT')) return 'کارت مجازی هنوز به گوشی نزدیک نشده است. در TEST MODE گزینه «نزدیک‌کردن کارت مجازی» را بزنید.';
-  if(msg.includes('WEB_NFC_UNSUPPORTED')) return 'این مرورگر Web NFC را پشتیبانی نمی‌کند. با Chrome روی Android و سایت HTTPS تست کنید.';
-  if(name==='NotAllowedError') return 'مجوز NFC داده نشده یا دسترسی رد شده است.';
-  if(name==='NotSupportedError') return 'NFC روی این گوشی/مرورگر پشتیبانی نمی‌شود یا در دسترس نیست.';
-  if(name==='NotReadableError') return 'NFC احتمالاً خاموش است یا سیستم اجازه دسترسی نمی‌دهد. NFC گوشی را روشن کنید.';
-  if(name==='AbortError') return 'عملیات NFC متوقف شد.';
-  return 'خطای NFC: ' + (msg || name || 'نامشخص');
-}
-
-async function checkNfcCapability(){
-  const badge=$('#nfcBadge'), warn=$('#nfcWarning');
-  if(window.isSecureContext && ('NDEFReader' in window)){
-    simulatorMode=false;
-    badge.textContent='NFC واقعی'; badge.className='badge ok'; warn.classList.remove('show');
-    try{
-      if(navigator.permissions?.query){
-        const p=await navigator.permissions.query({name:'nfc'});
-        if(p.state==='denied'){ badge.textContent='مجوز NFC مسدود است'; badge.className='badge err'; }
-      }
-    }catch{}
-    return;
-  }
-  simulatorMode=true;
-  badge.textContent='حالت شبیه‌ساز'; badge.className='badge';
-  warn.classList.add('show');
-  warn.textContent='این محیط به NFC واقعی دسترسی ندارد؛ برنامه برای تست رابط و منطق خواندن/نوشتن با کارت مجازی اجرا می‌شود. روی Android/Chrome و HTTPS از NFC واقعی استفاده خواهد شد.';
-}
-
-const SIM_STORE_KEY = SIM_KEY + '_BY_UID';
-function getSimStore(){
-  try{
-    const raw=localStorage.getItem(SIM_STORE_KEY);
-    const store=raw?JSON.parse(raw):{};
-    // مهاجرت خودکار از ساختار قدیمی تک‌کارتی نسخه V4
-    const legacy=localStorage.getItem(SIM_KEY);
-    if(legacy){
-      try{
-        const p=JSON.parse(legacy);
-        const u=normalizeUid(p?.uid||'');
-        if(u && u!=='UNKNOWN' && !store[u]) store[u]=p;
-        localStorage.setItem(SIM_STORE_KEY,JSON.stringify(store));
-        localStorage.removeItem(SIM_KEY);
-      }catch{}
-    }
-    return store && typeof store==='object' ? store : {};
-  }catch{return {};}
-}
-function saveSimStore(store){ localStorage.setItem(SIM_STORE_KEY,JSON.stringify(store)); }
-function getSimCard(uid=SIM_UID){ const u=normalizeUid(uid); const store=getSimStore(); return store[u]||null; }
-function setSimCard(payload,uid=payload?.uid||SIM_UID){
-  const u=normalizeUid(uid);
-  if(!u || u==='UNKNOWN') return;
-  const store=getSimStore();
-  store[u]={...payload,uid:u};
-  saveSimStore(store);
-}
-function deleteSimCard(uid=SIM_UID){
-  const u=normalizeUid(uid); const store=getSimStore(); delete store[u]; saveSimStore(store);
-}
-async function simulateReadEvent(){
-  await new Promise(r=>setTimeout(r,420));
-  if(testMode && !virtualCardPresent) throw new Error('VIRTUAL_CARD_NOT_PRESENT');
-  const uid=normalizeUid(SIM_UID);
-  const payload=getSimCard(uid);
-  const fakeRecord = payload ? [{recordType:'mime',mediaType:APP_MIME,encoding:'utf-8',data:new TextEncoder().encode(JSON.stringify(payload))}] : [];
-  return {serialNumber:uid,message:{records:fakeRecord}};
-}
-async function readCardEvent(){ return (simulatorMode || testMode) ? simulateReadEvent() : scanOnce(); }
-
-function openPassword(type){
-  passwordAttempts=0; pendingPasswordAction=type;
-  const isNew=type==='create';
-  $('#passwordTitle').textContent=isNew?'تعیین رمز کارت':'رمز کارت را وارد کنید';
-  $('#passwordText').textContent=isNew?'برای کارت جدید یک رمز تعیین کنید. این رمز برای ویرایش‌های بعدی لازم است.':'برای ویرایش اطلاعات این کارت، رمز آن را وارد کنید.';
-  $('#passwordInput').value=''; $('#attemptsText').textContent='';
-  $('#passwordOverlay').classList.add('show'); setTimeout(()=>$('#passwordInput').focus(),80);
-}
-function closePassword(){ $('#passwordOverlay').classList.remove('show'); pendingPasswordAction=null; }
-
-$('#passwordConfirm').addEventListener('click', async()=>{
-  const pass=$('#passwordInput').value;
-  if(!pass){ $('#attemptsText').textContent='رمز را وارد کنید.'; return; }
-  if(pendingPasswordAction==='create'){
-    if(pass.length<4){ $('#attemptsText').textContent='رمز حداقل ۴ کاراکتر باشد.'; return; }
-    const salt=randomSalt();
-    currentPayload=makePayload(collectWriteData(),{salt,passwordHash:await makePasswordHash(pass,salt,currentUid)});
-    closePassword(); setWriteEnabled(true); setStatus('#writeStatus','رمز کارت تعیین شد. اطلاعات را تکمیل و «ذخیره روی کارت» را بزنید.','ok');
-    return;
-  }
-  if(pendingPasswordAction==='unlock'){
-    const ok=await verifyPassword(pass,currentPayload);
-    if(ok){ closePassword(); setWriteEnabled(true); setStatus('#writeStatus','رمز صحیح است؛ ویرایش اطلاعات فعال شد.','ok'); return; }
-    passwordAttempts++;
-    const remain=3-passwordAttempts;
-    if(remain>0){ $('#attemptsText').textContent=`رمز اشتباه است. ${remain} بار دیگر فرصت دارید.`; $('#passwordInput').value=''; $('#passwordInput').focus(); }
-    else{ closePassword(); setWriteEnabled(false); currentPayload=null; currentUid=''; fillWrite(emptyData()); $('#writeUid').textContent='UID: —'; showScreen('home'); alert('رمز سه مرتبه اشتباه وارد شد. به منوی اصلی برگشتید.'); }
-  }
-});
-$('#passwordCancel').addEventListener('click',()=>{ closePassword(); if(mode==='write') setWriteEnabled(false); });
-$('#passwordInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#passwordConfirm').click()});
-
-$('#goRead').onclick=()=>{ showScreen('read'); fillRead(emptyData()); $('#readUid').textContent='UID: —'; };
-$('#goWrite').onclick=()=>{ showScreen('write'); fillWrite(emptyData()); $('#writeUid').textContent='UID: —'; setWriteEnabled(false); currentPayload=null; currentUid=''; };
-$('#goBulk').onclick=()=>{ showScreen('bulk'); updateBulkSimButton(); }; 
-document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>showScreen('home'));
-
-$('#startRead').addEventListener('click',async()=>{
-  setStatus('#readStatus',(simulatorMode||testMode)?'در حال خواندن کارت مجازی...':'منتظر کارت NFC... کارت را به گوشی نزدیک کنید.','info');
-  try{
-    const e=await readCardEvent(); setUid(e.serialNumber);
-    const p=parseNdefMessage(e.message);
-    if(!p){ fillRead(emptyData()); setStatus('#readStatus','کارت خوانده شد، اما اطلاعات معتبر این برنامه روی آن پیدا نشد.','warn'); return; }
-    if(p.uid && normalizeUid(p.uid)!==currentUid){ fillRead(emptyData()); setStatus('#readStatus','هشدار: UID ثبت‌شده داخل داده با UID فیزیکی کارت مطابقت ندارد.','err'); return; }
-    currentPayload=p; fillRead(p.data||{}); setStatus('#readStatus','اطلاعات کارت با موفقیت خوانده شد.','ok');
-  }catch(err){ setStatus('#readStatus',friendlyNfcError(err),'err'); $('#nfcWarning').classList.add('show'); }
-});
-
-$('#scanForEdit').addEventListener('click',async()=>{
-  setWriteEnabled(false); currentPayload=null; fillWrite(emptyData());
-  setStatus('#writeStatus',(simulatorMode||testMode)?'در حال خواندن کارت مجازی برای ویرایش...':'منتظر کارت NFC... کارت را به گوشی نزدیک کنید.','info');
-  try{
-    const e=await readCardEvent(); setUid(e.serialNumber);
-    const p=parseNdefMessage(e.message);
-    if(!p){
-      currentPayload=null; fillWrite(emptyData());
-      setStatus('#writeStatus','کارت جدید/بدون داده شناسایی شد. ابتدا برای آن رمز تعیین کنید.','warn');
-      openPassword('create'); return;
-    }
-    if(p.uid && normalizeUid(p.uid)!==currentUid){ setStatus('#writeStatus','UID داده داخل کارت با UID فیزیکی کارت یکی نیست؛ ویرایش متوقف شد.','err'); return; }
-    currentPayload=p; fillWrite(p.data||{});
-    if(p.security?.passwordHash){ openPassword('unlock'); }
-    else{ setStatus('#writeStatus','این کارت قدیمی رمز ندارد. برای ادامه یک رمز جدید تعیین کنید.','warn'); openPassword('create'); }
-  }catch(err){ setStatus('#writeStatus',friendlyNfcError(err),'err'); $('#nfcWarning').classList.add('show'); }
-});
-
-$('#saveCard').addEventListener('click',async()=>{
-  if(!editUnlocked || !currentUid){ setStatus('#writeStatus','ابتدا کارت را بخوانید و قفل ویرایش را باز کنید.','err'); return; }
-  const data=collectWriteData();
-  if(!currentPayload?.security?.passwordHash){ setStatus('#writeStatus','برای کارت رمز تعریف نشده است.','err'); return; }
-  const payload=makePayload(data,currentPayload.security);
-  setStatus('#writeStatus',(simulatorMode||testMode)?'در حال ذخیره روی کارت مجازی...':'آماده نوشتن... همان کارت را به گوشی نزدیک کنید و تا پایان عملیات نگه دارید.','info');
-  try{
-    if(simulatorMode || testMode){
-      await new Promise(r=>setTimeout(r,420));
-      setSimCard(payload,currentUid);
-    }else{
-      const ndef=new NDEFReader();
-      await ndef.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});
-    }
-    currentPayload=payload;
-    setStatus('#writeStatus',(simulatorMode||testMode)?'اطلاعات با موفقیت روی کارت مجازی ذخیره شد. اکنون از بخش «خواندن کارت» آن را تست کنید.':'اطلاعات با موفقیت روی کارت نوشته شد. برای اطمینان می‌توانید دوباره آن را بخوانید.','ok');
-    setWriteEnabled(false);
-  }catch(err){ setStatus('#writeStatus',friendlyNfcError(err),'err'); }
-});
-
-
-function updateTestState(msg){ $('#testState').textContent=msg; }
-function setTestMode(on){
-  testMode=on;
-  $('#testPanel').classList.toggle('show',on);
-  $('#appLogo').classList.toggle('test-on',on);
-  if(on){
-    simulatorMode=false;
-    const v=normalizeUid($('#testUidInput').value);
-    if(v && v!=='UNKNOWN') SIM_UID=v;
-    $('#nfcBadge').textContent='TEST MODE'; $('#nfcBadge').className='badge';
-    updateTestState(virtualCardPresent?`کارت مجازی با UID ${SIM_UID} نزدیک گوشی است.`:'کارت مجازی آماده است، اما هنوز نزدیک گوشی نیست.');
-    updateBulkSimButton();
-  }else{
-    virtualCardPresent=false;
-    checkNfcCapability();
-    updateBulkSimButton();
-  }
-}
-$('#appLogo').addEventListener('click',()=>{
-  logoTapCount++;
-  clearTimeout(logoTapTimer);
-  logoTapTimer=setTimeout(()=>logoTapCount=0,1800);
-  if(logoTapCount>=5){ logoTapCount=0; clearTimeout(logoTapTimer); setTestMode(!testMode); }
-});
-$('#testUidInput').addEventListener('input',()=>{
-  const v=normalizeUid($('#testUidInput').value);
-  if(v && v!=='UNKNOWN') SIM_UID=v;
-  if(virtualCardPresent) updateTestState(`کارت مجازی با UID ${SIM_UID} نزدیک گوشی است.`);
-});
-$('#testCreateCard').addEventListener('click',()=>{
-  deleteSimCard(SIM_UID);
-  virtualCardPresent=true;
-  const v=normalizeUid($('#testUidInput').value); if(v && v!=='UNKNOWN') SIM_UID=v;
-  updateTestState(`کارت مجازی خالی با UID ${SIM_UID} ساخته و به گوشی نزدیک شد.`);
-});
-$('#testInsertCard').addEventListener('click',()=>{
-  const v=normalizeUid($('#testUidInput').value); if(v && v!=='UNKNOWN') SIM_UID=v;
-  virtualCardPresent=true;
-  updateTestState(`کارت مجازی با UID ${SIM_UID} نزدیک گوشی است.`);
-});
-$('#testRemoveCard').addEventListener('click',()=>{
-  virtualCardPresent=false;
-  updateTestState('کارت مجازی از گوشی دور شد.');
-});
-$('#testDeleteCard').addEventListener('click',()=>{
-  deleteSimCard(SIM_UID); virtualCardPresent=false;
-  updateTestState('اطلاعات کارت مجازی پاک شد و کارت از گوشی دور شد.');
-});
-
-
-// ---------- Bulk Excel issuing ----------
-const HEADER_ALIASES = {
-  fullName:['نام و نام خانوادگی','نام خانوادگی و نام','نام','نام کامل'],
-  nationalId:['کد ملی','کدملی'],
-  postalCode:['کد پستی ملک','کد پستی','کدپستی ملک','کدپستی'],
-  mobile:['شماره تلفن موبایل','شماره موبایل','موبایل','تلفن همراه','شماره تلفن'],
-  plotNumber:['شماره قطعه زمین','شماره قطعه','قطعه','پلاک قطعه'],
-  streetName:['اسم خیابان محل قطعه زمین','نام خیابان محل قطعه زمین','اسم خیابان','نام خیابان','خیابان']
-};
-function cleanHeader(v){ return String(v??'').replace(/[\u200c\u200f\u202a-\u202e]/g,'').replace(/\s+/g,' ').trim(); }
-function findHeader(headers, aliases){
-  const norm=headers.map(cleanHeader);
-  for(const a of aliases){ const i=norm.indexOf(cleanHeader(a)); if(i>=0) return headers[i]; }
-  return null;
-}
-function excelValue(v){
-  if(v===undefined || v===null) return '';
-  if(typeof v==='number' && Number.isFinite(v)) return String(v).replace(/\.0+$/,'');
-  return String(v).trim();
-}
-function mapBulkHeaders(headers){
-  const m={}; for(const [k,aliases] of Object.entries(HEADER_ALIASES)) m[k]=findHeader(headers,aliases);
-  return m;
-}
-function bulkRowData(row){ const d={}; for(const [k] of FIELD_DEFS) d[k]=excelValue(row[bulkMap[k]]); return d; }
-function bulkRowEligible(row){ return !!excelValue(row[bulkMap.plotNumber]); }
-function renderBulkCurrent(){
-  const box=$('#bulkCurrent');
-  if(!bulkQueue.length){ box.innerHTML='<div class="row"><label>وضعیت</label><div>فایل معتبر بارگذاری نشده است.</div></div>'; return; }
-  if(bulkIndex>=bulkQueue.length){ box.innerHTML='<div class="row"><label>وضعیت</label><div>تمام ردیف‌ها صادر شدند.</div></div>'; return; }
-  const item=bulkQueue[bulkIndex], d=bulkRowData(item.row);
-  box.innerHTML=`<div class="row"><label>ردیف Excel</label><div>${item.excelRow}</div></div>`+
-    FIELD_DEFS.map(([k,label])=>`<div class="row"><label>${label}</label><div>${escapeHtml(d[k])||'<span style="color:#94a3b8">خالی</span>'}</div></div>`).join('');
-}
-function escapeHtml(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function updateBulkStats(){
-  const total=bulkQueue.length, done=bulkIndex, remain=Math.max(0,total-done);
-  $('#bulkTotal').textContent=total; $('#bulkDone').textContent=done; $('#bulkRemain').textContent=remain;
-  $('#bulkProgress').style.width=(total?Math.round(done*100/total):0)+'%';
-  $('#bulkDownload').disabled=!bulkWorkbook;
-  renderBulkCurrent();
-}
-function bulkLog(msg,type='info'){
-  const el=$('#bulkLog'); if(el.textContent==='گزارش عملیات اینجا نمایش داده می‌شود.') el.innerHTML='';
-  const line=document.createElement('div'); line.className='log-'+type; line.textContent=`${new Date().toLocaleTimeString('fa-IR')} — ${msg}`; el.prepend(line);
-}
-function updateBulkSimButton(){ $('#bulkSimNext').style.display=testMode?'block':'none'; }
-async function buildBulkPayload(uid,data){
-  const salt=randomSalt(); const norm=normalizeUid(uid); const hash=await makePasswordHash(BULK_PASSWORD,salt,norm);
-  return {app:'landcard',version:1,uid:norm,data,security:{salt,passwordHash:hash},updatedAt:new Date().toISOString()};
-}
-async function writeBulkToRealCard(payload){
-  const ndef=new NDEFReader();
-  await ndef.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});
-}
-function setBulkUidInSheet(excelRow, uid){
-  const range=XLSX.utils.decode_range(bulkSheet['!ref']||'A1:A1');
-  let uidCol=bulkHeaders.findIndex(h=>cleanHeader(h)===cleanHeader(bulkUidHeader));
-  if(uidCol<0){ uidCol=range.e.c+1; bulkUidHeader='UID کارت'; bulkHeaders.push(bulkUidHeader); bulkSheet[XLSX.utils.encode_cell({r:0,c:uidCol})]={t:'s',v:bulkUidHeader}; range.e.c=uidCol; bulkSheet['!ref']=XLSX.utils.encode_range(range); }
-  bulkSheet[XLSX.utils.encode_cell({r:excelRow-1,c:uidCol})]={t:'s',v:uid};
-  // keep in-memory row object aligned for re-export
-  const q=bulkQueue.find(x=>x.excelRow===excelRow); if(q) q.row[bulkUidHeader]=uid;
-}
-async function processBulkUid(uid,{simulate=false}={}){
-  if(!bulkRunning || bulkIndex>=bulkQueue.length) return;
-  uid=normalizeUid(uid); if(!uid || uid==='UNKNOWN') return;
-  if(uid===bulkLastUid){ setStatus('#bulkStatus','همان کارت قبلی هنوز نزدیک گوشی است؛ کارت بعدی با UID متفاوت را نزدیک کنید.','warn'); return; }
-  const item=bulkQueue[bulkIndex], data=bulkRowData(item.row);
-  setStatus('#bulkStatus',`کارت UID ${uid} شناسایی شد؛ در حال نوشتن ردیف ${item.excelRow}...`,'info');
-  try{
-    const payload=await buildBulkPayload(uid,data);
-    if(simulate || testMode){ await new Promise(r=>setTimeout(r,220)); setSimCard(payload,uid); }
-    else await writeBulkToRealCard(payload);
-    setBulkUidInSheet(item.excelRow,uid); bulkLastUid=uid; bulkIndex++;
-    bulkLog(`ردیف ${item.excelRow} روی کارت ${uid} نوشته شد.`,'ok'); updateBulkStats();
-    if(bulkIndex>=bulkQueue.length){ stopBulk(true); setStatus('#bulkStatus','تمام کارت‌ها با موفقیت پردازش شدند. فایل Excel به‌روزشده را دانلود کنید.','ok'); }
-    else setStatus('#bulkStatus',`کارت ثبت شد. کارت بعدی را نزدیک کنید؛ ردیف بعدی: ${bulkQueue[bulkIndex].excelRow}`,'ok');
-  }catch(err){ bulkLog(`خطا در ردیف ${item.excelRow}: ${friendlyNfcError(err)}`,'err'); setStatus('#bulkStatus',friendlyNfcError(err),'err'); }
-}
-async function startBulkRealScan(){
-  if(!('NDEFReader' in window)){ setStatus('#bulkStatus','Web NFC در دسترس نیست. برای تست، TEST MODE را فعال کنید.','err'); return; }
-  bulkReader=new NDEFReader(); bulkAbort=new AbortController();
-  bulkReader.addEventListener('reading',async e=>{ if(bulkRunning) await processBulkUid(e.serialNumber); });
-  bulkReader.addEventListener('readingerror',()=>bulkLog('خواندن یک کارت ناموفق بود؛ دوباره نزدیک کنید.','err'));
-  try{ await bulkReader.scan({signal:bulkAbort.signal}); setStatus('#bulkStatus','حالت صدور فعال است. کارت اول را نزدیک کنید و پس از پیام موفقیت، کارت بعدی را نزدیک کنید.','info'); }
-  catch(err){ bulkRunning=false; $('#bulkStart').disabled=false; $('#bulkStop').disabled=true; setStatus('#bulkStatus',friendlyNfcError(err),'err'); }
-}
-function stopBulk(done=false){
-  bulkRunning=false; try{bulkAbort?.abort();}catch{} bulkAbort=null; bulkReader=null;
-  $('#bulkStart').disabled=!bulkQueue.length || bulkIndex>=bulkQueue.length; $('#bulkStop').disabled=true;
-  if(!done) setStatus('#bulkStatus','صدور متوقف شد. می‌توانید از همان ردیف ادامه دهید.','warn');
-}
-async function readExcelForBulk(file){
-  const raw=await file.arrayBuffer();
-  try{ XLSX.read(raw,{type:'array'}); return raw; }
-  catch(firstErr){
-    if(typeof XlsxPopulate==='undefined' || !sessionAdminPassword) throw firstErr;
-    try{
-      const wb=await XlsxPopulate.fromDataAsync(file,{password:sessionAdminPassword});
-      const blob=await wb.outputAsync();
-      return await blob.arrayBuffer();
-    }catch(e){ throw new Error('ENCRYPTED_OR_INVALID_EXCEL'); }
-  }
-}
-$('#bulkFile').addEventListener('change',async e=>{
-  const file=e.target.files?.[0]; if(!file) return;
-  if(typeof XLSX==='undefined'){ setStatus('#bulkMapInfo','کتابخانه Excel بارگذاری نشد. اتصال اینترنت را بررسی و صفحه را Refresh کنید.','err'); return; }
-  try{
-    bulkFileName=file.name; const data=await readExcelForBulk(file); bulkWorkbook=XLSX.read(data,{type:'array'}); bulkSheetName=bulkWorkbook.SheetNames[0]; bulkSheet=bulkWorkbook.Sheets[bulkSheetName];
-    const rows=XLSX.utils.sheet_to_json(bulkSheet,{defval:'',raw:false});
-    bulkHeaders=rows.length?Object.keys(rows[0]):[]; bulkMap=mapBulkHeaders(bulkHeaders);
-    const missing=Object.entries(bulkMap).filter(([,v])=>!v).map(([k])=>FIELD_DEFS.find(x=>x[0]===k)?.[1]||k);
-    if(missing.length){ bulkWorkbook=null; bulkQueue=[]; setStatus('#bulkMapInfo','این ستون‌ها پیدا نشدند: '+missing.join('، '),'err'); updateBulkStats(); $('#bulkStart').disabled=true; return; }
-    // stop at first row where plot number is empty, per requested sequential rule
-    bulkQueue=[];
-    for(let i=0;i<rows.length;i++){ if(!bulkRowEligible(rows[i])) break; bulkQueue.push({row:rows[i],excelRow:i+2}); }
-    bulkIndex=0; bulkLastUid='';
-    setStatus('#bulkMapInfo',`فایل «${file.name}» خوانده شد. ${bulkQueue.length} ردیف تا آخرین توالی شماره قطعه آماده صدور است.`,'ok');
-    $('#bulkStart').disabled=!bulkQueue.length; $('#bulkStop').disabled=true; $('#bulkLog').textContent='گزارش عملیات اینجا نمایش داده می‌شود.'; updateBulkStats();
-  }catch(err){ console.error(err); setStatus('#bulkMapInfo',String(err?.message).includes('ENCRYPTED_OR_INVALID_EXCEL')?'فایل Excel باز نشد. اگر فایل رمزگذاری‌شده است، باید با همان رمز فعلی مدیر ساخته شده باشد.':'خواندن فایل Excel ناموفق بود. فایل .xlsx یا .xls معتبر انتخاب کنید.','err'); }
-});
-$('#bulkStart').addEventListener('click',async()=>{
-  if(!bulkQueue.length || bulkIndex>=bulkQueue.length) return;
-  bulkRunning=true; bulkLastUid=''; $('#bulkStart').disabled=true; $('#bulkStop').disabled=false;
-  if(testMode){ setStatus('#bulkStatus','TEST MODE فعال است. برای هر کارت روی «شبیه‌سازی کارت بعدی» بزنید.','info'); updateBulkSimButton(); }
-  else await startBulkRealScan();
-});
-$('#bulkStop').addEventListener('click',()=>stopBulk(false));
-$('#bulkSimNext').addEventListener('click',async()=>{
-  if(!bulkRunning){ setStatus('#bulkStatus','ابتدا «شروع صدور پشت‌سرهم» را بزنید.','warn'); return; }
-  // generate a guaranteed different virtual UID for each row
-  const n=(bulkIndex+1).toString(16).toUpperCase().padStart(6,'0'); const uid=('04BULK'+n).replace(/[^A-F0-9]/g,'A').slice(0,14);
-  await processBulkUid(uid,{simulate:true});
-});
-$('#bulkDownload').addEventListener('click',async()=>{
-  if(!bulkWorkbook) return;
-  if(!sessionAdminPassword){ setStatus('#bulkStatus','جلسه مدیر معتبر نیست. دوباره وارد سامانه شوید.','err'); return; }
-  const btn=$('#bulkDownload'), oldText=btn.textContent; btn.disabled=true; btn.textContent='در حال رمزگذاری Excel...';
-  try{
-    if(typeof XlsxPopulate==='undefined') throw new Error('XLSX_POPULATE_MISSING');
-    const base=bulkFileName.replace(/\.(xlsx|xls)$/i,'');
-    const raw=XLSX.write(bulkWorkbook,{bookType:'xlsx',type:'array'});
-    const wb=await XlsxPopulate.fromDataAsync(raw);
-    const blob=await wb.outputAsync({password:sessionAdminPassword});
-    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=base+'_UID_PROTECTED.xlsx'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
-    setStatus('#bulkStatus','Excel نهایی با رمز فعلی مدیر ساخته شد. برای باز کردن فایل، همان رمز مدیر لازم است.','ok');
-  }catch(err){ console.error(err); setStatus('#bulkStatus','رمزگذاری فایل Excel انجام نشد. اتصال اینترنت برای بارگذاری کتابخانه رمزگذاری را بررسی کنید.','err'); }
-  finally{ btn.textContent=oldText; btn.disabled=!bulkWorkbook; }
-});
-
-ensureAdminAuth().then(()=>setAuthenticated(false));
+function setStatus(sel,msg,type='info'){const el=$(sel);if(!el)return;el.textContent=msg;el.className=`status show ${type}`;}function clearStatus(sel){const el=$(sel);if(!el)return;el.textContent='';el.className='status';}
+function normalizeUid(uid){return(uid||'').replace(/[^a-fA-F0-9]/g,'').toUpperCase()||'UNKNOWN';}function setUid(uid){currentUid=normalizeUid(uid);$('#readUid').textContent='UID: '+currentUid;$('#writeUid').textContent='UID: '+currentUid;}function emptyData(){return Object.fromEntries(FIELD_DEFS.map(([k])=>[k,'']));}function fillRead(d={}){FIELD_DEFS.forEach(([k])=>$('#read_'+k).textContent=(d[k]??'')||'—');}function fillWrite(d={}){FIELD_DEFS.forEach(([k])=>$('#write_'+k).value=d[k]??'');}function collectWriteData(){const d={};FIELD_DEFS.forEach(([k])=>d[k]=$('#write_'+k).value.trim());return d;}function setWriteEnabled(on){FIELD_DEFS.forEach(([k])=>$('#write_'+k).disabled=!on);$('#saveCard').disabled=!on;editUnlocked=on;}
+async function sha256Hex(t){const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');}function randomSalt(){return[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,'0')).join('');}async function authHash(pass,salt,user){return sha256Hex(`${salt}|${user}|${pass}|MAHMOUDIEH-AUTH-V7`);}
+async function ensureAuth(){let a;try{a=JSON.parse(localStorage.getItem(AUTH_KEY)||'null')}catch{};if(!a?.admin?.hash||!a?.user?.hash){a={};for(const [u,p] of [['admin','admin'],['user','user']]){const salt=randomSalt();a[u]={salt,hash:await authHash(p,salt,u)};}localStorage.setItem(AUTH_KEY,JSON.stringify(a));localStorage.setItem(BG_SECRET,btoa(unescape(encodeURIComponent('admin'))));}return a;}
+async function verifyAccount(user,pass){const a=await ensureAuth(),r=a[user];return!!r&&(await authHash(pass,r.salt,user))===r.hash;}async function saveAccountPassword(user,newPass){const a=await ensureAuth(),salt=randomSalt();a[user]={salt,hash:await authHash(newPass,salt,user)};localStorage.setItem(AUTH_KEY,JSON.stringify(a));if(user==='admin'){localStorage.setItem(BG_SECRET,btoa(unescape(encodeURIComponent(newPass))));sessionPassword=newPass;await rebuildAllEncryptedLogs();}}
+function getBackgroundAdminPassword(){try{return decodeURIComponent(escape(atob(localStorage.getItem(BG_SECRET)||'')))||'admin';}catch{return'admin';}}
+function applyRole(role){currentRole=role;document.querySelectorAll('.admin-only').forEach(el=>el.style.display=role==='admin'?'':'none');$('#roleText').textContent=role==='admin'?'ورود مدیر':'ورود کاربر';$('#homeDescription').textContent=role==='admin'?'برای خواندن، نوشتن، صدور گروهی یا تنظیمات گزینه مربوط را انتخاب کنید.':'برای مشاهده اطلاعات کارت، «خواندن کارت» را انتخاب کنید.';if(role!=='admin'&&testMode)setTestMode(false);}
+$('#loginBtn').onclick=async()=>{const u=$('#loginUser').value,p=$('#loginPass').value;if(await verifyAccount(u,p)){sessionPassword=p;applyRole(u);$('#loginGate').classList.add('hidden');$('#loginPass').value='';$('#loginError').textContent='';await updateDefaultNotice();checkNfcCapability();showScreen('home');}else $('#loginError').textContent='نام کاربری یا رمز عبور صحیح نیست.';};$('#loginPass').onkeydown=e=>{if(e.key==='Enter')$('#loginBtn').click();};$('#logoutBtn').onclick=()=>{stopContinuousRead();sessionPassword='';currentRole='';$('#loginGate').classList.remove('hidden');$('#loginUser').value='user';showScreen('home');};
+async function updateDefaultNotice(){if(currentRole!=='admin')return;const a=await verifyAccount('admin','admin'),u=await verifyAccount('user','user');$('#defaultPassNotice').style.display=(a||u)?'block':'none';$('#defaultPassNotice').textContent=(a?'رمز مدیر هنوز «admin» است. ':'')+(u?'رمز کاربر هنوز «user» است.':'');}
+let passChangeTarget='admin';function openChangePass(target){passChangeTarget=target;$('#changePassTitle').textContent=target==='admin'?'تغییر رمز مدیر':'تغییر رمز کاربر';$('#changePassText').textContent=target==='admin'?'رمز مدیر برای ورود مدیر و فایل‌های Excel رمزدار استفاده می‌شود.':'رمز جدید user از ورود بعدی کاربر اعمال می‌شود.';$('#changeOldPass').style.display=target==='admin'?'block':'none';$('#changeOldPass').value='';$('#changeNewPass').value='';$('#changeNewPass2').value='';$('#changePassError').textContent='';$('#changePassOverlay').classList.add('show');}
+$('#changeAdminPass').onclick=()=>openChangePass('admin');$('#changeUserPass').onclick=()=>openChangePass('user');$('#changePassCancel').onclick=()=>$('#changePassOverlay').classList.remove('show');$('#changePassSave').onclick=async()=>{const oldp=$('#changeOldPass').value,np=$('#changeNewPass').value,np2=$('#changeNewPass2').value;if(passChangeTarget==='admin'&&!(await verifyAccount('admin',oldp))){$('#changePassError').textContent='رمز فعلی مدیر اشتباه است.';return;}if(passChangeTarget==='user'&&!(await verifyAccount('admin',sessionPassword))){$('#changePassError').textContent='جلسه مدیر معتبر نیست.';return;}if(np.length<4){$('#changePassError').textContent='رمز جدید حداقل ۴ کاراکتر باشد.';return;}if(np!==np2){$('#changePassError').textContent='تکرار رمز مطابقت ندارد.';return;}await saveAccountPassword(passChangeTarget,np);$('#changePassOverlay').classList.remove('show');await updateDefaultNotice();alert('رمز با موفقیت تغییر کرد.');};
+async function makePasswordHash(password,salt,uid){return sha256Hex(`${salt}|${uid}|${password}|LANDCARD-V1`);}async function verifyPassword(password,p){if(!p?.security?.salt||!p?.security?.passwordHash)return false;return(await makePasswordHash(password,p.security.salt,currentUid))===p.security.passwordHash;}
+function parseNdefMessage(message){for(const record of message.records||[]){try{if(record.recordType==='mime'&&(record.mediaType||'').toLowerCase()===APP_MIME)return JSON.parse(new TextDecoder(record.encoding||'utf-8').decode(record.data));if(record.recordType==='text'){const o=JSON.parse(new TextDecoder(record.encoding||'utf-8').decode(record.data));if(o?.app==='landcard')return o;}}catch{}}return null;}function makePayload(data,security){return{app:'landcard',version:1,uid:currentUid,data,security,updatedAt:new Date().toISOString()};}
+function friendlyNfcError(err){const n=err?.name||'',m=String(err?.message||err||'');if(m.includes('WEB_NFC_UNSUPPORTED'))return'این مرورگر Web NFC را پشتیبانی نمی‌کند.';if(n==='NotAllowedError')return'مجوز NFC داده نشده یا دسترسی رد شده است.';if(n==='NotReadableError')return'NFC احتمالاً خاموش است.';if(n==='AbortError')return'عملیات NFC متوقف شد.';return'خطای NFC: '+(m||n||'نامشخص');}
+async function checkNfcCapability(){const b=$('#nfcBadge'),w=$('#nfcWarning');if(window.isSecureContext&&('NDEFReader'in window)){simulatorMode=false;b.textContent='NFC واقعی';b.className='badge ok';w.classList.remove('show');return;}simulatorMode=true;b.textContent='حالت شبیه‌ساز';b.className='badge';w.classList.add('show');w.textContent='این محیط NFC واقعی ندارد؛ برای تست مدیر از TEST MODE استفاده کنید.';}
+function getSimStore(){try{return JSON.parse(localStorage.getItem(SIM_STORE_KEY)||'{}')||{};}catch{return{};}}function saveSimStore(s){localStorage.setItem(SIM_STORE_KEY,JSON.stringify(s));}function getSimCard(uid=SIM_UID){return getSimStore()[normalizeUid(uid)]||null;}function setSimCard(p,uid=p?.uid||SIM_UID){const u=normalizeUid(uid),s=getSimStore();s[u]={...p,uid:u};saveSimStore(s);}function deleteSimCard(uid=SIM_UID){const u=normalizeUid(uid),s=getSimStore();delete s[u];saveSimStore(s);}
+function fakeEventForUid(uid){const u=normalizeUid(uid),p=getSimCard(u),records=p?[{recordType:'mime',mediaType:APP_MIME,encoding:'utf-8',data:new TextEncoder().encode(JSON.stringify(p))}]:[];return{serialNumber:u,message:{records}};}
+async function scanOnce(){if(testMode){await new Promise(r=>setTimeout(r,200));if(!virtualCardPresent)throw new Error('کارت مجازی نزدیک نشده است');return fakeEventForUid(SIM_UID);}if(!('NDEFReader'in window))throw new Error('WEB_NFC_UNSUPPORTED');const n=new NDEFReader(),c=new AbortController();return new Promise(async(res,rej)=>{let done=false;const f=(fn,v)=>{if(done)return;done=true;try{c.abort()}catch{}fn(v)};n.addEventListener('reading',e=>f(res,e),{once:true});n.addEventListener('readingerror',()=>f(rej,new Error('READ_ERROR')),{once:true});try{await n.scan({signal:c.signal})}catch(e){f(rej,e)}});}
+function persianDigits(x){return String(x).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)]);}function persianScanText(date=new Date()){const d=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(date);let h=date.getHours(),period=h<12?'صبح':'عصر';let h12=h%12||12;const t=persianDigits(String(h12).padStart(2,'0')+':'+String(date.getMinutes()).padStart(2,'0'));return `${d} ساعت ${t} ${period}`;}
+function getLogs(){try{return JSON.parse(localStorage.getItem(LOG_KEY)||'{}')||{};}catch{return{};}}function saveLogs(x){localStorage.setItem(LOG_KEY,JSON.stringify(x));}
+async function recordScan(payload,uid){const plot=String(payload?.data?.plotNumber||'').trim();if(!plot)return;const now=Date.now();if(uid===lastLoggedUid&&now-lastLoggedAt<1800)return;lastLoggedUid=uid;lastLoggedAt=now;const logs=getLogs();if(!logs[plot])logs[plot]={uid,data:{...payload.data},scans:[]};logs[plot].uid=uid;logs[plot].data={...payload.data};logs[plot].scans.push({iso:new Date().toISOString(),text:persianScanText(new Date())});saveLogs(logs);try{await buildEncryptedLogFile(plot,logs[plot]);}catch(e){console.warn('background log xlsx failed',e);} }
+function idbOpen(){return new Promise((res,rej)=>{const r=indexedDB.open('mahmoudieh_secure_files',1);r.onupgradeneeded=()=>r.result.createObjectStore('files');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}async function idbPut(k,v){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').put(v,k);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);});}async function idbGet(k){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction('files','readonly'),r=tx.objectStore('files').get(k);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function makeLogWorkbookBytes(plot,entry,password){if(typeof XLSX==='undefined'||typeof XlsxPopulate==='undefined')throw new Error('Excel library missing');const d=entry.data||{};const aoa=[["نام و نام خانوادگی","کد ملی","کد پستی ملک","شماره تلفن موبایل","شماره قطعه زمین","اسم خیابان محل قطعه زمین","UID کارت"],[d.fullName||'',d.nationalId||'',d.postalCode||'',d.mobile||'',d.plotNumber||'',d.streetName||'',entry.uid||''],[],['ردیف','تاریخ و ساعت اسکن']];(entry.scans||[]).forEach((s,i)=>aoa.push([i+1,s.text]));const ws=XLSX.utils.aoa_to_sheet(aoa),wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'گزارش اسکن');const raw=XLSX.write(wb,{bookType:'xlsx',type:'array'});const xp=await XlsxPopulate.fromDataAsync(raw);return await xp.outputAsync({password});}
+async function buildEncryptedLogFile(plot,entry){const pass=getBackgroundAdminPassword(),blob=await makeLogWorkbookBytes(plot,entry,pass);await idbPut('plot:'+plot,blob);}
+async function rebuildAllEncryptedLogs(){const logs=getLogs();for(const [p,e] of Object.entries(logs)){try{await buildEncryptedLogFile(p,e)}catch{}}refreshLogSelect();}
+function refreshLogSelect(){const s=$('#logPlotSelect');if(!s)return;const keys=Object.keys(getLogs()).sort((a,b)=>a.localeCompare(b,'fa',{numeric:true}));s.innerHTML=keys.length?keys.map(k=>`<option value="${esc(k)}">قطعه ${esc(k)}</option>`).join(''):'<option value="">هنوز گزارشی ثبت نشده است</option>';$('#downloadScanLog').disabled=!keys.length;}
+$('#downloadScanLog').onclick=async()=>{const p=$('#logPlotSelect').value;if(!p)return;try{let blob=await idbGet('plot:'+p);if(!blob){const e=getLogs()[p];blob=await makeLogWorkbookBytes(p,e,getBackgroundAdminPassword());}const url=URL.createObjectURL(blob instanceof Blob?blob:new Blob([blob]));const a=document.createElement('a');a.href=url;a.download=`قطعه_${p}.xlsx`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);setStatus('#logStatus',`فایل قطعه ${p} با رمز فعلی مدیر دانلود شد.`,'ok');}catch(e){setStatus('#logStatus','ساخت یا دانلود فایل ناموفق بود.','err');}};
+async function handleReadEvent(e){setUid(e.serialNumber);const p=parseNdefMessage(e.message);if(!p){fillRead(emptyData());setStatus('#readStatus','کارت خوانده شد، اما داده معتبر برنامه روی آن نیست.','warn');return;}if(p.uid&&normalizeUid(p.uid)!==currentUid){fillRead(emptyData());setStatus('#readStatus','UID داخل داده با UID فیزیکی کارت مطابقت ندارد.','err');return;}currentPayload=p;fillRead(p.data||{});clearStatus('#readStatus');$('#readerLiveText').textContent='کارت خوانده شد؛ منتظر کارت بعدی…';await recordScan(p,currentUid);}
+async function startContinuousRead(){stopContinuousRead();$('#readerLiveText').textContent='در انتظار نزدیک شدن کارت NFC…';if(testMode){if(virtualCardPresent)await handleReadEvent(fakeEventForUid(SIM_UID));return;}if(simulatorMode){setStatus('#readStatus','برای تست خواندن، از TEST MODE مدیر استفاده کنید.','warn');return;}if(!('NDEFReader'in window)){setStatus('#readStatus','Web NFC در دسترس نیست.','err');return;}readReader=new NDEFReader();readAbort=new AbortController();readReader.addEventListener('reading',e=>{if(mode==='read')handleReadEvent(e).catch(console.error)});readReader.addEventListener('readingerror',()=>{if(mode==='read')setStatus('#readStatus','خواندن کارت ناموفق بود؛ دوباره نزدیک کنید.','warn')});try{await readReader.scan({signal:readAbort.signal});}catch(e){if(e.name!=='AbortError')setStatus('#readStatus',friendlyNfcError(e),'err');}}
+function stopContinuousRead(){try{readAbort?.abort()}catch{}readAbort=null;readReader=null;}
+$('#goRead').onclick=()=>{showScreen('read');fillRead(emptyData());$('#readUid').textContent='UID: —';startContinuousRead();};$('#goWrite').onclick=()=>{if(currentRole!=='admin')return;showScreen('write');fillWrite(emptyData());$('#writeUid').textContent='UID: —';setWriteEnabled(false);};$('#goBulk').onclick=()=>{if(currentRole==='admin'){showScreen('bulk');updateBulkSimButton();}};$('#goSettings').onclick=()=>{if(currentRole==='admin')showScreen('settings');};document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>showScreen('home'));
+function openCardPassword(type){pendingPasswordAction=type;passwordAttempts=0;const n=type==='create';$('#passwordTitle').textContent=n?'تعیین رمز کارت':'رمز کارت را وارد کنید';$('#passwordText').textContent=n?'برای کارت جدید یک رمز تعیین کنید.':'برای ویرایش این کارت رمز را وارد کنید.';$('#passwordInput').value='';$('#attemptsText').textContent='';$('#passwordOverlay').classList.add('show');}
+$('#passwordConfirm').onclick=async()=>{const pass=$('#passwordInput').value;if(!pass)return;if(pendingPasswordAction==='create'){if(pass.length<4){$('#attemptsText').textContent='حداقل ۴ کاراکتر.';return;}const salt=randomSalt();currentPayload=makePayload(collectWriteData(),{salt,passwordHash:await makePasswordHash(pass,salt,currentUid)});$('#passwordOverlay').classList.remove('show');setWriteEnabled(true);return;}if(await verifyPassword(pass,currentPayload)){$('#passwordOverlay').classList.remove('show');setWriteEnabled(true);setStatus('#writeStatus','رمز صحیح است؛ ویرایش فعال شد.','ok');}else{passwordAttempts++;if(passwordAttempts>=3){$('#passwordOverlay').classList.remove('show');showScreen('home');alert('رمز سه بار اشتباه بود.');}else $('#attemptsText').textContent=`رمز اشتباه است. ${3-passwordAttempts} فرصت باقی مانده.`;}};$('#passwordCancel').onclick=()=>$('#passwordOverlay').classList.remove('show');
+$('#scanForEdit').onclick=async()=>{setWriteEnabled(false);currentPayload=null;fillWrite(emptyData());setStatus('#writeStatus','کارت را نزدیک کنید…','info');try{const e=await scanOnce();setUid(e.serialNumber);const p=parseNdefMessage(e.message);if(!p){openCardPassword('create');return;}if(p.uid&&normalizeUid(p.uid)!==currentUid){setStatus('#writeStatus','UID کارت و داده مطابقت ندارد.','err');return;}currentPayload=p;fillWrite(p.data||{});if(p.security?.passwordHash)openCardPassword('unlock');else openCardPassword('create');}catch(e){setStatus('#writeStatus',friendlyNfcError(e),'err');}};
+$('#saveCard').onclick=async()=>{if(!editUnlocked||!currentUid)return;const payload=makePayload(collectWriteData(),currentPayload.security);try{if(testMode||simulatorMode){setSimCard(payload,currentUid);}else{const n=new NDEFReader();await n.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});}currentPayload=payload;setWriteEnabled(false);setStatus('#writeStatus','اطلاعات با موفقیت ذخیره شد.','ok');}catch(e){setStatus('#writeStatus',friendlyNfcError(e),'err');}};
+function setTestMode(on){if(currentRole!=='admin')return;testMode=on;$('#testPanel').classList.toggle('show',on);$('#appLogo').classList.toggle('test-on',on);if(on){$('#nfcBadge').textContent='TEST MODE';$('#nfcBadge').className='badge';SIM_UID=normalizeUid($('#testUidInput').value);}else{virtualCardPresent=false;checkNfcCapability();}updateBulkSimButton();}
+$('#appLogo').onclick=()=>{if(currentRole!=='admin')return;logoTapCount++;clearTimeout(logoTapTimer);logoTapTimer=setTimeout(()=>logoTapCount=0,1200);if(logoTapCount>=5){logoTapCount=0;setTestMode(!testMode);}};$('#testUidInput').onchange=e=>SIM_UID=normalizeUid(e.target.value);$('#testCreateCard').onclick=()=>{SIM_UID=normalizeUid($('#testUidInput').value);deleteSimCard(SIM_UID);virtualCardPresent=true;$('#testState').textContent=`کارت خالی ${SIM_UID} ساخته و نزدیک شد.`;if(mode==='read')handleReadEvent(fakeEventForUid(SIM_UID));};$('#testInsertCard').onclick=()=>{SIM_UID=normalizeUid($('#testUidInput').value);virtualCardPresent=true;$('#testState').textContent=`کارت ${SIM_UID} نزدیک گوشی است.`;if(mode==='read')handleReadEvent(fakeEventForUid(SIM_UID));};$('#testRemoveCard').onclick=()=>{virtualCardPresent=false;$('#testState').textContent='کارت دور شد.';};$('#testDeleteCard').onclick=()=>{deleteSimCard(SIM_UID);$('#testState').textContent='داده کارت مجازی پاک شد.';};
+const HEADER_ALIASES={fullName:['نام و نام خانوادگی','نام خانوادگی و نام','نام'],nationalId:['کد ملی','کدملی'],postalCode:['کد پستی ملک','کد پستی','کدپستی'],mobile:['شماره تلفن موبایل','شماره موبایل','موبایل','تلفن همراه'],plotNumber:['شماره قطعه زمین','شماره قطعه','قطعه'],streetName:['اسم خیابان محل قطعه زمین','نام خیابان محل قطعه زمین','اسم خیابان','نام خیابان']};function cleanHeader(s){return String(s??'').replace(/[\u200c\u200f\u202a-\u202e]/g,'').replace(/\s+/g,' ').trim();}function findHeader(h,a){const x=h.find(v=>a.some(z=>cleanHeader(v)===cleanHeader(z)));return x||'';}function mapBulkHeaders(h){const m={};for(const[k,a]of Object.entries(HEADER_ALIASES))m[k]=findHeader(h,a);return m;}function ev(v){return v==null?'':String(v).trim();}function bulkRowData(r){const d={};for(const[k]of FIELD_DEFS)d[k]=ev(r[bulkMap[k]]);return d;}function renderBulkCurrent(){const b=$('#bulkCurrent');if(!bulkQueue.length){b.innerHTML='<div class="bulk-current">فایل انتخاب نشده است.</div>';return;}if(bulkIndex>=bulkQueue.length){b.innerHTML='<div>تمام ردیف‌ها صادر شدند.</div>';return;}const i=bulkQueue[bulkIndex],d=bulkRowData(i.row);b.innerHTML=`<div class="row"><label>ردیف Excel</label><div>${i.excelRow}</div></div>`+FIELD_DEFS.map(([k,l])=>`<div class="row"><label>${l}</label><div>${esc(d[k])||'خالی'}</div></div>`).join('');}function updateBulkStats(){const t=bulkQueue.length,d=bulkIndex;$('#bulkTotal').textContent=t;$('#bulkDone').textContent=d;$('#bulkRemain').textContent=Math.max(0,t-d);$('#bulkProgress').style.width=(t?Math.round(d*100/t):0)+'%';$('#bulkDownload').disabled=!bulkWorkbook;renderBulkCurrent();}function bulkLog(m,type='info'){const el=$('#bulkLog');if(el.textContent.startsWith('گزارش'))el.innerHTML='';const x=document.createElement('div');x.className='log-'+type;x.textContent=`${new Date().toLocaleTimeString('fa-IR')} — ${m}`;el.prepend(x);}function updateBulkSimButton(){$('#bulkSimNext').style.display=testMode?'block':'none';}
+async function buildBulkPayload(uid,data){const salt=randomSalt(),u=normalizeUid(uid),hash=await makePasswordHash(BULK_PASSWORD,salt,u);return{app:'landcard',version:1,uid:u,data,security:{salt,passwordHash:hash},updatedAt:new Date().toISOString()};}function setBulkUidInSheet(row,uid){let headers=bulkHeaders,range=XLSX.utils.decode_range(bulkSheet['!ref']||'A1:A1'),c=headers.findIndex(h=>cleanHeader(h)===cleanHeader(bulkUidHeader));if(c<0){c=range.e.c+1;bulkHeaders.push(bulkUidHeader);bulkSheet[XLSX.utils.encode_cell({r:0,c})]={t:'s',v:bulkUidHeader};range.e.c=c;bulkSheet['!ref']=XLSX.utils.encode_range(range);}bulkSheet[XLSX.utils.encode_cell({r:row-1,c})]={t:'s',v:uid};}
+async function processBulkUid(uid,sim=false){if(!bulkRunning||bulkIndex>=bulkQueue.length)return;uid=normalizeUid(uid);if(uid===bulkLastUid){setStatus('#bulkStatus','همان کارت قبلی است؛ کارت بعدی را نزدیک کنید.','warn');return;}const item=bulkQueue[bulkIndex],data=bulkRowData(item.row),p=await buildBulkPayload(uid,data);try{if(sim||testMode)setSimCard(p,uid);else{const n=new NDEFReader();await n.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(p)}]});}setBulkUidInSheet(item.excelRow,uid);bulkLastUid=uid;bulkIndex++;bulkLog(`ردیف ${item.excelRow} روی کارت ${uid} نوشته شد.`,'ok');updateBulkStats();if(bulkIndex>=bulkQueue.length){stopBulk(true);setStatus('#bulkStatus','تمام کارت‌ها صادر شدند.','ok');}else setStatus('#bulkStatus','کارت بعدی را نزدیک کنید.','ok');}catch(e){setStatus('#bulkStatus',friendlyNfcError(e),'err');}}
+async function startBulkReal(){bulkReader=new NDEFReader();bulkAbort=new AbortController();bulkReader.addEventListener('reading',e=>processBulkUid(e.serialNumber));try{await bulkReader.scan({signal:bulkAbort.signal});setStatus('#bulkStatus','صدور فعال است؛ کارت اول را نزدیک کنید.','info');}catch(e){bulkRunning=false;setStatus('#bulkStatus',friendlyNfcError(e),'err');}}function stopBulk(done=false){bulkRunning=false;try{bulkAbort?.abort()}catch{}bulkAbort=null;bulkReader=null;$('#bulkStart').disabled=!bulkQueue.length||bulkIndex>=bulkQueue.length;$('#bulkStop').disabled=true;if(!done)setStatus('#bulkStatus','صدور متوقف شد.','warn');}
+$('#bulkFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{bulkFileName=f.name;let raw=await f.arrayBuffer();try{bulkWorkbook=XLSX.read(raw,{type:'array'});}catch{const xp=await XlsxPopulate.fromDataAsync(f,{password:sessionPassword});const b=await xp.outputAsync();bulkWorkbook=XLSX.read(await b.arrayBuffer(),{type:'array'});}bulkSheetName=bulkWorkbook.SheetNames[0];bulkSheet=bulkWorkbook.Sheets[bulkSheetName];const rows=XLSX.utils.sheet_to_json(bulkSheet,{defval:'',raw:false});bulkHeaders=rows.length?Object.keys(rows[0]):[];bulkMap=mapBulkHeaders(bulkHeaders);const miss=Object.entries(bulkMap).filter(([,v])=>!v).map(([k])=>FIELD_DEFS.find(x=>x[0]===k)[1]);if(miss.length)throw new Error('ستون‌های پیدا نشده: '+miss.join('، '));bulkQueue=[];for(let i=0;i<rows.length;i++){if(!ev(rows[i][bulkMap.plotNumber]))break;bulkQueue.push({row:rows[i],excelRow:i+2});}bulkIndex=0;bulkLastUid='';setStatus('#bulkMapInfo',`${bulkQueue.length} ردیف آماده صدور است.`,'ok');$('#bulkStart').disabled=!bulkQueue.length;updateBulkStats();}catch(err){setStatus('#bulkMapInfo',String(err.message||err),'err');}};
+$('#bulkStart').onclick=async()=>{if(!bulkQueue.length)return;bulkRunning=true;bulkLastUid='';$('#bulkStart').disabled=true;$('#bulkStop').disabled=false;if(testMode){setStatus('#bulkStatus','TEST MODE فعال است؛ شبیه‌سازی کارت بعدی را بزنید.','info');updateBulkSimButton();}else await startBulkReal();};$('#bulkStop').onclick=()=>stopBulk(false);$('#bulkSimNext').onclick=()=>{const n=(bulkIndex+1).toString(16).toUpperCase().padStart(8,'0');processBulkUid(('04AA'+n).slice(0,14),true);};$('#bulkDownload').onclick=async()=>{if(!bulkWorkbook)return;try{const raw=XLSX.write(bulkWorkbook,{bookType:'xlsx',type:'array'}),xp=await XlsxPopulate.fromDataAsync(raw),blob=await xp.outputAsync({password:sessionPassword}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=bulkFileName.replace(/\.(xlsx|xls)$/i,'')+'_UID_PROTECTED.xlsx';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);setStatus('#bulkStatus','Excel با رمز فعلی مدیر دانلود شد.','ok');}catch{setStatus('#bulkStatus','رمزگذاری Excel ناموفق بود.','err');}};
+ensureAuth().then(()=>{$('#loginGate').classList.remove('hidden');refreshLogSelect();});
 </script>
 </body>
 </html>
