@@ -17,13 +17,15 @@
     .status{margin-top:14px;padding:11px 13px;border-radius:13px;font-size:13px;display:none}.status.show{display:block}.status.info{background:#eff6ff;color:#1e40af}.status.ok{background:#dcfce7;color:#166534}.status.err{background:#fee2e2;color:#991b1b}.status.warn{background:#fef3c7;color:#92400e}
     .overlay{position:fixed;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.overlay.show{display:flex}.modal{width:min(100%,420px);background:#fff;border-radius:22px;padding:20px;box-shadow:0 26px 70px rgba(15,23,42,.3)}.modal h3{margin:0 0 8px;font-size:18px}.modal p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.8}.modal input{width:100%;height:50px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none}.modal input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.attempts{font-size:12px;color:var(--danger);min-height:18px;margin-top:8px}
     .nfc-warning{display:none;margin-bottom:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.8}.nfc-warning.show{display:block}
+
+    .test-panel{display:none;margin-top:14px;background:#0b1220;color:#e2e8f0;border:1px solid #334155;border-radius:18px;padding:14px}.test-panel.show{display:block}.test-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.test-title strong{font-size:14px}.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.test-panel .btn{min-height:46px;font-size:13px}.test-note{font-size:12px;color:#94a3b8;line-height:1.8;margin-top:10px}.test-uid{width:100%;height:44px;border-radius:12px;border:1px solid #334155;background:#111827;color:white;padding:0 12px;font:inherit;direction:ltr;text-align:left;margin-top:8px}.test-state{margin-top:10px;padding:9px 11px;border-radius:12px;background:#111827;color:#cbd5e1;font-size:12px;line-height:1.7}.logo.test-on{outline:3px solid #f59e0b;box-shadow:0 0 0 6px rgba(245,158,11,.15)}
     @media(max-width:520px){.brand h1{font-size:15px;line-height:1.55}.app{padding-left:12px;padding-right:12px}.panel{padding:15px}.actions{grid-template-columns:1fr}.field{grid-template-columns:1fr;gap:5px}.field label{font-size:11px}.card{padding:16px}.card-title{align-items:flex-start;flex-direction:column}.uid{max-width:100%}.footer-actions{grid-template-columns:1fr}.brand p{display:none}}
   </style>
 </head>
 <body>
 <div class="app">
   <header class="topbar">
-    <div class="brand"><div class="logo">م</div><div><h1>سامانه کارت هوشمند روستای محمودیه</h1><p>ثبت و مشاهده اطلاعات کارت ملک</p></div></div>
+    <div class="brand"><div class="logo" id="appLogo" title="">م</div><div><h1>سامانه کارت هوشمند روستای محمودیه</h1><p>ثبت و مشاهده اطلاعات کارت ملک</p></div></div>
     <div id="nfcBadge" class="badge">در حال بررسی NFC</div>
   </header>
 
@@ -38,6 +40,19 @@
         <button class="btn primary" id="goRead">خواندن کارت</button>
         <button class="btn secondary" id="goWrite">نوشتن / ویرایش کارت</button>
       </div>
+    </div>
+
+    <div id="testPanel" class="test-panel">
+      <div class="test-title"><strong>حالت آزمایش کارت مجازی</strong><span class="badge">TEST MODE</span></div>
+      <div class="test-grid">
+        <button id="testCreateCard" class="btn secondary">ساخت کارت مجازی خالی</button>
+        <button id="testInsertCard" class="btn primary">نزدیک‌کردن کارت مجازی</button>
+        <button id="testRemoveCard" class="btn ghost">دورکردن کارت مجازی</button>
+        <button id="testDeleteCard" class="btn danger">پاک‌کردن کارت مجازی</button>
+      </div>
+      <input id="testUidInput" class="test-uid" value="04A1B2C3D4E5F6" aria-label="UID کارت مجازی" />
+      <div id="testState" class="test-state">کارت مجازی آماده است، اما هنوز نزدیک گوشی نیست.</div>
+      <div class="test-note">این بخش فقط منطق برنامه را شبیه‌سازی می‌کند و سیگنال NFC واقعی تولید نمی‌کند. برای خروج، دوباره ۵ بار روی لوگوی «م» بزنید.</div>
     </div>
   </section>
 
@@ -94,8 +109,12 @@ let editUnlocked = false;
 let pendingPasswordAction = null;
 let passwordAttempts = 0;
 let simulatorMode = false;
+let testMode = false;
+let virtualCardPresent = false;
+let logoTapCount = 0;
+let logoTapTimer = null;
 const SIM_KEY = 'mahmoudieh_nfc_demo_card_v1';
-const SIM_UID = '04A1B2C3D4E5F6';
+let SIM_UID = '04A1B2C3D4E5F6';
 
 const $ = s => document.querySelector(s);
 const screens = [...document.querySelectorAll('.screen')];
@@ -176,6 +195,7 @@ async function scanOnce(){
 
 function friendlyNfcError(err){
   const name=err?.name||''; const msg=String(err?.message||err||'');
+  if(msg.includes('VIRTUAL_CARD_NOT_PRESENT')) return 'کارت مجازی هنوز به گوشی نزدیک نشده است. در TEST MODE گزینه «نزدیک‌کردن کارت مجازی» را بزنید.';
   if(msg.includes('WEB_NFC_UNSUPPORTED')) return 'این مرورگر Web NFC را پشتیبانی نمی‌کند. با Chrome روی Android و سایت HTTPS تست کنید.';
   if(name==='NotAllowedError') return 'مجوز NFC داده نشده یا دسترسی رد شده است.';
   if(name==='NotSupportedError') return 'NFC روی این گوشی/مرورگر پشتیبانی نمی‌شود یا در دسترس نیست.';
@@ -209,11 +229,12 @@ function getSimCard(){
 function setSimCard(payload){ localStorage.setItem(SIM_KEY,JSON.stringify(payload)); }
 async function simulateReadEvent(){
   await new Promise(r=>setTimeout(r,420));
+  if(testMode && !virtualCardPresent) throw new Error('VIRTUAL_CARD_NOT_PRESENT');
   const payload=getSimCard();
   const fakeRecord = payload ? [{recordType:'mime',mediaType:APP_MIME,encoding:'utf-8',data:new TextEncoder().encode(JSON.stringify(payload))}] : [];
   return {serialNumber:SIM_UID,message:{records:fakeRecord}};
 }
-async function readCardEvent(){ return simulatorMode ? simulateReadEvent() : scanOnce(); }
+async function readCardEvent(){ return (simulatorMode || testMode) ? simulateReadEvent() : scanOnce(); }
 
 function openPassword(type){
   passwordAttempts=0; pendingPasswordAction=type;
@@ -252,7 +273,7 @@ $('#goWrite').onclick=()=>{ showScreen('write'); fillWrite(emptyData()); $('#wri
 document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>showScreen('home'));
 
 $('#startRead').addEventListener('click',async()=>{
-  setStatus('#readStatus',simulatorMode?'در حال خواندن کارت مجازی...':'منتظر کارت NFC... کارت را به گوشی نزدیک کنید.','info');
+  setStatus('#readStatus',(simulatorMode||testMode)?'در حال خواندن کارت مجازی...':'منتظر کارت NFC... کارت را به گوشی نزدیک کنید.','info');
   try{
     const e=await readCardEvent(); setUid(e.serialNumber);
     const p=parseNdefMessage(e.message);
@@ -264,7 +285,7 @@ $('#startRead').addEventListener('click',async()=>{
 
 $('#scanForEdit').addEventListener('click',async()=>{
   setWriteEnabled(false); currentPayload=null; fillWrite(emptyData());
-  setStatus('#writeStatus',simulatorMode?'در حال خواندن کارت مجازی برای ویرایش...':'منتظر کارت NFC... کارت را به گوشی نزدیک کنید.','info');
+  setStatus('#writeStatus',(simulatorMode||testMode)?'در حال خواندن کارت مجازی برای ویرایش...':'منتظر کارت NFC... کارت را به گوشی نزدیک کنید.','info');
   try{
     const e=await readCardEvent(); setUid(e.serialNumber);
     const p=parseNdefMessage(e.message);
@@ -285,9 +306,9 @@ $('#saveCard').addEventListener('click',async()=>{
   const data=collectWriteData();
   if(!currentPayload?.security?.passwordHash){ setStatus('#writeStatus','برای کارت رمز تعریف نشده است.','err'); return; }
   const payload=makePayload(data,currentPayload.security);
-  setStatus('#writeStatus',simulatorMode?'در حال ذخیره روی کارت مجازی...':'آماده نوشتن... همان کارت را به گوشی نزدیک کنید و تا پایان عملیات نگه دارید.','info');
+  setStatus('#writeStatus',(simulatorMode||testMode)?'در حال ذخیره روی کارت مجازی...':'آماده نوشتن... همان کارت را به گوشی نزدیک کنید و تا پایان عملیات نگه دارید.','info');
   try{
-    if(simulatorMode){
+    if(simulatorMode || testMode){
       await new Promise(r=>setTimeout(r,420));
       setSimCard(payload);
     }else{
@@ -295,9 +316,57 @@ $('#saveCard').addEventListener('click',async()=>{
       await ndef.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});
     }
     currentPayload=payload;
-    setStatus('#writeStatus',simulatorMode?'اطلاعات با موفقیت روی کارت مجازی ذخیره شد. اکنون از بخش «خواندن کارت» آن را تست کنید.':'اطلاعات با موفقیت روی کارت نوشته شد. برای اطمینان می‌توانید دوباره آن را بخوانید.','ok');
+    setStatus('#writeStatus',(simulatorMode||testMode)?'اطلاعات با موفقیت روی کارت مجازی ذخیره شد. اکنون از بخش «خواندن کارت» آن را تست کنید.':'اطلاعات با موفقیت روی کارت نوشته شد. برای اطمینان می‌توانید دوباره آن را بخوانید.','ok');
     setWriteEnabled(false);
   }catch(err){ setStatus('#writeStatus',friendlyNfcError(err),'err'); }
+});
+
+
+function updateTestState(msg){ $('#testState').textContent=msg; }
+function setTestMode(on){
+  testMode=on;
+  $('#testPanel').classList.toggle('show',on);
+  $('#appLogo').classList.toggle('test-on',on);
+  if(on){
+    simulatorMode=false;
+    const v=normalizeUid($('#testUidInput').value);
+    if(v && v!=='UNKNOWN') SIM_UID=v;
+    $('#nfcBadge').textContent='TEST MODE'; $('#nfcBadge').className='badge';
+    updateTestState(virtualCardPresent?`کارت مجازی با UID ${SIM_UID} نزدیک گوشی است.`:'کارت مجازی آماده است، اما هنوز نزدیک گوشی نیست.');
+  }else{
+    virtualCardPresent=false;
+    checkNfcCapability();
+  }
+}
+$('#appLogo').addEventListener('click',()=>{
+  logoTapCount++;
+  clearTimeout(logoTapTimer);
+  logoTapTimer=setTimeout(()=>logoTapCount=0,1800);
+  if(logoTapCount>=5){ logoTapCount=0; clearTimeout(logoTapTimer); setTestMode(!testMode); }
+});
+$('#testUidInput').addEventListener('input',()=>{
+  const v=normalizeUid($('#testUidInput').value);
+  if(v && v!=='UNKNOWN') SIM_UID=v;
+  if(virtualCardPresent) updateTestState(`کارت مجازی با UID ${SIM_UID} نزدیک گوشی است.`);
+});
+$('#testCreateCard').addEventListener('click',()=>{
+  localStorage.removeItem(SIM_KEY);
+  virtualCardPresent=true;
+  const v=normalizeUid($('#testUidInput').value); if(v && v!=='UNKNOWN') SIM_UID=v;
+  updateTestState(`کارت مجازی خالی با UID ${SIM_UID} ساخته و به گوشی نزدیک شد.`);
+});
+$('#testInsertCard').addEventListener('click',()=>{
+  const v=normalizeUid($('#testUidInput').value); if(v && v!=='UNKNOWN') SIM_UID=v;
+  virtualCardPresent=true;
+  updateTestState(`کارت مجازی با UID ${SIM_UID} نزدیک گوشی است.`);
+});
+$('#testRemoveCard').addEventListener('click',()=>{
+  virtualCardPresent=false;
+  updateTestState('کارت مجازی از گوشی دور شد.');
+});
+$('#testDeleteCard').addEventListener('click',()=>{
+  localStorage.removeItem(SIM_KEY); virtualCardPresent=false;
+  updateTestState('اطلاعات کارت مجازی پاک شد و کارت از گوشی دور شد.');
 });
 
 checkNfcCapability();
