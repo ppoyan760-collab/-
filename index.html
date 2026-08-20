@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#0f172a" />
-<title>سامانه کارت هوشمند روستای محمودیه - V11.8</title>
+<title>سامانه کارت هوشمند روستای محمودیه - V11.8.2</title>
 <style>
 :root{--bg:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--primary:#2563eb;--primary2:#1d4ed8;--danger:#dc2626;--ok:#16a34a;--shadow:0 18px 50px rgba(15,23,42,.12);--r:22px}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Tahoma,"Vazirmatn","Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f8fafc 38%,#f1f5f9 100%);color:var(--ink)}body{min-height:100dvh}.app{width:min(100%,720px);margin:auto;padding:max(18px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:11px}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:white;box-shadow:0 10px 24px rgba(37,99,235,.25);font-weight:900;user-select:none}.logo.test-on{outline:4px solid #fbbf24}.brand h1{font-size:18px;margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}.badge{padding:8px 10px;border-radius:999px;background:#e2e8f0;color:#475569;font-size:11px;white-space:nowrap}.badge.ok{background:#dcfce7;color:#166534}.badge.err{background:#fee2e2;color:#991b1b}.screen{display:none}.screen.active{display:block}.panel{background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.8);border-radius:var(--r);box-shadow:var(--shadow);padding:20px}.hero{padding:26px 20px;text-align:center}.hero-icon{width:82px;height:82px;margin:0 auto 16px;border-radius:26px;background:#dbeafe;display:grid;place-items:center;font-size:36px}.hero h2{margin:0 0 8px;font-size:23px}.hero p{margin:0 auto;color:var(--muted);line-height:1.9;font-size:14px;max-width:500px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}button{appearance:none;border:0;font:inherit;cursor:pointer}.btn{min-height:54px;border-radius:16px;padding:12px 16px;font-weight:800;transition:.18s transform,.18s opacity,.18s background}.btn:active{transform:scale(.98)}.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#eef2ff;color:#1e40af}.btn.ghost{background:#f8fafc;color:#334155;border:1px solid var(--line)}.btn.danger{background:#fee2e2;color:#991b1b}.btn:disabled{opacity:.45;cursor:not-allowed}.screen-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.screen-head h2{margin:0;font-size:18px}.back{width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--line);font-size:20px;color:#334155}.hint{border:1px dashed #93c5fd;background:#eff6ff;color:#1e3a8a;padding:12px 14px;border-radius:15px;font-size:13px;line-height:1.8;margin-bottom:14px}.card{background:linear-gradient(145deg,#0f172a,#1e293b);color:white;border-radius:24px;padding:20px;box-shadow:0 22px 48px rgba(15,23,42,.24);position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(59,130,246,.18);left:-70px;top:-70px}.card-title{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.card-title strong{font-size:16px}.uid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;direction:ltr;text-align:left;font-size:11px;background:rgba(255,255,255,.1);padding:7px 9px;border-radius:10px;max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fields{position:relative;display:grid;gap:10px}.field{display:grid;grid-template-columns:145px 1fr;align-items:center;gap:10px}.field label{font-size:12px;color:#cbd5e1}.value,.input{min-height:43px;border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:flex-start}.value{background:rgba(255,255,255,.08);font-size:14px;min-width:0;word-break:break-word}.input{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);color:white;outline:none;font:inherit}.input::placeholder{color:#94a3b8}.input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,.14)}.ltr{direction:ltr;text-align:right}.footer-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.status{margin-top:14px;padding:11px 13px;border-radius:13px;font-size:13px;display:none}.status.show{display:block}.status.info{background:#eff6ff;color:#1e40af}.status.ok{background:#dcfce7;color:#166534}.status.err{background:#fee2e2;color:#991b1b}.status.warn{background:#fef3c7;color:#92400e}.nfc-warning{display:none;margin-bottom:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.8}.nfc-warning.show{display:block}.overlay{position:fixed;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.overlay.show{display:flex}.modal{width:min(100%,430px);background:#fff;border-radius:22px;padding:20px;box-shadow:0 26px 70px rgba(15,23,42,.3)}.modal h3{margin:0 0 8px;font-size:18px}.modal p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.8}.modal input,.modal select{width:100%;height:50px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none;background:#fff}.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.modal .stack{display:grid;gap:10px}.attempts{font-size:12px;color:var(--danger);min-height:18px;margin-top:8px}.auth-wrap{position:fixed;inset:0;z-index:100;background:linear-gradient(160deg,#dbeafe,#f8fafc 55%,#e2e8f0);display:flex;align-items:center;justify-content:center;padding:18px}.auth-wrap.hidden{display:none}.auth-card{width:min(100%,430px);background:#fff;border:1px solid #e2e8f0;border-radius:26px;padding:24px;box-shadow:0 26px 70px rgba(15,23,42,.18)}.auth-logo{width:72px;height:72px;border-radius:22px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:#fff;font-size:30px;font-weight:900;margin:0 auto 14px}.auth-card h2{text-align:center;margin:0 0 6px;font-size:21px}.auth-card p{text-align:center;margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.8}.auth-field{margin-bottom:12px}.auth-field label{display:block;margin:0 0 6px;font-size:12px;color:#475569}.auth-field input,.auth-field select{width:100%;height:52px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none;background:#fff}.auth-error{min-height:22px;color:#b91c1c;font-size:12px;margin-top:8px;text-align:center}.admin-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:center}.admin-tools .btn{min-height:44px;font-size:12px}.security-note{margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff7ed;color:#9a3412;font-size:12px;line-height:1.8}.test-panel{display:none;margin-top:16px;background:#111827;color:#fff;border-radius:18px;padding:15px}.test-panel.show{display:block}.test-title{display:flex;justify-content:space-between;align-items:center}.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.test-uid{width:100%;margin-top:10px;height:46px;border:1px solid #475569;border-radius:12px;background:#1f2937;color:#fff;padding:0 12px;font-family:monospace;direction:ltr}.test-state,.test-note{margin-top:9px;font-size:12px;line-height:1.8;color:#cbd5e1}.bulk-box,.settings-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}.bulk-box h3,.settings-box h3{margin:0 0 12px;font-size:15px}.bulk-file{width:100%;padding:12px;border:1px dashed #94a3b8;border-radius:13px;background:#f8fafc}.bulk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.stat{text-align:center;padding:10px;border:1px solid var(--line);border-radius:13px}.stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--muted)}.progress{height:8px;border-radius:999px;background:#e2e8f0;overflow:hidden}.progress i{display:block;height:100%;width:0;background:#2563eb}.bulk-current{display:grid;gap:7px}.bulk-current .row{display:grid;grid-template-columns:150px 1fr;gap:10px;border-bottom:1px dashed #e2e8f0;padding:8px 0}.bulk-current label{font-size:12px;color:#64748b}.bulk-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.bulk-log{margin-top:12px;max-height:220px;overflow:auto;background:#0f172a;color:#cbd5e1;border-radius:13px;padding:10px;font-size:11px;line-height:1.8}.log-ok{color:#86efac}.log-err{color:#fca5a5}.fixed-pass{font-family:monospace;direction:ltr}.settings-actions{display:grid;gap:10px}.log-select{width:100%;height:48px;border:1px solid var(--line);border-radius:13px;padding:0 12px;font:inherit;background:#fff}.small-note{font-size:12px;line-height:1.8;color:#64748b;margin-top:9px}.reader-live{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:#166534;background:#dcfce7;border-radius:14px;padding:10px 12px;font-size:13px}.pulse{width:10px;height:10px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 1.5s infinite}@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
@@ -46,6 +46,49 @@
 .pdf-render-root th,.pdf-render-root td{border:1px solid #cbd5e1;padding:10px 8px;text-align:right;vertical-align:top;word-break:break-word}
 .pdf-render-root th{background:#eaf2ff;font-weight:900}.pdf-render-root .pdf-meta{text-align:center;color:#475569;font-size:12px;margin-bottom:18px}
 
+
+/* V11.8.2 - robust password visibility control for Android Chrome/PWA */
+.password-wrap{
+  position:relative !important;
+  width:100%;
+  display:block;
+}
+.password-wrap #loginPass{
+  width:100% !important;
+  box-sizing:border-box !important;
+  padding-left:64px !important;
+}
+.password-wrap #loginPassEye{
+  position:absolute !important;
+  left:12px !important;
+  right:auto !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  width:44px !important;
+  height:44px !important;
+  min-width:44px !important;
+  min-height:44px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  z-index:20 !important;
+  cursor:pointer !important;
+  -webkit-tap-highlight-color:transparent;
+}
+.password-wrap #loginPassEye svg{
+  width:26px !important;
+  height:26px !important;
+  stroke:#64748b !important;
+  stroke-width:2 !important;
+  fill:none !important;
+  pointer-events:none !important;
+}
+
 </style>
 </head>
 <body>
@@ -55,7 +98,13 @@
     <h2>ورود به سامانه</h2>
     <p>سامانه کارت هوشمند روستای محمودیه</p>
     <div class="auth-field"><label>نام کاربری</label><select id="loginUser"><option value="user" selected>user</option><option value="admin">admin</option></select></div>
-    <div class="auth-field"><label>رمز عبور</label><div class="password-wrap"><input id="loginPass" type="password" autocomplete="current-password" /><button type="button" id="loginPassEye" class="password-eye slash" aria-label="نمایش رمز">👁</button></div></div>
+    <div class="auth-field"><label>رمز عبور</label><div class="password-wrap"><input id="loginPass" type="password" autocomplete="current-password" /><button type="button" id="loginPassEye" class="password-eye" aria-label="نمایش رمز" title="نمایش رمز">
+<svg id="loginEyeIcon" viewBox="0 0 24 24" aria-hidden="true">
+  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+  <circle cx="12" cy="12" r="2.8"></circle>
+  <path id="loginEyeSlash" d="M4 4 20 20"></path>
+</svg>
+</button></div></div>
     <button id="loginBtn" class="btn primary" style="width:100%">ورود</button>
     <div id="loginError" class="auth-error"></div>
   </div>
@@ -69,7 +118,7 @@
   <div class="actions"><button class="btn primary" id="goRead">خواندن کارت</button><button class="btn secondary admin-only" id="goWrite">نوشتن / ویرایش کارت</button><button class="btn ghost admin-only" id="goBulk" style="grid-column:1/-1">تعریف پشت‌سرهم کارت‌ها از Excel</button></div>
   <div class="admin-tools"><button class="btn ghost admin-only" id="goSettings">⚙️ تنظیمات</button><button class="btn ghost" id="logoutBtn">خروج از حساب</button></div>
   <div class="security-note admin-only" id="defaultPassNotice" style="display:none"></div>
- </div><div class="app-version">Version 11.8</div>
+ </div><div class="app-version">Version 11.8.2</div>
  <div id="testPanel" class="test-panel"><div class="test-title"><strong>حالت آزمایش کارت مجازی</strong><span class="badge">TEST MODE</span></div><div class="test-grid"><button id="testCreateCard" class="btn secondary">ساخت کارت مجازی خالی</button><button id="testInsertCard" class="btn primary">نزدیک‌کردن کارت مجازی</button><button id="testRemoveCard" class="btn ghost">دورکردن کارت مجازی</button><button id="testDeleteCard" class="btn danger">پاک‌کردن کارت مجازی</button></div><input id="testUidInput" class="test-uid" value="04A1B2C3D4E5F6"/><div id="testState" class="test-state">کارت مجازی آماده است.</div><div class="test-note">این بخش فقط شبیه‌سازی است و به کاربر user دسترسی نوشتن روی NFC واقعی نمی‌دهد. برای خروج، دوباره ۵ بار روی لوگوی «م» بزنید.</div></div>
 </section>
 <section id="readScreen" class="screen"><div class="screen-head"><h2>خواندن کارت</h2><button class="back" data-home>←</button></div><div class="reader-live"><span class="pulse"></span><span id="readerLiveText">در انتظار نزدیک شدن کارت NFC…</span></div><div class="card has-card-membership"><div class="card-title"><strong id="readCardTitle">مشخصات کارت هوشمند قطعه —</strong><span id="readUid" class="uid">UID: —</span></div><div id="readCardMembership" class="membership-head card-membership"><span class="dot"></span><span class="membership-text">وضعیت: —</span></div><div id="readFields" class="fields"></div></div><div class="footer-actions"><button class="btn ghost" data-home>بازگشت</button></div><div id="readStatus" class="status"></div></section>
@@ -146,7 +195,7 @@
     <h2 class="settings-subtitle">توضیحات</h2>
     <div class="about-box">
       <div class="designer">طراح برنامه<br>مهندس علی عبدلی</div>
-      <div class="version">نسخه نرم‌افزار: V11.8</div>
+      <div class="version">نسخه نرم‌افزار: V11.8.2</div>
     </div>
     <button class="btn primary settings-bottom-back" data-settings-back>تأیید</button>
   </div>
@@ -161,7 +210,7 @@
 <div class="row"><button id="connectionRetry" class="btn primary">تلاش مجدد</button><button id="connectionClose" class="btn ghost">بستن</button></div>
 </div></div>
 
-<div id="invalidCardOverlay" class="overlay"><div class="modal validity-modal"><div class="big-alert">این کارت فاقد اعتبار است و کپی می‌باشد</div><div class="sub-alert">UID فیزیکی این کارت با UID معتبر ثبت‌شده برای این قطعه مطابقت ندارد.</div><div class="row"><button id="invalidCardOk" class="btn danger">تأیید</button></div></div></div>
+<div id="invalidCardOverlay" class="overlay"><div class="modal validity-modal"><div id="invalidCardTitle" class="big-alert">این کارت فاقد اعتبار است</div><div id="invalidCardDetail" class="sub-alert"></div><div class="row"><button id="invalidCardOk" class="btn danger">تأیید</button></div></div></div>
 <div id="membershipOverlay" class="overlay"><div class="modal validity-modal"><div id="membershipAlertTitle" class="big-alert">وضعیت کارت</div><div id="membershipAlertText" class="sub-alert"></div><div class="row"><button id="membershipAlertOk" class="btn danger">تأیید</button></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx-populate@1.21.0/browser/xlsx-populate.min.js"></script>
@@ -196,23 +245,59 @@ function setHeaderMembership(status){
     else if(txt)txt.textContent='وضعیت: —';
   });
 }
-function normalizeUid(uid){return(uid||'').replace(/[^a-fA-F0-9]/g,'').toUpperCase()||'UNKNOWN';}function setUid(uid){currentUid=normalizeUid(uid);$('#readUid').textContent='UID: '+currentUid;$('#writeUid').textContent='UID: '+currentUid;}function emptyData(){const d=Object.fromEntries(FIELD_DEFS.map(([k])=>[k,'']));d.membershipStatus='فعال';return d;}function fillRead(d={}){FIELD_DEFS.forEach(([k])=>$('#read_'+k).textContent=(d[k]??'')||'—');const plot=String(d.plotNumber||'').trim();$('#readCardTitle').textContent=plot?`مشخصات کارت هوشمند قطعه ${plot}`:'مشخصات کارت هوشمند قطعه —';const st=String(d.membershipStatus||'فعال').trim();const el=$('#read_membershipStatus');if(el)el.className='value '+(st==='فعال'?'membership-active':st==='بدهکار'?'membership-debt':'membership-inactive');setHeaderMembership(plot?st:'');}function fillWrite(d={}){FIELD_DEFS.forEach(([k])=>$('#write_'+k).value=d[k]??'');const plot=String(d.plotNumber||'').trim();const wt=$('#writeCardTitle');if(wt)wt.textContent=plot?`ویرایش مشخصات کارت هوشمند قطعه ${plot}`:'ویرایش مشخصات کارت هوشمند قطعه —';setHeaderMembership(plot?String(d.membershipStatus||'فعال'):'');}function collectWriteData(){const d={};FIELD_DEFS.forEach(([k])=>d[k]=$('#write_'+k).value.trim());return d;}function setWriteEnabled(on){FIELD_DEFS.forEach(([k])=>$('#write_'+k).disabled=!on);$('#saveCard').disabled=!on;editUnlocked=on;}
+function normalizeUid(uid){return(uid||'').replace(/[^a-fA-F0-9]/g,'').toUpperCase()||'UNKNOWN';}function setUid(uid){currentUid=normalizeUid(uid);$('#readUid').textContent='UID: '+currentUid;$('#writeUid').textContent='UID: '+currentUid;}function emptyData(){return Object.fromEntries(FIELD_DEFS.map(([k])=>[k,'']));}function fillRead(d={}){FIELD_DEFS.forEach(([k])=>$('#read_'+k).textContent=(d[k]??'')||'—');const plot=String(d.plotNumber||'').trim();$('#readCardTitle').textContent=plot?`مشخصات کارت هوشمند قطعه ${plot}`:'مشخصات کارت هوشمند قطعه —';const st=String(d.membershipStatus||'').trim();const el=$('#read_membershipStatus');if(el){el.className='value'+(st?(' '+(st==='فعال'?'membership-active':st==='بدهکار'?'membership-debt':'membership-inactive')):'');}setHeaderMembership(plot&&st?st:'');}function fillWrite(d={}){FIELD_DEFS.forEach(([k])=>$('#write_'+k).value=d[k]??'');const plot=String(d.plotNumber||'').trim();const wt=$('#writeCardTitle');if(wt)wt.textContent=plot?`ویرایش مشخصات کارت هوشمند قطعه ${plot}`:'ویرایش مشخصات کارت هوشمند قطعه —';setHeaderMembership(plot&&d.membershipStatus?String(d.membershipStatus):'');}function collectWriteData(){const d={};FIELD_DEFS.forEach(([k])=>d[k]=$('#write_'+k).value.trim());return d;}function setWriteEnabled(on){FIELD_DEFS.forEach(([k])=>$('#write_'+k).disabled=!on);$('#saveCard').disabled=!on;editUnlocked=on;}
 async function sha256Hex(t){const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');}function randomSalt(){return[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,'0')).join('');}async function authHash(pass,salt,user){return sha256Hex(`${salt}|${user}|${pass}|MAHMOUDIEH-AUTH-V7`);}
 async function ensureAuth(){let a;try{a=JSON.parse(localStorage.getItem(AUTH_KEY)||'null')}catch{};if(!a?.admin?.hash||!a?.user?.hash){a={};for(const [u,p] of [['admin','admin'],['user','user']]){const salt=randomSalt();a[u]={salt,hash:await authHash(p,salt,u)};}localStorage.setItem(AUTH_KEY,JSON.stringify(a));localStorage.setItem(BG_SECRET,btoa(unescape(encodeURIComponent('admin'))));}return a;}
 async function verifyAccount(user,pass){const a=await ensureAuth(),r=a[user];return!!r&&(await authHash(pass,r.salt,user))===r.hash;}async function saveAccountPassword(user,newPass){const a=await ensureAuth(),salt=randomSalt();a[user]={salt,hash:await authHash(newPass,salt,user)};localStorage.setItem(AUTH_KEY,JSON.stringify(a));if(user==='admin'){localStorage.setItem(BG_SECRET,btoa(unescape(encodeURIComponent(newPass))));sessionPassword=newPass;await rebuildAllEncryptedLogs();}}
 function getBackgroundAdminPassword(){try{return decodeURIComponent(escape(atob(localStorage.getItem(BG_SECRET)||'')))||'admin';}catch{return'admin';}}
 function applyRole(role){currentRole=role;document.querySelectorAll('.admin-only').forEach(el=>el.style.display=role==='admin'?'':'none');$('#roleText').textContent=role==='admin'?'ورود مدیر':'ورود کاربر';$('#homeDescription').textContent=role==='admin'?'برای خواندن، نوشتن، صدور گروهی یا تنظیمات گزینه مربوط را انتخاب کنید.':'برای مشاهده اطلاعات کارت، «خواندن کارت» را انتخاب کنید.';}
-$('#loginBtn').onclick=async()=>{const u=$('#loginUser').value,p=$('#loginPass').value;$('#loginError').textContent='در حال بررسی…';try{const role=await serverAppLogin(u,p);if(role!==u)throw new Error('ROLE_MISMATCH');sessionPassword=p;applyRole(u);$('#loginGate').classList.add('hidden');$('#loginPass').value='';$('#loginError').textContent='';checkNfcCapability();showScreen('home');setHeaderMembership('');await backgroundRefreshAll(true);}catch(e){console.error(e);if(isConnectivityError(e)){showConnectionError();$('#loginError').textContent='اتصال اینترنت خود را چک کنید.';}else $('#loginError').textContent='نام کاربری یا رمز عبور صحیح نیست.';}};window.addEventListener('online',()=>{if(currentRole)backgroundRefreshAll(false)});
+$('#loginBtn').onclick=async()=>{const u=$('#loginUser').value,p=$('#loginPass').value;$('#loginError').textContent='در حال بررسی…';try{const role=await serverAppLogin(u,p);if(role!==u)throw new Error('ROLE_MISMATCH');sessionPassword=p;applyRole(u);if(u==='admin')resetAdminIdleTimer();else if(adminIdleTimer){clearTimeout(adminIdleTimer);adminIdleTimer=null;}$('#loginGate').classList.add('hidden');$('#loginPass').value='';$('#loginError').textContent='';checkNfcCapability();showScreen('home');setHeaderMembership('');await backgroundRefreshAll(true);}catch(e){console.error(e);if(isConnectivityError(e)){showConnectionError();$('#loginError').textContent='اتصال اینترنت خود را چک کنید.';}else $('#loginError').textContent='نام کاربری یا رمز عبور صحیح نیست.';}};window.addEventListener('online',()=>{if(currentRole)backgroundRefreshAll(false)});
 
-$('#loginPassEye').onclick=()=>{
-  const i=$('#loginPass'), b=$('#loginPassEye');
+$('#loginPassEye').onclick=(ev)=>{
+  ev.preventDefault();
+  ev.stopPropagation();
+  const i=$('#loginPass'), b=$('#loginPassEye'), slash=$('#loginEyeSlash');
   const show=i.type==='password';
   i.type=show?'text':'password';
-  b.classList.toggle('slash',!show);
+  if(slash) slash.style.display=show?'none':'';
   b.setAttribute('aria-label',show?'مخفی کردن رمز':'نمایش رمز');
+  b.setAttribute('title',show?'مخفی کردن رمز':'نمایش رمز');
+  i.focus({preventScroll:true});
+  try{i.setSelectionRange(i.value.length,i.value.length);}catch(_){}
 };
 
-$('#loginPass').onkeydown=e=>{if(e.key==='Enter')$('#loginBtn').click();};$('#logoutBtn').onclick=async()=>{stopContinuousRead();await serverAppLogout();sessionPassword='';currentRole='';$('#loginGate').classList.remove('hidden');$('#loginUser').value='user';showScreen('home');};
+$('#loginPass').onkeydown=e=>{if(e.key==='Enter')$('#loginBtn').click();};
+
+let adminIdleTimer=null;
+const ADMIN_IDLE_MS=10*60*1000;
+
+async function logoutToLogin(reason=''){
+  if(adminIdleTimer){clearTimeout(adminIdleTimer);adminIdleTimer=null;}
+  stopContinuousRead();
+  try{await serverAppLogout();}catch{}
+  sessionPassword='';
+  currentRole='';
+  currentPayload=null;
+  setHeaderMembership('');
+  $('#loginGate').classList.remove('hidden');
+  $('#loginUser').value='user';
+  $('#loginPass').value='';
+  showScreen('home');
+  if(reason)$('#loginError').textContent=reason;
+}
+
+function resetAdminIdleTimer(){
+  if(currentRole!=='admin')return;
+  if(adminIdleTimer)clearTimeout(adminIdleTimer);
+  adminIdleTimer=setTimeout(()=>{
+    if(currentRole==='admin')logoutToLogin('به دلیل ۱۰ دقیقه عدم فعالیت، حساب مدیر به‌صورت خودکار خارج شد.');
+  },ADMIN_IDLE_MS);
+}
+['pointerdown','keydown','touchstart','wheel'].forEach(ev=>{
+  document.addEventListener(ev,()=>{if(currentRole==='admin')resetAdminIdleTimer();},{passive:true,capture:true});
+});
+
+$('#logoutBtn').onclick=()=>logoutToLogin('');
 async function updateDefaultNotice(){if(currentRole!=='admin')return;const a=await verifyAccount('admin','admin'),u=await verifyAccount('user','user');$('#defaultPassNotice').style.display=(a||u)?'block':'none';$('#defaultPassNotice').textContent=(a?'رمز مدیر هنوز «admin» است. ':'')+(u?'رمز کاربر هنوز «user» است.':'');}
 let passChangeTarget='admin';function openChangePass(target){passChangeTarget=target;$('#changePassTitle').textContent=target==='admin'?'تغییر رمز مدیر':'تغییر رمز کاربر';$('#changePassText').textContent=target==='admin'?'رمز مدیر برای ورود مدیر و فایل‌های Excel رمزدار استفاده می‌شود.':'رمز جدید user از ورود بعدی کاربر اعمال می‌شود.';$('#changeOldPass').style.display=target==='admin'?'block':'none';$('#changeOldPass').value='';$('#changeNewPass').value='';$('#changeNewPass2').value='';$('#changePassError').textContent='';$('#changePassOverlay').classList.add('show');}
 $('#changeAdminPass').onclick=()=>openChangePass('admin');$('#changeUserPass').onclick=()=>openChangePass('user');$('#changePassCancel').onclick=()=>$('#changePassOverlay').classList.remove('show');$('#changePassSave').onclick=async()=>{const oldp=$('#changeOldPass').value,np=$('#changeNewPass').value,np2=$('#changeNewPass2').value;if(passChangeTarget==='admin'&&!(await verifyAccount('admin',oldp))){$('#changePassError').textContent='رمز فعلی مدیر اشتباه است.';return;}if(passChangeTarget==='user'&&!(await verifyAccount('admin',sessionPassword))){$('#changePassError').textContent='جلسه مدیر معتبر نیست.';return;}if(np.length<4){$('#changePassError').textContent='رمز جدید حداقل ۴ کاراکتر باشد.';return;}if(np!==np2){$('#changePassError').textContent='تکرار رمز مطابقت ندارد.';return;}await saveAccountPassword(passChangeTarget,np);$('#changePassOverlay').classList.remove('show');await updateDefaultNotice();alert('رمز با موفقیت تغییر کرد.');};
@@ -326,7 +411,34 @@ function saveUidReferenceCache(m){localStorage.setItem(VALID_UID_MAP_KEY,JSON.st
 async function fetchUidReference(){await ensureSupabaseSession();const {data,error}=await sb.rpc('get_uid_reference');if(error)throw error;return data||[];}
 async function refreshUidReferenceCache(){const rows=await fetchUidReference(),m={};for(const r of rows){const p=String(r.plot_number||'').trim();if(p)m[p]=normalizeUid(r.uid);}saveUidReferenceCache(m);return m;}
 async function validateCardIdentity(plot,uid){plot=String(plot||'').trim();uid=normalizeUid(uid);try{await ensureSupabaseSession();const {data,error}=await sb.rpc('validate_card',{p_plot_number:plot,p_uid:uid});if(error)throw error;const r=Array.isArray(data)?data[0]:data;if(r?.valid){const m=getUidReferenceCache();m[plot]=uid;saveUidReferenceCache(m);}return{valid:!!r?.valid,membershipStatus:r?.membership_status||''};}catch(e){const m=getUidReferenceCache();return{valid:!!plot&&m[plot]===uid,membershipStatus:'',offline:true};}}
-function showInvalidCard(){fillRead(emptyData());$('#invalidCardOverlay').classList.add('show');$('#readerLiveText').textContent='کارت نامعتبر؛ منتظر کارت بعدی…';}
+async function getCanonicalUidForPlot(plot){
+  plot=String(plot||'').trim();
+  if(!plot)return '';
+  try{
+    await ensureSupabaseSession();
+    const {data,error}=await sb.rpc('get_plot_uid_reference',{p_plot_number:plot});
+    if(error)throw error;
+    const r=Array.isArray(data)?data[0]:data;
+    return normalizeUid(r?.uid||'')==='UNKNOWN'?'':normalizeUid(r?.uid||'');
+  }catch(e){
+    const m=getUidReferenceCache();
+    return m[plot]?normalizeUid(m[plot]):'';
+  }
+}
+function showInvalidCard(kind='invalid'){
+  currentPayload=null;
+  fillRead(emptyData());
+  setHeaderMembership('');
+  const copy=kind==='copy';
+  $('#invalidCardTitle').textContent=copy?'این کارت کپی می‌باشد و فاقد اعتبار است':'این کارت فاقد اعتبار است';
+  $('#invalidCardDetail').textContent=copy?'UID این کارت با UID معتبر ثبت‌شده برای این قطعه مطابقت ندارد.':'این کارت در فهرست کارت‌های معتبر سامانه ثبت نشده است.';
+  $('#invalidCardOverlay').classList.add('show');
+  $('#readerLiveText').textContent='کارت نامعتبر';
+}
+async function classifyInvalidCard(plot,uid){
+  const canonical=await getCanonicalUidForPlot(plot);
+  return canonical && canonical!==normalizeUid(uid) ? 'copy' : 'invalid';
+}
 function showMembershipAlert(status){status=String(status||'').trim();if(status==='فعال'||!status)return;$('#membershipAlertTitle').textContent=status==='بدهکار'?'وضعیت کارت: بدهکار':'وضعیت کارت: غیر فعال';$('#membershipAlertTitle').style.color='#dc2626';$('#membershipAlertText').textContent=status==='بدهکار'?'عضویت این قطعه بدهکار است.':'عضویت این قطعه غیر فعال است.';$('#membershipOverlay').classList.add('show');}
 
 let pendingDownloadUrl=null;
@@ -442,7 +554,46 @@ async function buildEncryptedLogFile(plot,entry){const pass=getBackgroundAdminPa
 async function rebuildAllEncryptedLogs(){const logs=getLogs();for(const [p,e] of Object.entries(logs)){try{await buildEncryptedLogFile(p,e)}catch{}}refreshLogSelect();}
 async function refreshLogSelect(){const s=$('#logPlotSelect');if(!s)return;s.innerHTML='<option value="">در حال دریافت…</option>';$('#downloadScanLog').disabled=true;if($('#downloadScanPdf'))$('#downloadScanPdf').disabled=true;try{const keys=await fetchCentralPlots();s.innerHTML=keys.length?keys.map(k=>`<option value="${esc(k)}">قطعه ${esc(k)}</option>`).join(''):'<option value="">هنوز گزارش مرکزی ثبت نشده است</option>';$('#downloadScanLog').disabled=!keys.length;if($('#downloadScanPdf'))$('#downloadScanPdf').disabled=!keys.length;clearStatus('#logStatus');}catch(e){console.error('refreshCentralLogs',e);const detail=supabaseErrorText(e);s.innerHTML='<option value="">خطا در دریافت فهرست</option>';setStatus('#logStatus',`دریافت گزارش‌های مرکزی ناموفق بود. جزئیات: ${detail}`,'err');}}
 $('#downloadScanLog').onclick=async()=>{const p=$('#logPlotSelect').value;if(!p)return;try{setStatus('#logStatus','در حال دریافت آخرین سوابق از همه گوشی‌ها…','info');const e=await fetchCentralPlotEntry(p);if(!e)throw new Error('NO_DATA');const blob=await makeLogWorkbookBytes(p,e,sessionPassword);const name=`قطعه_${p}.xlsx`;robustDownload(blob,name,'#logStatus');}catch(e){console.error('downloadScanLog',e);setStatus('#logStatus',`ساخت یا دانلود فایل مرکزی ناموفق بود. جزئیات: ${supabaseErrorText(e)}`,'err');}};
-async function handleReadEvent(e){setUid(e.serialNumber);const p=parseNdefMessage(e.message);if(!p){fillRead(emptyData());setStatus('#readStatus','کارت خوانده شد، اما داده معتبر برنامه روی آن نیست.','warn');return;}if(p.uid&&normalizeUid(p.uid)!==currentUid){showInvalidCard();setStatus('#readStatus','این کارت فاقد اعتبار است و کپی می‌باشد.','err');return;}const plot=String(p?.data?.plotNumber||'').trim(),v=await validateCardIdentity(plot,currentUid);if(!v.valid){showInvalidCard();setStatus('#readStatus','این کارت فاقد اعتبار است و کپی می‌باشد.','err');return;}currentPayload=p;if(v.membershipStatus)p.data.membershipStatus=v.membershipStatus;fillRead(p.data||{});const st=String(p.data?.membershipStatus||'فعال');clearStatus('#readStatus');$('#readerLiveText').textContent='کارت معتبر خوانده شد؛ منتظر کارت بعدی…';showMembershipAlert(st);await recordScan(p,currentUid);}
+async function handleReadEvent(e){
+  setUid(e.serialNumber);
+  const p=parseNdefMessage(e.message);
+  if(!p){
+    showInvalidCard('invalid');
+    return;
+  }
+
+  const plot=String(p?.data?.plotNumber||'').trim();
+
+  // First determine whether this plot has a canonical physical UID.
+  const canonical=await getCanonicalUidForPlot(plot);
+
+  // A known plot presented by a different physical UID is explicitly a copied card.
+  if(canonical && canonical!==currentUid){
+    showInvalidCard('copy');
+    return;
+  }
+
+  // Embedded UID mismatch is also a copy only when the plot itself is known.
+  if(p.uid && normalizeUid(p.uid)!==currentUid){
+    showInvalidCard(canonical?'copy':'invalid');
+    return;
+  }
+
+  const v=await validateCardIdentity(plot,currentUid);
+  if(!v.valid){
+    showInvalidCard(await classifyInvalidCard(plot,currentUid));
+    return;
+  }
+
+  currentPayload=p;
+  if(v.membershipStatus)p.data.membershipStatus=v.membershipStatus;
+  fillRead(p.data||{});
+  const st=String(p.data?.membershipStatus||'');
+  clearStatus('#readStatus');
+  $('#readerLiveText').textContent='کارت معتبر خوانده شد؛ منتظر کارت بعدی…';
+  if(st)showMembershipAlert(st);
+  await recordScan(p,currentUid);
+}
 async function startContinuousRead(){stopContinuousRead();$('#readerLiveText').textContent='در انتظار نزدیک شدن کارت NFC…';if(testMode){if(virtualCardPresent)await handleReadEvent(fakeEventForUid(SIM_UID));return;}if(simulatorMode){setStatus('#readStatus','برای تست خواندن، TEST MODE را با ۵ بار لمس لوگو فعال کنید.','warn');return;}if(!('NDEFReader'in window)){setStatus('#readStatus','Web NFC در دسترس نیست.','err');return;}readReader=new NDEFReader();readAbort=new AbortController();readReader.addEventListener('reading',e=>{if(mode==='read')handleReadEvent(e).catch(console.error)});readReader.addEventListener('readingerror',()=>{if(mode==='read')setStatus('#readStatus','خواندن کارت ناموفق بود؛ دوباره نزدیک کنید.','warn')});try{await readReader.scan({signal:readAbort.signal});}catch(e){if(e.name!=='AbortError')setStatus('#readStatus',friendlyNfcError(e),'err');}}
 function stopContinuousRead(){try{readAbort?.abort()}catch{}readAbort=null;readReader=null;}
 
@@ -587,7 +738,12 @@ $('#duplicateConfirmWrite').onclick=confirmDuplicateWrite;
 $('#connectionClose').onclick=()=>$('#connectionOverlay').classList.remove('show');
 $('#connectionRetry').onclick=async()=>{if(await backgroundRefreshAll(false))$('#connectionOverlay').classList.remove('show');};
 
-$('#invalidCardOk').onclick=()=>$('#invalidCardOverlay').classList.remove('show');$('#membershipAlertOk').onclick=()=>$('#membershipOverlay').classList.remove('show');
+$('#invalidCardOk').onclick=()=>{
+  $('#invalidCardOverlay').classList.remove('show');
+  stopContinuousRead();
+  setHeaderMembership('');
+  showScreen('home');
+};$('#membershipAlertOk').onclick=()=>$('#membershipOverlay').classList.remove('show');
 
 $('#downloadMasterCardsPdf').onclick=async()=>{try{setStatus('#masterStatus','در حال ساخت PDF فایل اصلی…','info');const aoa=await getMasterCardsAoa();await downloadPersianPdfFromAoa(aoa,'فایل اصلی کارت‌ها','فایل_اصلی_کارت‌ها.pdf','#masterStatus');}catch(e){console.error(e);setStatus('#masterStatus',`ساخت PDF ناموفق بود: ${supabaseErrorText(e)}`,'err');}};
 $('#downloadUidReferencePdf').onclick=async()=>{try{setStatus('#masterStatus','در حال ساخت PDF مرجع UID…','info');const aoa=await getUidReferenceAoa();await downloadPersianPdfFromAoa(aoa,'مرجع شماره قطعه و UID','مرجع_شماره_قطعه_UID.pdf','#masterStatus');}catch(e){console.error(e);setStatus('#masterStatus',`ساخت PDF مرجع UID ناموفق بود: ${supabaseErrorText(e)}`,'err');}};
