@@ -19,7 +19,8 @@
     .nfc-warning{display:none;margin-bottom:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.8}.nfc-warning.show{display:block}
 
     .test-panel{display:none;margin-top:14px;background:#0b1220;color:#e2e8f0;border:1px solid #334155;border-radius:18px;padding:14px}.test-panel.show{display:block}.test-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.test-title strong{font-size:14px}.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.test-panel .btn{min-height:46px;font-size:13px}.test-note{font-size:12px;color:#94a3b8;line-height:1.8;margin-top:10px}.test-uid{width:100%;height:44px;border-radius:12px;border:1px solid #334155;background:#111827;color:white;padding:0 12px;font:inherit;direction:ltr;text-align:left;margin-top:8px}.test-state{margin-top:10px;padding:9px 11px;border-radius:12px;background:#111827;color:#cbd5e1;font-size:12px;line-height:1.7}.logo.test-on{outline:3px solid #f59e0b;box-shadow:0 0 0 6px rgba(245,158,11,.15)}
-    @media(max-width:520px){.brand h1{font-size:15px;line-height:1.55}.app{padding-left:12px;padding-right:12px}.panel{padding:15px}.actions{grid-template-columns:1fr}.field{grid-template-columns:1fr;gap:5px}.field label{font-size:11px}.card{padding:16px}.card-title{align-items:flex-start;flex-direction:column}.uid{max-width:100%}.footer-actions{grid-template-columns:1fr}.brand p{display:none}}
+    .bulk-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:14px}.bulk-box h3{margin:0 0 10px;font-size:15px}.bulk-file{width:100%;border:1px dashed #93c5fd;background:#eff6ff;border-radius:14px;padding:14px;font:inherit}.bulk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:10px;text-align:center}.stat b{display:block;font-size:18px}.stat span{font-size:11px;color:var(--muted)}.bulk-current{margin-top:12px;background:#0f172a;color:#fff;border-radius:16px;padding:14px}.bulk-current .row{display:grid;grid-template-columns:130px 1fr;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08)}.bulk-current .row:last-child{border-bottom:0}.bulk-current label{font-size:11px;color:#cbd5e1}.bulk-current div{font-size:13px;word-break:break-word}.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:12px}.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2563eb,#60a5fa);transition:.2s width}.bulk-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.bulk-log{margin-top:12px;max-height:190px;overflow:auto;background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:9px;font-size:12px;line-height:1.8}.log-ok{color:#166534}.log-err{color:#991b1b}.log-info{color:#1e40af}.fixed-pass{display:inline-block;direction:ltr;font-family:ui-monospace,monospace;background:#e2e8f0;padding:2px 7px;border-radius:7px}
+    @media(max-width:520px){.bulk-stats{grid-template-columns:1fr 1fr}.bulk-current .row{grid-template-columns:1fr}.bulk-actions{grid-template-columns:1fr}.brand h1{font-size:15px;line-height:1.55}.app{padding-left:12px;padding-right:12px}.panel{padding:15px}.actions{grid-template-columns:1fr}.field{grid-template-columns:1fr;gap:5px}.field label{font-size:11px}.card{padding:16px}.card-title{align-items:flex-start;flex-direction:column}.uid{max-width:100%}.footer-actions{grid-template-columns:1fr}.brand p{display:none}}
   </style>
 </head>
 <body>
@@ -35,10 +36,11 @@
     <div class="panel hero">
       <div class="hero-icon">📶</div>
       <h2>سامانه کارت هوشمند روستای محمودیه</h2>
-      <p>برای مشاهده اطلاعات کارت گزینه «خواندن» و برای ثبت یا ویرایش اطلاعات گزینه «نوشتن» را انتخاب کنید.</p>
+      <p>برای مشاهده اطلاعات کارت «خواندن»، برای ویرایش «نوشتن» و برای صدور تعداد زیاد کارت از روی فایل Excel گزینه «تعریف پشت‌سرهم کارت‌ها» را انتخاب کنید.</p>
       <div class="actions">
         <button class="btn primary" id="goRead">خواندن کارت</button>
         <button class="btn secondary" id="goWrite">نوشتن / ویرایش کارت</button>
+        <button class="btn ghost" id="goBulk" style="grid-column:1/-1">تعریف پشت‌سرهم کارت‌ها از Excel</button>
       </div>
     </div>
 
@@ -77,6 +79,34 @@
     <div class="footer-actions"><button id="scanForEdit" class="btn secondary">خواندن کارت برای ویرایش</button><button id="saveCard" class="btn primary" disabled>ذخیره روی کارت</button></div>
     <div id="writeStatus" class="status"></div>
   </section>
+
+  <section id="bulkScreen" class="screen">
+    <div class="screen-head"><h2>تعریف پشت‌سرهم کارت‌ها</h2><button class="back" data-home aria-label="بازگشت">←</button></div>
+    <div class="hint">فایل Excel شامل ۶ ستون اطلاعات را انتخاب کنید. صدور از اولین ردیف داده شروع می‌شود و تا آخرین ردیفی که «شماره قطعه زمین» دارد ادامه پیدا می‌کند. خالی بودن سایر فیلدها مانع صدور کارت نیست. رمز تمام کارت‌های این بخش <span class="fixed-pass">12345</span> است.</div>
+    <div class="bulk-box">
+      <h3>۱) انتخاب فایل Excel</h3>
+      <input id="bulkFile" class="bulk-file" type="file" accept=".xlsx,.xls" />
+      <div id="bulkMapInfo" class="status"></div>
+      <div class="bulk-stats">
+        <div class="stat"><b id="bulkTotal">0</b><span>کل کارت‌ها</span></div>
+        <div class="stat"><b id="bulkDone">0</b><span>صادر شده</span></div>
+        <div class="stat"><b id="bulkRemain">0</b><span>باقی‌مانده</span></div>
+      </div>
+      <div class="progress"><i id="bulkProgress"></i></div>
+    </div>
+    <div class="bulk-box">
+      <h3>۲) ردیف آماده صدور</h3>
+      <div id="bulkCurrent" class="bulk-current"><div class="row"><label>وضعیت</label><div>ابتدا فایل Excel را انتخاب کنید.</div></div></div>
+      <div class="bulk-actions">
+        <button id="bulkStart" class="btn primary" disabled>شروع صدور پشت‌سرهم</button>
+        <button id="bulkStop" class="btn danger" disabled>توقف</button>
+        <button id="bulkSimNext" class="btn secondary" style="display:none">شبیه‌سازی کارت بعدی</button>
+        <button id="bulkDownload" class="btn ghost" disabled>دانلود Excel به‌روزشده</button>
+      </div>
+      <div id="bulkStatus" class="status"></div>
+      <div id="bulkLog" class="bulk-log">گزارش عملیات اینجا نمایش داده می‌شود.</div>
+    </div>
+  </section>
 </div>
 
 <div id="passwordOverlay" class="overlay" role="dialog" aria-modal="true">
@@ -89,6 +119,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
 'use strict';
 
@@ -115,6 +146,12 @@ let logoTapCount = 0;
 let logoTapTimer = null;
 const SIM_KEY = 'mahmoudieh_nfc_demo_card_v1';
 let SIM_UID = '04A1B2C3D4E5F6';
+
+// Bulk issuing state
+const BULK_PASSWORD = '12345';
+let bulkWorkbook = null, bulkSheet = null, bulkSheetName = '', bulkRows = [], bulkHeaders = [], bulkMap = {};
+let bulkQueue = [], bulkIndex = 0, bulkRunning = false, bulkLastUid = '', bulkReader = null, bulkAbort = null, bulkFileName = 'cards.xlsx';
+let bulkUidHeader = 'UID کارت';
 
 const $ = s => document.querySelector(s);
 const screens = [...document.querySelectorAll('.screen')];
@@ -270,6 +307,7 @@ $('#passwordInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#passwo
 
 $('#goRead').onclick=()=>{ showScreen('read'); fillRead(emptyData()); $('#readUid').textContent='UID: —'; };
 $('#goWrite').onclick=()=>{ showScreen('write'); fillWrite(emptyData()); $('#writeUid').textContent='UID: —'; setWriteEnabled(false); currentPayload=null; currentUid=''; };
+$('#goBulk').onclick=()=>{ showScreen('bulk'); updateBulkSimButton(); }; 
 document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>showScreen('home'));
 
 $('#startRead').addEventListener('click',async()=>{
@@ -333,9 +371,11 @@ function setTestMode(on){
     if(v && v!=='UNKNOWN') SIM_UID=v;
     $('#nfcBadge').textContent='TEST MODE'; $('#nfcBadge').className='badge';
     updateTestState(virtualCardPresent?`کارت مجازی با UID ${SIM_UID} نزدیک گوشی است.`:'کارت مجازی آماده است، اما هنوز نزدیک گوشی نیست.');
+    updateBulkSimButton();
   }else{
     virtualCardPresent=false;
     checkNfcCapability();
+    updateBulkSimButton();
   }
 }
 $('#appLogo').addEventListener('click',()=>{
@@ -367,6 +407,133 @@ $('#testRemoveCard').addEventListener('click',()=>{
 $('#testDeleteCard').addEventListener('click',()=>{
   localStorage.removeItem(SIM_KEY); virtualCardPresent=false;
   updateTestState('اطلاعات کارت مجازی پاک شد و کارت از گوشی دور شد.');
+});
+
+
+// ---------- Bulk Excel issuing ----------
+const HEADER_ALIASES = {
+  fullName:['نام و نام خانوادگی','نام خانوادگی و نام','نام','نام کامل'],
+  nationalId:['کد ملی','کدملی'],
+  postalCode:['کد پستی ملک','کد پستی','کدپستی ملک','کدپستی'],
+  mobile:['شماره تلفن موبایل','شماره موبایل','موبایل','تلفن همراه','شماره تلفن'],
+  plotNumber:['شماره قطعه زمین','شماره قطعه','قطعه','پلاک قطعه'],
+  streetName:['اسم خیابان محل قطعه زمین','نام خیابان محل قطعه زمین','اسم خیابان','نام خیابان','خیابان']
+};
+function cleanHeader(v){ return String(v??'').replace(/[\u200c\u200f\u202a-\u202e]/g,'').replace(/\s+/g,' ').trim(); }
+function findHeader(headers, aliases){
+  const norm=headers.map(cleanHeader);
+  for(const a of aliases){ const i=norm.indexOf(cleanHeader(a)); if(i>=0) return headers[i]; }
+  return null;
+}
+function excelValue(v){
+  if(v===undefined || v===null) return '';
+  if(typeof v==='number' && Number.isFinite(v)) return String(v).replace(/\.0+$/,'');
+  return String(v).trim();
+}
+function mapBulkHeaders(headers){
+  const m={}; for(const [k,aliases] of Object.entries(HEADER_ALIASES)) m[k]=findHeader(headers,aliases);
+  return m;
+}
+function bulkRowData(row){ const d={}; for(const [k] of FIELD_DEFS) d[k]=excelValue(row[bulkMap[k]]); return d; }
+function bulkRowEligible(row){ return !!excelValue(row[bulkMap.plotNumber]); }
+function renderBulkCurrent(){
+  const box=$('#bulkCurrent');
+  if(!bulkQueue.length){ box.innerHTML='<div class="row"><label>وضعیت</label><div>فایل معتبر بارگذاری نشده است.</div></div>'; return; }
+  if(bulkIndex>=bulkQueue.length){ box.innerHTML='<div class="row"><label>وضعیت</label><div>تمام ردیف‌ها صادر شدند.</div></div>'; return; }
+  const item=bulkQueue[bulkIndex], d=bulkRowData(item.row);
+  box.innerHTML=`<div class="row"><label>ردیف Excel</label><div>${item.excelRow}</div></div>`+
+    FIELD_DEFS.map(([k,label])=>`<div class="row"><label>${label}</label><div>${escapeHtml(d[k])||'<span style="color:#94a3b8">خالی</span>'}</div></div>`).join('');
+}
+function escapeHtml(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function updateBulkStats(){
+  const total=bulkQueue.length, done=bulkIndex, remain=Math.max(0,total-done);
+  $('#bulkTotal').textContent=total; $('#bulkDone').textContent=done; $('#bulkRemain').textContent=remain;
+  $('#bulkProgress').style.width=(total?Math.round(done*100/total):0)+'%';
+  $('#bulkDownload').disabled=!bulkWorkbook;
+  renderBulkCurrent();
+}
+function bulkLog(msg,type='info'){
+  const el=$('#bulkLog'); if(el.textContent==='گزارش عملیات اینجا نمایش داده می‌شود.') el.innerHTML='';
+  const line=document.createElement('div'); line.className='log-'+type; line.textContent=`${new Date().toLocaleTimeString('fa-IR')} — ${msg}`; el.prepend(line);
+}
+function updateBulkSimButton(){ $('#bulkSimNext').style.display=testMode?'block':'none'; }
+async function buildBulkPayload(uid,data){
+  const salt=randomSalt(); const norm=normalizeUid(uid); const hash=await makePasswordHash(BULK_PASSWORD,salt,norm);
+  return {app:'landcard',version:1,uid:norm,data,security:{salt,passwordHash:hash},updatedAt:new Date().toISOString()};
+}
+async function writeBulkToRealCard(payload){
+  const ndef=new NDEFReader();
+  await ndef.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});
+}
+function setBulkUidInSheet(excelRow, uid){
+  const range=XLSX.utils.decode_range(bulkSheet['!ref']||'A1:A1');
+  let uidCol=bulkHeaders.findIndex(h=>cleanHeader(h)===cleanHeader(bulkUidHeader));
+  if(uidCol<0){ uidCol=range.e.c+1; bulkUidHeader='UID کارت'; bulkHeaders.push(bulkUidHeader); bulkSheet[XLSX.utils.encode_cell({r:0,c:uidCol})]={t:'s',v:bulkUidHeader}; range.e.c=uidCol; bulkSheet['!ref']=XLSX.utils.encode_range(range); }
+  bulkSheet[XLSX.utils.encode_cell({r:excelRow-1,c:uidCol})]={t:'s',v:uid};
+  // keep in-memory row object aligned for re-export
+  const q=bulkQueue.find(x=>x.excelRow===excelRow); if(q) q.row[bulkUidHeader]=uid;
+}
+async function processBulkUid(uid,{simulate=false}={}){
+  if(!bulkRunning || bulkIndex>=bulkQueue.length) return;
+  uid=normalizeUid(uid); if(!uid || uid==='UNKNOWN') return;
+  if(uid===bulkLastUid){ setStatus('#bulkStatus','همان کارت قبلی هنوز نزدیک گوشی است؛ کارت بعدی با UID متفاوت را نزدیک کنید.','warn'); return; }
+  const item=bulkQueue[bulkIndex], data=bulkRowData(item.row);
+  setStatus('#bulkStatus',`کارت UID ${uid} شناسایی شد؛ در حال نوشتن ردیف ${item.excelRow}...`,'info');
+  try{
+    const payload=await buildBulkPayload(uid,data);
+    if(simulate || testMode){ await new Promise(r=>setTimeout(r,220)); setSimCard(payload); }
+    else await writeBulkToRealCard(payload);
+    setBulkUidInSheet(item.excelRow,uid); bulkLastUid=uid; bulkIndex++;
+    bulkLog(`ردیف ${item.excelRow} روی کارت ${uid} نوشته شد.`,'ok'); updateBulkStats();
+    if(bulkIndex>=bulkQueue.length){ stopBulk(true); setStatus('#bulkStatus','تمام کارت‌ها با موفقیت پردازش شدند. فایل Excel به‌روزشده را دانلود کنید.','ok'); }
+    else setStatus('#bulkStatus',`کارت ثبت شد. کارت بعدی را نزدیک کنید؛ ردیف بعدی: ${bulkQueue[bulkIndex].excelRow}`,'ok');
+  }catch(err){ bulkLog(`خطا در ردیف ${item.excelRow}: ${friendlyNfcError(err)}`,'err'); setStatus('#bulkStatus',friendlyNfcError(err),'err'); }
+}
+async function startBulkRealScan(){
+  if(!('NDEFReader' in window)){ setStatus('#bulkStatus','Web NFC در دسترس نیست. برای تست، TEST MODE را فعال کنید.','err'); return; }
+  bulkReader=new NDEFReader(); bulkAbort=new AbortController();
+  bulkReader.addEventListener('reading',async e=>{ if(bulkRunning) await processBulkUid(e.serialNumber); });
+  bulkReader.addEventListener('readingerror',()=>bulkLog('خواندن یک کارت ناموفق بود؛ دوباره نزدیک کنید.','err'));
+  try{ await bulkReader.scan({signal:bulkAbort.signal}); setStatus('#bulkStatus','حالت صدور فعال است. کارت اول را نزدیک کنید و پس از پیام موفقیت، کارت بعدی را نزدیک کنید.','info'); }
+  catch(err){ bulkRunning=false; $('#bulkStart').disabled=false; $('#bulkStop').disabled=true; setStatus('#bulkStatus',friendlyNfcError(err),'err'); }
+}
+function stopBulk(done=false){
+  bulkRunning=false; try{bulkAbort?.abort();}catch{} bulkAbort=null; bulkReader=null;
+  $('#bulkStart').disabled=!bulkQueue.length || bulkIndex>=bulkQueue.length; $('#bulkStop').disabled=true;
+  if(!done) setStatus('#bulkStatus','صدور متوقف شد. می‌توانید از همان ردیف ادامه دهید.','warn');
+}
+$('#bulkFile').addEventListener('change',async e=>{
+  const file=e.target.files?.[0]; if(!file) return;
+  if(typeof XLSX==='undefined'){ setStatus('#bulkMapInfo','کتابخانه Excel بارگذاری نشد. اتصال اینترنت را بررسی و صفحه را Refresh کنید.','err'); return; }
+  try{
+    bulkFileName=file.name; const data=await file.arrayBuffer(); bulkWorkbook=XLSX.read(data,{type:'array'}); bulkSheetName=bulkWorkbook.SheetNames[0]; bulkSheet=bulkWorkbook.Sheets[bulkSheetName];
+    const rows=XLSX.utils.sheet_to_json(bulkSheet,{defval:'',raw:false});
+    bulkHeaders=rows.length?Object.keys(rows[0]):[]; bulkMap=mapBulkHeaders(bulkHeaders);
+    const missing=Object.entries(bulkMap).filter(([,v])=>!v).map(([k])=>FIELD_DEFS.find(x=>x[0]===k)?.[1]||k);
+    if(missing.length){ bulkWorkbook=null; bulkQueue=[]; setStatus('#bulkMapInfo','این ستون‌ها پیدا نشدند: '+missing.join('، '),'err'); updateBulkStats(); $('#bulkStart').disabled=true; return; }
+    // stop at first row where plot number is empty, per requested sequential rule
+    bulkQueue=[];
+    for(let i=0;i<rows.length;i++){ if(!bulkRowEligible(rows[i])) break; bulkQueue.push({row:rows[i],excelRow:i+2}); }
+    bulkIndex=0; bulkLastUid='';
+    setStatus('#bulkMapInfo',`فایل «${file.name}» خوانده شد. ${bulkQueue.length} ردیف تا آخرین توالی شماره قطعه آماده صدور است.`,'ok');
+    $('#bulkStart').disabled=!bulkQueue.length; $('#bulkStop').disabled=true; $('#bulkLog').textContent='گزارش عملیات اینجا نمایش داده می‌شود.'; updateBulkStats();
+  }catch(err){ console.error(err); setStatus('#bulkMapInfo','خواندن فایل Excel ناموفق بود. فایل .xlsx یا .xls معتبر انتخاب کنید.','err'); }
+});
+$('#bulkStart').addEventListener('click',async()=>{
+  if(!bulkQueue.length || bulkIndex>=bulkQueue.length) return;
+  bulkRunning=true; bulkLastUid=''; $('#bulkStart').disabled=true; $('#bulkStop').disabled=false;
+  if(testMode){ setStatus('#bulkStatus','TEST MODE فعال است. برای هر کارت روی «شبیه‌سازی کارت بعدی» بزنید.','info'); updateBulkSimButton(); }
+  else await startBulkRealScan();
+});
+$('#bulkStop').addEventListener('click',()=>stopBulk(false));
+$('#bulkSimNext').addEventListener('click',async()=>{
+  if(!bulkRunning){ setStatus('#bulkStatus','ابتدا «شروع صدور پشت‌سرهم» را بزنید.','warn'); return; }
+  // generate a guaranteed different virtual UID for each row
+  const n=(bulkIndex+1).toString(16).toUpperCase().padStart(6,'0'); const uid=('04BULK'+n).replace(/[^A-F0-9]/g,'A').slice(0,14);
+  await processBulkUid(uid,{simulate:true});
+});
+$('#bulkDownload').addEventListener('click',()=>{
+  if(!bulkWorkbook) return; const base=bulkFileName.replace(/\.(xlsx|xls)$/i,''); XLSX.writeFile(bulkWorkbook,base+'_UID.xlsx',{bookType:'xlsx'});
 });
 
 checkNfcCapability();
