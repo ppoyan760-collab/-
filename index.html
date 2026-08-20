@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#0f172a" />
-  <title>سامانه کارت هوشمند روستای محمودیه - V5</title>
+  <title>سامانه کارت هوشمند روستای محمودیه - Admin V6</title>
   <style>
     :root{--bg:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--primary:#2563eb;--primary2:#1d4ed8;--danger:#dc2626;--ok:#16a34a;--shadow:0 18px 50px rgba(15,23,42,.12);--r:22px}
     *{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Tahoma,"Vazirmatn","Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f8fafc 38%,#f1f5f9 100%);color:var(--ink)}
@@ -20,11 +20,23 @@
 
     .test-panel{display:none;margin-top:14px;background:#0b1220;color:#e2e8f0;border:1px solid #334155;border-radius:18px;padding:14px}.test-panel.show{display:block}.test-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.test-title strong{font-size:14px}.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.test-panel .btn{min-height:46px;font-size:13px}.test-note{font-size:12px;color:#94a3b8;line-height:1.8;margin-top:10px}.test-uid{width:100%;height:44px;border-radius:12px;border:1px solid #334155;background:#111827;color:white;padding:0 12px;font:inherit;direction:ltr;text-align:left;margin-top:8px}.test-state{margin-top:10px;padding:9px 11px;border-radius:12px;background:#111827;color:#cbd5e1;font-size:12px;line-height:1.7}.logo.test-on{outline:3px solid #f59e0b;box-shadow:0 0 0 6px rgba(245,158,11,.15)}
     .bulk-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:14px}.bulk-box h3{margin:0 0 10px;font-size:15px}.bulk-file{width:100%;border:1px dashed #93c5fd;background:#eff6ff;border-radius:14px;padding:14px;font:inherit}.bulk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:10px;text-align:center}.stat b{display:block;font-size:18px}.stat span{font-size:11px;color:var(--muted)}.bulk-current{margin-top:12px;background:#0f172a;color:#fff;border-radius:16px;padding:14px}.bulk-current .row{display:grid;grid-template-columns:130px 1fr;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08)}.bulk-current .row:last-child{border-bottom:0}.bulk-current label{font-size:11px;color:#cbd5e1}.bulk-current div{font-size:13px;word-break:break-word}.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:12px}.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2563eb,#60a5fa);transition:.2s width}.bulk-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.bulk-log{margin-top:12px;max-height:190px;overflow:auto;background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:9px;font-size:12px;line-height:1.8}.log-ok{color:#166534}.log-err{color:#991b1b}.log-info{color:#1e40af}.fixed-pass{display:inline-block;direction:ltr;font-family:ui-monospace,monospace;background:#e2e8f0;padding:2px 7px;border-radius:7px}
+    .auth-wrap{position:fixed;inset:0;z-index:100;background:linear-gradient(160deg,#dbeafe,#f8fafc 55%,#e2e8f0);display:flex;align-items:center;justify-content:center;padding:18px}.auth-wrap.hidden{display:none}.auth-card{width:min(100%,430px);background:#fff;border:1px solid #e2e8f0;border-radius:26px;padding:24px;box-shadow:0 26px 70px rgba(15,23,42,.18)}.auth-logo{width:72px;height:72px;border-radius:22px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:#fff;font-size:30px;font-weight:900;margin:0 auto 14px}.auth-card h2{text-align:center;margin:0 0 6px;font-size:21px}.auth-card p{text-align:center;margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.8}.auth-field{margin-bottom:12px}.auth-field label{display:block;margin:0 0 6px;font-size:12px;color:#475569}.auth-field input{width:100%;height:52px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none}.auth-field input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.auth-error{min-height:22px;color:#b91c1c;font-size:12px;margin-top:8px;text-align:center}.admin-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:center}.admin-tools .btn{min-height:44px;font-size:12px}.security-note{margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff7ed;color:#9a3412;font-size:12px;line-height:1.8}.modal .stack{display:grid;gap:10px}.modal .stack input{margin:0}.excel-lock-note{font-size:12px;color:#475569;line-height:1.8;margin-top:8px;padding:9px 11px;background:#f8fafc;border-radius:11px;border:1px solid var(--line)}
     @media(max-width:520px){.bulk-stats{grid-template-columns:1fr 1fr}.bulk-current .row{grid-template-columns:1fr}.bulk-actions{grid-template-columns:1fr}.brand h1{font-size:15px;line-height:1.55}.app{padding-left:12px;padding-right:12px}.panel{padding:15px}.actions{grid-template-columns:1fr}.field{grid-template-columns:1fr;gap:5px}.field label{font-size:11px}.card{padding:16px}.card-title{align-items:flex-start;flex-direction:column}.uid{max-width:100%}.footer-actions{grid-template-columns:1fr}.brand p{display:none}}
   </style>
 </head>
 <body>
-<div class="app">
+<div id="loginGate" class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">م</div>
+    <h2>ورود مدیر سامانه</h2>
+    <p>سامانه کارت هوشمند روستای محمودیه</p>
+    <div class="auth-field"><label>نام کاربری</label><input id="loginUser" autocomplete="username" value="admin" /></div>
+    <div class="auth-field"><label>رمز عبور</label><input id="loginPass" type="password" autocomplete="current-password" /></div>
+    <button id="loginBtn" class="btn primary" style="width:100%">ورود</button>
+    <div id="loginError" class="auth-error"></div>
+  </div>
+</div>
+<div class="app" id="mainApp">
   <header class="topbar">
     <div class="brand"><div class="logo" id="appLogo" title="">م</div><div><h1>سامانه کارت هوشمند روستای محمودیه</h1><p>ثبت و مشاهده اطلاعات کارت ملک</p></div></div>
     <div id="nfcBadge" class="badge">در حال بررسی NFC</div>
@@ -42,6 +54,11 @@
         <button class="btn secondary" id="goWrite">نوشتن / ویرایش کارت</button>
         <button class="btn ghost" id="goBulk" style="grid-column:1/-1">تعریف پشت‌سرهم کارت‌ها از Excel</button>
       </div>
+      <div class="admin-tools">
+        <button class="btn ghost" id="changeAdminPass">🔐 تغییر رمز مدیر</button>
+        <button class="btn ghost" id="logoutAdmin">خروج از حساب</button>
+      </div>
+      <div class="security-note" id="defaultPassNotice" style="display:none">رمز مدیر هنوز مقدار اولیه «admin» است. برای امنیت، آن را از گزینه «تغییر رمز مدیر» عوض کنید.</div>
     </div>
 
     <div id="testPanel" class="test-panel">
@@ -104,6 +121,7 @@
         <button id="bulkDownload" class="btn ghost" disabled>دانلود Excel به‌روزشده</button>
       </div>
       <div id="bulkStatus" class="status"></div>
+      <div class="excel-lock-note">فایل Excel خروجی با <b>رمز فعلی مدیر</b> رمزگذاری می‌شود و برای باز شدن در Excel/Office به همان رمز نیاز دارد.</div>
       <div id="bulkLog" class="bulk-log">گزارش عملیات اینجا نمایش داده می‌شود.</div>
     </div>
   </section>
@@ -119,11 +137,29 @@
   </div>
 </div>
 
+<div id="adminPasswordOverlay" class="overlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h3>تغییر رمز مدیر</h3>
+    <p>رمز جدید از این پس برای ورود مدیر و رمزگذاری فایل‌های Excel خروجی استفاده می‌شود.</p>
+    <div class="stack">
+      <input id="adminOldPass" type="password" autocomplete="current-password" placeholder="رمز فعلی" />
+      <input id="adminNewPass" type="password" autocomplete="new-password" placeholder="رمز جدید (حداقل ۶ کاراکتر)" />
+      <input id="adminNewPass2" type="password" autocomplete="new-password" placeholder="تکرار رمز جدید" />
+    </div>
+    <div id="adminPassError" class="attempts"></div>
+    <div class="row"><button id="adminPassSave" class="btn primary">ذخیره رمز جدید</button><button id="adminPassCancel" class="btn ghost">انصراف</button></div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-populate@1.21.0/browser/xlsx-populate.min.js"></script>
 <script>
 'use strict';
 
 const APP_MIME = 'application/vnd.landcard.v1+json';
+const AUTH_KEY='mahmoudieh_admin_auth_v1';
+let sessionAdminPassword='';
+let authenticated=false;
 const FIELD_DEFS = [
   ['fullName','نام و نام خانوادگی','مثال: علی رضایی',false],
   ['nationalId','کد ملی','۱۰ رقم',true],
@@ -187,6 +223,23 @@ async function sha256Hex(text){
   return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
 function randomSalt(){ const a=crypto.getRandomValues(new Uint8Array(16)); return [...a].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+async function authHash(password,salt){ return sha256Hex(`${salt}|${password}|MAHMOUDIEH-ADMIN-V1`); }
+async function ensureAdminAuth(){
+  let a=null; try{a=JSON.parse(localStorage.getItem(AUTH_KEY)||'null')}catch{}
+  if(!a?.salt||!a?.hash){ const salt=randomSalt(); a={user:'admin',salt,hash:await authHash('admin',salt)}; localStorage.setItem(AUTH_KEY,JSON.stringify(a)); }
+  return a;
+}
+async function verifyAdmin(user,pass){ const a=await ensureAdminAuth(); return String(user||'').trim()==='admin' && (await authHash(pass,a.salt))===a.hash; }
+async function saveAdminPassword(newPass){ const salt=randomSalt(); localStorage.setItem(AUTH_KEY,JSON.stringify({user:'admin',salt,hash:await authHash(newPass,salt)})); sessionAdminPassword=newPass; }
+function setAuthenticated(on){ authenticated=on; $('#loginGate').classList.toggle('hidden',on); if(on){ $('#loginPass').value=''; $('#loginError').textContent=''; } }
+async function updateDefaultPassNotice(){ if(!authenticated)return; $('#defaultPassNotice').style.display=(await verifyAdmin('admin','admin'))?'block':'none'; }
+
+$('#loginBtn').addEventListener('click',async()=>{ const user=$('#loginUser').value, pass=$('#loginPass').value; if(await verifyAdmin(user,pass)){ sessionAdminPassword=pass; setAuthenticated(true); await updateDefaultPassNotice(); checkNfcCapability(); } else { $('#loginError').textContent='نام کاربری یا رمز عبور صحیح نیست.'; } });
+$('#loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')$('#loginBtn').click()});
+$('#logoutAdmin').addEventListener('click',()=>{ sessionAdminPassword=''; setAuthenticated(false); showScreen('home'); });
+$('#changeAdminPass').addEventListener('click',()=>{ $('#adminOldPass').value='';$('#adminNewPass').value='';$('#adminNewPass2').value='';$('#adminPassError').textContent='';$('#adminPasswordOverlay').classList.add('show'); setTimeout(()=>$('#adminOldPass').focus(),80); });
+$('#adminPassCancel').addEventListener('click',()=>$('#adminPasswordOverlay').classList.remove('show'));
+$('#adminPassSave').addEventListener('click',async()=>{ const oldp=$('#adminOldPass').value, np=$('#adminNewPass').value, np2=$('#adminNewPass2').value; if(!(await verifyAdmin('admin',oldp))){$('#adminPassError').textContent='رمز فعلی اشتباه است.';return;} if(np.length<6){$('#adminPassError').textContent='رمز جدید حداقل ۶ کاراکتر باشد.';return;} if(np!==np2){$('#adminPassError').textContent='تکرار رمز جدید مطابقت ندارد.';return;} await saveAdminPassword(np); $('#adminPasswordOverlay').classList.remove('show'); await updateDefaultPassNotice(); alert('رمز مدیر با موفقیت تغییر کرد. فایل‌های Excel بعدی با همین رمز رمزگذاری می‌شوند.'); });
 async function makePasswordHash(password,salt,uid){ return sha256Hex(`${salt}|${uid}|${password}|LANDCARD-V1`); }
 async function verifyPassword(password,payload){
   if(!payload?.security?.salt || !payload?.security?.passwordHash) return false;
@@ -530,11 +583,23 @@ function stopBulk(done=false){
   $('#bulkStart').disabled=!bulkQueue.length || bulkIndex>=bulkQueue.length; $('#bulkStop').disabled=true;
   if(!done) setStatus('#bulkStatus','صدور متوقف شد. می‌توانید از همان ردیف ادامه دهید.','warn');
 }
+async function readExcelForBulk(file){
+  const raw=await file.arrayBuffer();
+  try{ XLSX.read(raw,{type:'array'}); return raw; }
+  catch(firstErr){
+    if(typeof XlsxPopulate==='undefined' || !sessionAdminPassword) throw firstErr;
+    try{
+      const wb=await XlsxPopulate.fromDataAsync(file,{password:sessionAdminPassword});
+      const blob=await wb.outputAsync();
+      return await blob.arrayBuffer();
+    }catch(e){ throw new Error('ENCRYPTED_OR_INVALID_EXCEL'); }
+  }
+}
 $('#bulkFile').addEventListener('change',async e=>{
   const file=e.target.files?.[0]; if(!file) return;
   if(typeof XLSX==='undefined'){ setStatus('#bulkMapInfo','کتابخانه Excel بارگذاری نشد. اتصال اینترنت را بررسی و صفحه را Refresh کنید.','err'); return; }
   try{
-    bulkFileName=file.name; const data=await file.arrayBuffer(); bulkWorkbook=XLSX.read(data,{type:'array'}); bulkSheetName=bulkWorkbook.SheetNames[0]; bulkSheet=bulkWorkbook.Sheets[bulkSheetName];
+    bulkFileName=file.name; const data=await readExcelForBulk(file); bulkWorkbook=XLSX.read(data,{type:'array'}); bulkSheetName=bulkWorkbook.SheetNames[0]; bulkSheet=bulkWorkbook.Sheets[bulkSheetName];
     const rows=XLSX.utils.sheet_to_json(bulkSheet,{defval:'',raw:false});
     bulkHeaders=rows.length?Object.keys(rows[0]):[]; bulkMap=mapBulkHeaders(bulkHeaders);
     const missing=Object.entries(bulkMap).filter(([,v])=>!v).map(([k])=>FIELD_DEFS.find(x=>x[0]===k)?.[1]||k);
@@ -545,7 +610,7 @@ $('#bulkFile').addEventListener('change',async e=>{
     bulkIndex=0; bulkLastUid='';
     setStatus('#bulkMapInfo',`فایل «${file.name}» خوانده شد. ${bulkQueue.length} ردیف تا آخرین توالی شماره قطعه آماده صدور است.`,'ok');
     $('#bulkStart').disabled=!bulkQueue.length; $('#bulkStop').disabled=true; $('#bulkLog').textContent='گزارش عملیات اینجا نمایش داده می‌شود.'; updateBulkStats();
-  }catch(err){ console.error(err); setStatus('#bulkMapInfo','خواندن فایل Excel ناموفق بود. فایل .xlsx یا .xls معتبر انتخاب کنید.','err'); }
+  }catch(err){ console.error(err); setStatus('#bulkMapInfo',String(err?.message).includes('ENCRYPTED_OR_INVALID_EXCEL')?'فایل Excel باز نشد. اگر فایل رمزگذاری‌شده است، باید با همان رمز فعلی مدیر ساخته شده باشد.':'خواندن فایل Excel ناموفق بود. فایل .xlsx یا .xls معتبر انتخاب کنید.','err'); }
 });
 $('#bulkStart').addEventListener('click',async()=>{
   if(!bulkQueue.length || bulkIndex>=bulkQueue.length) return;
@@ -560,11 +625,23 @@ $('#bulkSimNext').addEventListener('click',async()=>{
   const n=(bulkIndex+1).toString(16).toUpperCase().padStart(6,'0'); const uid=('04BULK'+n).replace(/[^A-F0-9]/g,'A').slice(0,14);
   await processBulkUid(uid,{simulate:true});
 });
-$('#bulkDownload').addEventListener('click',()=>{
-  if(!bulkWorkbook) return; const base=bulkFileName.replace(/\.(xlsx|xls)$/i,''); XLSX.writeFile(bulkWorkbook,base+'_UID.xlsx',{bookType:'xlsx'});
+$('#bulkDownload').addEventListener('click',async()=>{
+  if(!bulkWorkbook) return;
+  if(!sessionAdminPassword){ setStatus('#bulkStatus','جلسه مدیر معتبر نیست. دوباره وارد سامانه شوید.','err'); return; }
+  const btn=$('#bulkDownload'), oldText=btn.textContent; btn.disabled=true; btn.textContent='در حال رمزگذاری Excel...';
+  try{
+    if(typeof XlsxPopulate==='undefined') throw new Error('XLSX_POPULATE_MISSING');
+    const base=bulkFileName.replace(/\.(xlsx|xls)$/i,'');
+    const raw=XLSX.write(bulkWorkbook,{bookType:'xlsx',type:'array'});
+    const wb=await XlsxPopulate.fromDataAsync(raw);
+    const blob=await wb.outputAsync({password:sessionAdminPassword});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=base+'_UID_PROTECTED.xlsx'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+    setStatus('#bulkStatus','Excel نهایی با رمز فعلی مدیر ساخته شد. برای باز کردن فایل، همان رمز مدیر لازم است.','ok');
+  }catch(err){ console.error(err); setStatus('#bulkStatus','رمزگذاری فایل Excel انجام نشد. اتصال اینترنت برای بارگذاری کتابخانه رمزگذاری را بررسی کنید.','err'); }
+  finally{ btn.textContent=oldText; btn.disabled=!bulkWorkbook; }
 });
 
-checkNfcCapability();
+ensureAdminAuth().then(()=>setAuthenticated(false));
 </script>
 </body>
 </html>
