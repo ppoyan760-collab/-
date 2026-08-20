@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#0f172a" />
-  <title>سامانه کارت هوشمند روستای محمودیه</title>
+  <title>سامانه کارت هوشمند روستای محمودیه - V5</title>
   <style>
     :root{--bg:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--primary:#2563eb;--primary2:#1d4ed8;--danger:#dc2626;--ok:#16a34a;--shadow:0 18px 50px rgba(15,23,42,.12);--r:22px}
     *{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Tahoma,"Vazirmatn","Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f8fafc 38%,#f1f5f9 100%);color:var(--ink)}
@@ -260,16 +260,44 @@ async function checkNfcCapability(){
   warn.textContent='این محیط به NFC واقعی دسترسی ندارد؛ برنامه برای تست رابط و منطق خواندن/نوشتن با کارت مجازی اجرا می‌شود. روی Android/Chrome و HTTPS از NFC واقعی استفاده خواهد شد.';
 }
 
-function getSimCard(){
-  try{ const raw=localStorage.getItem(SIM_KEY); return raw?JSON.parse(raw):null; }catch{return null;}
+const SIM_STORE_KEY = SIM_KEY + '_BY_UID';
+function getSimStore(){
+  try{
+    const raw=localStorage.getItem(SIM_STORE_KEY);
+    const store=raw?JSON.parse(raw):{};
+    // مهاجرت خودکار از ساختار قدیمی تک‌کارتی نسخه V4
+    const legacy=localStorage.getItem(SIM_KEY);
+    if(legacy){
+      try{
+        const p=JSON.parse(legacy);
+        const u=normalizeUid(p?.uid||'');
+        if(u && u!=='UNKNOWN' && !store[u]) store[u]=p;
+        localStorage.setItem(SIM_STORE_KEY,JSON.stringify(store));
+        localStorage.removeItem(SIM_KEY);
+      }catch{}
+    }
+    return store && typeof store==='object' ? store : {};
+  }catch{return {};}
 }
-function setSimCard(payload){ localStorage.setItem(SIM_KEY,JSON.stringify(payload)); }
+function saveSimStore(store){ localStorage.setItem(SIM_STORE_KEY,JSON.stringify(store)); }
+function getSimCard(uid=SIM_UID){ const u=normalizeUid(uid); const store=getSimStore(); return store[u]||null; }
+function setSimCard(payload,uid=payload?.uid||SIM_UID){
+  const u=normalizeUid(uid);
+  if(!u || u==='UNKNOWN') return;
+  const store=getSimStore();
+  store[u]={...payload,uid:u};
+  saveSimStore(store);
+}
+function deleteSimCard(uid=SIM_UID){
+  const u=normalizeUid(uid); const store=getSimStore(); delete store[u]; saveSimStore(store);
+}
 async function simulateReadEvent(){
   await new Promise(r=>setTimeout(r,420));
   if(testMode && !virtualCardPresent) throw new Error('VIRTUAL_CARD_NOT_PRESENT');
-  const payload=getSimCard();
+  const uid=normalizeUid(SIM_UID);
+  const payload=getSimCard(uid);
   const fakeRecord = payload ? [{recordType:'mime',mediaType:APP_MIME,encoding:'utf-8',data:new TextEncoder().encode(JSON.stringify(payload))}] : [];
-  return {serialNumber:SIM_UID,message:{records:fakeRecord}};
+  return {serialNumber:uid,message:{records:fakeRecord}};
 }
 async function readCardEvent(){ return (simulatorMode || testMode) ? simulateReadEvent() : scanOnce(); }
 
@@ -348,7 +376,7 @@ $('#saveCard').addEventListener('click',async()=>{
   try{
     if(simulatorMode || testMode){
       await new Promise(r=>setTimeout(r,420));
-      setSimCard(payload);
+      setSimCard(payload,currentUid);
     }else{
       const ndef=new NDEFReader();
       await ndef.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});
@@ -390,7 +418,7 @@ $('#testUidInput').addEventListener('input',()=>{
   if(virtualCardPresent) updateTestState(`کارت مجازی با UID ${SIM_UID} نزدیک گوشی است.`);
 });
 $('#testCreateCard').addEventListener('click',()=>{
-  localStorage.removeItem(SIM_KEY);
+  deleteSimCard(SIM_UID);
   virtualCardPresent=true;
   const v=normalizeUid($('#testUidInput').value); if(v && v!=='UNKNOWN') SIM_UID=v;
   updateTestState(`کارت مجازی خالی با UID ${SIM_UID} ساخته و به گوشی نزدیک شد.`);
@@ -405,7 +433,7 @@ $('#testRemoveCard').addEventListener('click',()=>{
   updateTestState('کارت مجازی از گوشی دور شد.');
 });
 $('#testDeleteCard').addEventListener('click',()=>{
-  localStorage.removeItem(SIM_KEY); virtualCardPresent=false;
+  deleteSimCard(SIM_UID); virtualCardPresent=false;
   updateTestState('اطلاعات کارت مجازی پاک شد و کارت از گوشی دور شد.');
 });
 
@@ -481,7 +509,7 @@ async function processBulkUid(uid,{simulate=false}={}){
   setStatus('#bulkStatus',`کارت UID ${uid} شناسایی شد؛ در حال نوشتن ردیف ${item.excelRow}...`,'info');
   try{
     const payload=await buildBulkPayload(uid,data);
-    if(simulate || testMode){ await new Promise(r=>setTimeout(r,220)); setSimCard(payload); }
+    if(simulate || testMode){ await new Promise(r=>setTimeout(r,220)); setSimCard(payload,uid); }
     else await writeBulkToRealCard(payload);
     setBulkUidInSheet(item.excelRow,uid); bulkLastUid=uid; bulkIndex++;
     bulkLog(`ردیف ${item.excelRow} روی کارت ${uid} نوشته شد.`,'ok'); updateBulkStats();
