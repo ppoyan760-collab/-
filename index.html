@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>سامانه کارت هوشمند روستای محمودیه</title>
+  <style>
+    :root{--bg:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--primary:#2563eb;--primary2:#1d4ed8;--danger:#dc2626;--ok:#16a34a;--shadow:0 18px 50px rgba(15,23,42,.12);--r:22px}
+    *{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Tahoma,"Vazirmatn","Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f8fafc 38%,#f1f5f9 100%);color:var(--ink)}
+    body{min-height:100dvh}.app{width:min(100%,720px);margin:auto;padding:max(18px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:11px}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:white;box-shadow:0 10px 24px rgba(37,99,235,.25);font-weight:900}.brand h1{font-size:18px;margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}.badge{padding:8px 10px;border-radius:999px;background:#e2e8f0;color:#475569;font-size:11px;white-space:nowrap}.badge.ok{background:#dcfce7;color:#166534}.badge.err{background:#fee2e2;color:#991b1b}
+    .screen{display:none}.screen.active{display:block}.panel{background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.8);border-radius:var(--r);box-shadow:var(--shadow);padding:20px}.hero{padding:26px 20px;text-align:center}.hero-icon{width:82px;height:82px;margin:0 auto 16px;border-radius:26px;background:#dbeafe;display:grid;place-items:center;font-size:36px}.hero h2{margin:0 0 8px;font-size:23px}.hero p{margin:0 auto;color:var(--muted);line-height:1.9;font-size:14px;max-width:460px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+    button{appearance:none;border:0;font:inherit;cursor:pointer}.btn{min-height:54px;border-radius:16px;padding:12px 16px;font-weight:800;transition:.18s transform,.18s opacity,.18s background}.btn:active{transform:scale(.98)}.btn.primary{background:var(--primary);color:#fff}.btn.primary:hover{background:var(--primary2)}.btn.secondary{background:#eef2ff;color:#1e40af}.btn.ghost{background:#f8fafc;color:#334155;border:1px solid var(--line)}.btn.danger{background:#fee2e2;color:#991b1b}.btn:disabled{opacity:.45;cursor:not-allowed}
+    .screen-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.screen-head h2{margin:0;font-size:18px}.back{width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--line);font-size:20px;color:#334155}.hint{border:1px dashed #93c5fd;background:#eff6ff;color:#1e3a8a;padding:12px 14px;border-radius:15px;font-size:13px;line-height:1.8;margin-bottom:14px}
+    .card{background:linear-gradient(145deg,#0f172a,#1e293b);color:white;border-radius:24px;padding:20px;box-shadow:0 22px 48px rgba(15,23,42,.24);position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(59,130,246,.18);left:-70px;top:-70px}.card-title{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.card-title strong{font-size:16px}.uid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;direction:ltr;text-align:left;font-size:11px;background:rgba(255,255,255,.1);padding:7px 9px;border-radius:10px;max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fields{position:relative;display:grid;gap:10px}.field{display:grid;grid-template-columns:145px 1fr;align-items:center;gap:10px}.field label{font-size:12px;color:#cbd5e1}.value,.input{min-height:43px;border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:flex-start}.value{background:rgba(255,255,255,.08);font-size:14px;min-width:0;word-break:break-word}.input{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);color:white;outline:none;font:inherit}.input::placeholder{color:#94a3b8}.input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,.14)}.input[readonly]{opacity:.8}.ltr{direction:ltr;text-align:right}.footer-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .status{margin-top:14px;padding:11px 13px;border-radius:13px;font-size:13px;display:none}.status.show{display:block}.status.info{background:#eff6ff;color:#1e40af}.status.ok{background:#dcfce7;color:#166534}.status.err{background:#fee2e2;color:#991b1b}.status.warn{background:#fef3c7;color:#92400e}
+    .overlay{position:fixed;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.overlay.show{display:flex}.modal{width:min(100%,420px);background:#fff;border-radius:22px;padding:20px;box-shadow:0 26px 70px rgba(15,23,42,.3)}.modal h3{margin:0 0 8px;font-size:18px}.modal p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.8}.modal input{width:100%;height:50px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none}.modal input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.attempts{font-size:12px;color:var(--danger);min-height:18px;margin-top:8px}
+    .nfc-warning{display:none;margin-bottom:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.8}.nfc-warning.show{display:block}
+    @media(max-width:520px){.brand h1{font-size:15px;line-height:1.55}.app{padding-left:12px;padding-right:12px}.panel{padding:15px}.actions{grid-template-columns:1fr}.field{grid-template-columns:1fr;gap:5px}.field label{font-size:11px}.card{padding:16px}.card-title{align-items:flex-start;flex-direction:column}.uid{max-width:100%}.footer-actions{grid-template-columns:1fr}.brand p{display:none}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="logo">م</div><div><h1>سامانه کارت هوشمند روستای محمودیه</h1><p>ثبت و مشاهده اطلاعات کارت ملک</p></div></div>
+    <div id="nfcBadge" class="badge">در حال بررسی NFC</div>
+  </header>
+
+  <div id="nfcWarning" class="nfc-warning">NFC در دسترس نیست یا خاموش است. NFC گوشی را از تنظیمات سریع/Settings روشن کنید و سپس دوباره دکمه خواندن یا نوشتن را بزنید.</div>
+
+  <section id="homeScreen" class="screen active">
+    <div class="panel hero">
+      <div class="hero-icon">📶</div>
+      <h2>سامانه کارت هوشمند روستای محمودیه</h2>
+      <p>برای مشاهده اطلاعات کارت گزینه «خواندن» و برای ثبت یا ویرایش اطلاعات گزینه «نوشتن» را انتخاب کنید.</p>
+      <div class="actions">
+        <button class="btn primary" id="goRead">خواندن کارت</button>
+        <button class="btn secondary" id="goWrite">نوشتن / ویرایش کارت</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="readScreen" class="screen">
+    <div class="screen-head"><h2>خواندن کارت</h2><button class="back" data-home aria-label="بازگشت">←</button></div>
+    <div class="hint">دکمه «شروع خواندن» را بزنید، سپس کارت NFC را به پشت گوشی نزدیک کنید. فیلدها فقط نمایشی هستند و قابل تغییر نیستند.</div>
+    <div class="card">
+      <div class="card-title"><strong>مشخصات کارت هوشمند ملک</strong><span id="readUid" class="uid">UID: —</span></div>
+      <div id="readFields" class="fields"></div>
+    </div>
+    <div class="footer-actions"><button id="startRead" class="btn primary">شروع خواندن</button><button class="btn ghost" data-home>بازگشت</button></div>
+    <div id="readStatus" class="status"></div>
+  </section>
+
+  <section id="writeScreen" class="screen">
+    <div class="screen-head"><h2>نوشتن / ویرایش کارت</h2><button class="back" data-home aria-label="بازگشت">←</button></div>
+    <div class="hint">ابتدا کارت را بخوانید. اگر کارت قبلاً رمز داشته باشد، برای فعال شدن ویرایش باید رمز صحیح وارد شود. کارت جدید هنگام اولین ذخیره باید رمز دریافت کند.</div>
+    <div class="card">
+      <div class="card-title"><strong>ویرایش مشخصات کارت هوشمند ملک</strong><span id="writeUid" class="uid">UID: —</span></div>
+      <div id="writeFields" class="fields"></div>
+    </div>
+    <div class="footer-actions"><button id="scanForEdit" class="btn secondary">خواندن کارت برای ویرایش</button><button id="saveCard" class="btn primary" disabled>ذخیره روی کارت</button></div>
+    <div id="writeStatus" class="status"></div>
+  </section>
+</div>
+
+<div id="passwordOverlay" class="overlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h3 id="passwordTitle">رمز کارت را وارد کنید</h3>
+    <p id="passwordText">برای ویرایش اطلاعات این کارت، رمز آن را وارد کنید.</p>
+    <input id="passwordInput" type="password" inputmode="numeric" autocomplete="off" maxlength="32" placeholder="رمز کارت" />
+    <div id="attemptsText" class="attempts"></div>
+    <div class="row"><button id="passwordConfirm" class="btn primary">تأیید</button><button id="passwordCancel" class="btn ghost">انصراف</button></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const APP_MIME = 'application/vnd.landcard.v1+json';
+const FIELD_DEFS = [
+  ['fullName','نام و نام خانوادگی','مثال: علی رضایی',false],
+  ['nationalId','کد ملی','۱۰ رقم',true],
+  ['postalCode','کد پستی ملک','۱۰ رقم',true],
+  ['mobile','شماره تلفن موبایل','09xxxxxxxxx',true],
+  ['plotNumber','شماره قطعه زمین','شماره قطعه',false],
+  ['streetName','اسم خیابان محل قطعه زمین','نام خیابان',false]
+];
+
+let mode = 'home';
+let currentUid = '';
+let currentPayload = null;
+let editUnlocked = false;
+let pendingPasswordAction = null;
+let passwordAttempts = 0;
+let simulatorMode = false;
+const SIM_KEY = 'mahmoudieh_nfc_demo_card_v1';
+const SIM_UID = '04A1B2C3D4E5F6';
+
+const $ = s => document.querySelector(s);
+const screens = [...document.querySelectorAll('.screen')];
+
+function showScreen(name){
+  mode = name;
+  screens.forEach(x => x.classList.remove('active'));
+  $('#' + name + 'Screen').classList.add('active');
+  clearStatus('#readStatus'); clearStatus('#writeStatus');
+}
+
+function renderFields(){
+  $('#readFields').innerHTML = FIELD_DEFS.map(([key,label]) => `<div class="field"><label>${label}</label><div class="value" id="read_${key}">—</div></div>`).join('');
+  $('#writeFields').innerHTML = FIELD_DEFS.map(([key,label,ph,ltr]) => `<div class="field"><label for="write_${key}">${label}</label><input class="input ${ltr?'ltr':''}" id="write_${key}" data-key="${key}" placeholder="${ph}" disabled></div>`).join('');
+}
+renderFields();
+
+function setStatus(sel,msg,type='info'){
+  const el=$(sel); el.textContent=msg; el.className=`status show ${type}`;
+}
+function clearStatus(sel){ const el=$(sel); el.textContent=''; el.className='status'; }
+function normalizeUid(uid){ return (uid || '').replace(/[^a-fA-F0-9]/g,'').toUpperCase() || 'UNKNOWN'; }
+function setUid(uid){ currentUid=normalizeUid(uid); $('#readUid').textContent='UID: '+currentUid; $('#writeUid').textContent='UID: '+currentUid; }
+function emptyData(){ return Object.fromEntries(FIELD_DEFS.map(([k])=>[k,''])); }
+function fillRead(data={}){ FIELD_DEFS.forEach(([k])=>$('#read_'+k).textContent=(data[k] ?? '') || '—'); }
+function fillWrite(data={}){ FIELD_DEFS.forEach(([k])=>$('#write_'+k).value=data[k] ?? ''); }
+function setWriteEnabled(enabled){ FIELD_DEFS.forEach(([k])=>$('#write_'+k).disabled=!enabled); $('#saveCard').disabled=!enabled; editUnlocked=enabled; }
+function collectWriteData(){ const d={}; FIELD_DEFS.forEach(([k])=>d[k]=$('#write_'+k).value.trim()); return d; }
+
+async function sha256Hex(text){
+  const b = new TextEncoder().encode(text);
+  const h = await crypto.subtle.digest('SHA-256', b);
+  return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function randomSalt(){ const a=crypto.getRandomValues(new Uint8Array(16)); return [...a].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+async function makePasswordHash(password,salt,uid){ return sha256Hex(`${salt}|${uid}|${password}|LANDCARD-V1`); }
+async function verifyPassword(password,payload){
+  if(!payload?.security?.salt || !payload?.security?.passwordHash) return false;
+  const h=await makePasswordHash(password,payload.security.salt,currentUid);
+  return h===payload.security.passwordHash;
+}
+
+function parseNdefMessage(message){
+  for(const record of message.records){
+    try{
+      const media=(record.mediaType||'').toLowerCase();
+      if(record.recordType==='mime' && media===APP_MIME){
+        const txt=new TextDecoder(record.encoding || 'utf-8').decode(record.data);
+        return JSON.parse(txt);
+      }
+      if(record.recordType==='text'){
+        const txt=new TextDecoder(record.encoding || 'utf-8').decode(record.data);
+        const obj=JSON.parse(txt);
+        if(obj?.app==='landcard' && obj?.version===1) return obj;
+      }
+    }catch(e){ console.warn('Record parse failed',e); }
+  }
+  return null;
+}
+
+function makePayload(data, security){
+  return {app:'landcard',version:1,uid:currentUid,data,security,updatedAt:new Date().toISOString()};
+}
+
+async function scanOnce(){
+  if(!('NDEFReader' in window)) throw new Error('WEB_NFC_UNSUPPORTED');
+  const ndef=new NDEFReader();
+  const controller=new AbortController();
+  return new Promise(async(resolve,reject)=>{
+    let settled=false;
+    const finish=(fn,val)=>{ if(settled)return; settled=true; try{controller.abort();}catch{} fn(val); };
+    ndef.addEventListener('reading', e=>finish(resolve,e), {once:true});
+    ndef.addEventListener('readingerror', ()=>finish(reject,new Error('READ_ERROR')), {once:true});
+    try{ await ndef.scan({signal:controller.signal}); }
+    catch(err){ finish(reject,err); }
+  });
+}
+
+function friendlyNfcError(err){
+  const name=err?.name||''; const msg=String(err?.message||err||'');
+  if(msg.includes('WEB_NFC_UNSUPPORTED')) return 'این مرورگر Web NFC را پشتیبانی نمی‌کند. با Chrome روی Android و سایت HTTPS تست کنید.';
+  if(name==='NotAllowedError') return 'مجوز NFC داده نشده یا دسترسی رد شده است.';
+  if(name==='NotSupportedError') return 'NFC روی این گوشی/مرورگر پشتیبانی نمی‌شود یا در دسترس نیست.';
+  if(name==='NotReadableError') return 'NFC احتمالاً خاموش است یا سیستم اجازه دسترسی نمی‌دهد. NFC گوشی را روشن کنید.';
+  if(name==='AbortError') return 'عملیات NFC متوقف شد.';
+  return 'خطای NFC: ' + (msg || name || 'نامشخص');
+}
+
+async function checkNfcCapability(){
+  const badge=$('#nfcBadge'), warn=$('#nfcWarning');
+  if(window.isSecureContext && ('NDEFReader' in window)){
+    simulatorMode=false;
+    badge.textContent='NFC واقعی'; badge.className='badge ok'; warn.classList.remove('show');
+    try{
+      if(navigator.permissions?.query){
+        const p=await navigator.permissions.query({name:'nfc'});
+        if(p.state==='denied'){ badge.textContent='مجوز NFC مسدود است'; badge.className='badge err'; }
+      }
+    }catch{}
+    return;
+  }
+  simulatorMode=true;
+  badge.textContent='حالت شبیه‌ساز'; badge.className='badge';
+  warn.classList.add('show');
+  warn.textContent='این محیط به NFC واقعی دسترسی ندارد؛ برنامه برای تست رابط و منطق خواندن/نوشتن با کارت مجازی اجرا می‌شود. روی Android/Chrome و HTTPS از NFC واقعی استفاده خواهد شد.';
+}
+
+function getSimCard(){
+  try{ const raw=localStorage.getItem(SIM_KEY); return raw?JSON.parse(raw):null; }catch{return null;}
+}
+function setSimCard(payload){ localStorage.setItem(SIM_KEY,JSON.stringify(payload)); }
+async function simulateReadEvent(){
+  await new Promise(r=>setTimeout(r,420));
+  const payload=getSimCard();
+  const fakeRecord = payload ? [{recordType:'mime',mediaType:APP_MIME,encoding:'utf-8',data:new TextEncoder().encode(JSON.stringify(payload))}] : [];
+  return {serialNumber:SIM_UID,message:{records:fakeRecord}};
+}
+async function readCardEvent(){ return simulatorMode ? simulateReadEvent() : scanOnce(); }
+
+function openPassword(type){
+  passwordAttempts=0; pendingPasswordAction=type;
+  const isNew=type==='create';
+  $('#passwordTitle').textContent=isNew?'تعیین رمز کارت':'رمز کارت را وارد کنید';
+  $('#passwordText').textContent=isNew?'برای کارت جدید یک رمز تعیین کنید. این رمز برای ویرایش‌های بعدی لازم است.':'برای ویرایش اطلاعات این کارت، رمز آن را وارد کنید.';
+  $('#passwordInput').value=''; $('#attemptsText').textContent='';
+  $('#passwordOverlay').classList.add('show'); setTimeout(()=>$('#passwordInput').focus(),80);
+}
+function closePassword(){ $('#passwordOverlay').classList.remove('show'); pendingPasswordAction=null; }
+
+$('#passwordConfirm').addEventListener('click', async()=>{
+  const pass=$('#passwordInput').value;
+  if(!pass){ $('#attemptsText').textContent='رمز را وارد کنید.'; return; }
+  if(pendingPasswordAction==='create'){
+    if(pass.length<4){ $('#attemptsText').textContent='رمز حداقل ۴ کاراکتر باشد.'; return; }
+    const salt=randomSalt();
+    currentPayload=makePayload(collectWriteData(),{salt,passwordHash:await makePasswordHash(pass,salt,currentUid)});
+    closePassword(); setWriteEnabled(true); setStatus('#writeStatus','رمز کارت تعیین شد. اطلاعات را تکمیل و «ذخیره روی کارت» را بزنید.','ok');
+    return;
+  }
+  if(pendingPasswordAction==='unlock'){
+    const ok=await verifyPassword(pass,currentPayload);
+    if(ok){ closePassword(); setWriteEnabled(true); setStatus('#writeStatus','رمز صحیح است؛ ویرایش اطلاعات فعال شد.','ok'); return; }
+    passwordAttempts++;
+    const remain=3-passwordAttempts;
+    if(remain>0){ $('#attemptsText').textContent=`رمز اشتباه است. ${remain} بار دیگر فرصت دارید.`; $('#passwordInput').value=''; $('#passwordInput').focus(); }
+    else{ closePassword(); setWriteEnabled(false); currentPayload=null; currentUid=''; fillWrite(emptyData()); $('#writeUid').textContent='UID: —'; showScreen('home'); alert('رمز سه مرتبه اشتباه وارد شد. به منوی اصلی برگشتید.'); }
+  }
+});
+$('#passwordCancel').addEventListener('click',()=>{ closePassword(); if(mode==='write') setWriteEnabled(false); });
+$('#passwordInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#passwordConfirm').click()});
+
+$('#goRead').onclick=()=>{ showScreen('read'); fillRead(emptyData()); $('#readUid').textContent='UID: —'; };
+$('#goWrite').onclick=()=>{ showScreen('write'); fillWrite(emptyData()); $('#writeUid').textContent='UID: —'; setWriteEnabled(false); currentPayload=null; currentUid=''; };
+document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>showScreen('home'));
+
+$('#startRead').addEventListener('click',async()=>{
+  setStatus('#readStatus',simulatorMode?'در حال خواندن کارت مجازی...':'منتظر کارت NFC... کارت را به گوشی نزدیک کنید.','info');
+  try{
+    const e=await readCardEvent(); setUid(e.serialNumber);
+    const p=parseNdefMessage(e.message);
+    if(!p){ fillRead(emptyData()); setStatus('#readStatus','کارت خوانده شد، اما اطلاعات معتبر این برنامه روی آن پیدا نشد.','warn'); return; }
+    if(p.uid && normalizeUid(p.uid)!==currentUid){ fillRead(emptyData()); setStatus('#readStatus','هشدار: UID ثبت‌شده داخل داده با UID فیزیکی کارت مطابقت ندارد.','err'); return; }
+    currentPayload=p; fillRead(p.data||{}); setStatus('#readStatus','اطلاعات کارت با موفقیت خوانده شد.','ok');
+  }catch(err){ setStatus('#readStatus',friendlyNfcError(err),'err'); $('#nfcWarning').classList.add('show'); }
+});
+
+$('#scanForEdit').addEventListener('click',async()=>{
+  setWriteEnabled(false); currentPayload=null; fillWrite(emptyData());
+  setStatus('#writeStatus',simulatorMode?'در حال خواندن کارت مجازی برای ویرایش...':'منتظر کارت NFC... کارت را به گوشی نزدیک کنید.','info');
+  try{
+    const e=await readCardEvent(); setUid(e.serialNumber);
+    const p=parseNdefMessage(e.message);
+    if(!p){
+      currentPayload=null; fillWrite(emptyData());
+      setStatus('#writeStatus','کارت جدید/بدون داده شناسایی شد. ابتدا برای آن رمز تعیین کنید.','warn');
+      openPassword('create'); return;
+    }
+    if(p.uid && normalizeUid(p.uid)!==currentUid){ setStatus('#writeStatus','UID داده داخل کارت با UID فیزیکی کارت یکی نیست؛ ویرایش متوقف شد.','err'); return; }
+    currentPayload=p; fillWrite(p.data||{});
+    if(p.security?.passwordHash){ openPassword('unlock'); }
+    else{ setStatus('#writeStatus','این کارت قدیمی رمز ندارد. برای ادامه یک رمز جدید تعیین کنید.','warn'); openPassword('create'); }
+  }catch(err){ setStatus('#writeStatus',friendlyNfcError(err),'err'); $('#nfcWarning').classList.add('show'); }
+});
+
+$('#saveCard').addEventListener('click',async()=>{
+  if(!editUnlocked || !currentUid){ setStatus('#writeStatus','ابتدا کارت را بخوانید و قفل ویرایش را باز کنید.','err'); return; }
+  const data=collectWriteData();
+  if(!currentPayload?.security?.passwordHash){ setStatus('#writeStatus','برای کارت رمز تعریف نشده است.','err'); return; }
+  const payload=makePayload(data,currentPayload.security);
+  setStatus('#writeStatus',simulatorMode?'در حال ذخیره روی کارت مجازی...':'آماده نوشتن... همان کارت را به گوشی نزدیک کنید و تا پایان عملیات نگه دارید.','info');
+  try{
+    if(simulatorMode){
+      await new Promise(r=>setTimeout(r,420));
+      setSimCard(payload);
+    }else{
+      const ndef=new NDEFReader();
+      await ndef.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});
+    }
+    currentPayload=payload;
+    setStatus('#writeStatus',simulatorMode?'اطلاعات با موفقیت روی کارت مجازی ذخیره شد. اکنون از بخش «خواندن کارت» آن را تست کنید.':'اطلاعات با موفقیت روی کارت نوشته شد. برای اطمینان می‌توانید دوباره آن را بخوانید.','ok');
+    setWriteEnabled(false);
+  }catch(err){ setStatus('#writeStatus',friendlyNfcError(err),'err'); }
+});
+
+checkNfcCapability();
+</script>
+</body>
+</html>
