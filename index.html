@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#0f172a" />
-<title>سامانه کارت هوشمند روستای محمودیه - V11.8.13</title>
+<title>سامانه کارت هوشمند روستای محمودیه - V11.8.14</title>
 <style>
 :root{--bg:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--primary:#2563eb;--primary2:#1d4ed8;--danger:#dc2626;--ok:#16a34a;--shadow:0 18px 50px rgba(15,23,42,.12);--r:22px}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Tahoma,"Vazirmatn","Segoe UI",sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f8fafc 38%,#f1f5f9 100%);color:var(--ink)}body{min-height:100dvh}.app{width:min(100%,720px);margin:auto;padding:max(18px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:11px}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:white;box-shadow:0 10px 24px rgba(37,99,235,.25);font-weight:900;user-select:none}.logo.test-on{outline:4px solid #fbbf24}.brand h1{font-size:18px;margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}.badge{padding:8px 10px;border-radius:999px;background:#e2e8f0;color:#475569;font-size:11px;white-space:nowrap}.badge.ok{background:#dcfce7;color:#166534}.badge.err{background:#fee2e2;color:#991b1b}.screen{display:none}.screen.active{display:block}.panel{background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.8);border-radius:var(--r);box-shadow:var(--shadow);padding:20px}.hero{padding:26px 20px;text-align:center}.hero-icon{width:82px;height:82px;margin:0 auto 16px;border-radius:26px;background:#dbeafe;display:grid;place-items:center;font-size:36px}.hero h2{margin:0 0 8px;font-size:23px}.hero p{margin:0 auto;color:var(--muted);line-height:1.9;font-size:14px;max-width:500px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}button{appearance:none;border:0;font:inherit;cursor:pointer}.btn{min-height:54px;border-radius:16px;padding:12px 16px;font-weight:800;transition:.18s transform,.18s opacity,.18s background}.btn:active{transform:scale(.98)}.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#eef2ff;color:#1e40af}.btn.ghost{background:#f8fafc;color:#334155;border:1px solid var(--line)}.btn.danger{background:#fee2e2;color:#991b1b}.btn:disabled{opacity:.45;cursor:not-allowed}.screen-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.screen-head h2{margin:0;font-size:18px}.back{width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--line);font-size:20px;color:#334155}.hint{border:1px dashed #93c5fd;background:#eff6ff;color:#1e3a8a;padding:12px 14px;border-radius:15px;font-size:13px;line-height:1.8;margin-bottom:14px}.card{background:linear-gradient(145deg,#0f172a,#1e293b);color:white;border-radius:24px;padding:20px;box-shadow:0 22px 48px rgba(15,23,42,.24);position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(59,130,246,.18);left:-70px;top:-70px}.card-title{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.card-title strong{font-size:16px}.uid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;direction:ltr;text-align:left;font-size:11px;background:rgba(255,255,255,.1);padding:7px 9px;border-radius:10px;max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fields{position:relative;display:grid;gap:10px}.field{display:grid;grid-template-columns:145px 1fr;align-items:center;gap:10px}.field label{font-size:12px;color:#cbd5e1}.value,.input{min-height:43px;border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:flex-start}.value{background:rgba(255,255,255,.08);font-size:14px;min-width:0;word-break:break-word}.input{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);color:white;outline:none;font:inherit}.input::placeholder{color:#94a3b8}.input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,.14)}.ltr{direction:ltr;text-align:right}.footer-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.status{margin-top:14px;padding:11px 13px;border-radius:13px;font-size:13px;display:none}.status.show{display:block}.status.info{background:#eff6ff;color:#1e40af}.status.ok{background:#dcfce7;color:#166534}.status.err{background:#fee2e2;color:#991b1b}.status.warn{background:#fef3c7;color:#92400e}.nfc-warning{display:none;margin-bottom:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.8}.nfc-warning.show{display:block}.overlay{position:fixed;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.overlay.show{display:flex}.modal{width:min(100%,430px);background:#fff;border-radius:22px;padding:20px;box-shadow:0 26px 70px rgba(15,23,42,.3)}.modal h3{margin:0 0 8px;font-size:18px}.modal p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.8}.modal input,.modal select{width:100%;height:50px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none;background:#fff}.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.modal .stack{display:grid;gap:10px}.attempts{font-size:12px;color:var(--danger);min-height:18px;margin-top:8px}.auth-wrap{position:fixed;inset:0;z-index:100;background:linear-gradient(160deg,#dbeafe,#f8fafc 55%,#e2e8f0);display:flex;align-items:center;justify-content:center;padding:18px}.auth-wrap.hidden{display:none}.auth-card{width:min(100%,430px);background:#fff;border:1px solid #e2e8f0;border-radius:26px;padding:24px;box-shadow:0 26px 70px rgba(15,23,42,.18)}.auth-logo{width:72px;height:72px;border-radius:22px;background:linear-gradient(145deg,var(--primary),#60a5fa);display:grid;place-items:center;color:#fff;font-size:30px;font-weight:900;margin:0 auto 14px}.auth-card h2{text-align:center;margin:0 0 6px;font-size:21px}.auth-card p{text-align:center;margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.8}.auth-field{margin-bottom:12px}.auth-field label{display:block;margin:0 0 6px;font-size:12px;color:#475569}.auth-field input,.auth-field select{width:100%;height:52px;border-radius:14px;border:1px solid var(--line);padding:0 14px;font:inherit;outline:none;background:#fff}.auth-error{min-height:22px;color:#b91c1c;font-size:12px;margin-top:8px;text-align:center}.admin-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:center}.admin-tools .btn{min-height:44px;font-size:12px}.security-note{margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff7ed;color:#9a3412;font-size:12px;line-height:1.8}.test-panel{display:none;margin-top:16px;background:#111827;color:#fff;border-radius:18px;padding:15px}.test-panel.show{display:block}.test-title{display:flex;justify-content:space-between;align-items:center}.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.test-uid{width:100%;margin-top:10px;height:46px;border:1px solid #475569;border-radius:12px;background:#1f2937;color:#fff;padding:0 12px;font-family:monospace;direction:ltr}.test-state,.test-note{margin-top:9px;font-size:12px;line-height:1.8;color:#cbd5e1}.bulk-box,.settings-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}.bulk-box h3,.settings-box h3{margin:0 0 12px;font-size:15px}.bulk-file{width:100%;padding:12px;border:1px dashed #94a3b8;border-radius:13px;background:#f8fafc}.bulk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.stat{text-align:center;padding:10px;border:1px solid var(--line);border-radius:13px}.stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--muted)}.progress{height:8px;border-radius:999px;background:#e2e8f0;overflow:hidden}.progress i{display:block;height:100%;width:0;background:#2563eb}.bulk-current{display:grid;gap:7px}.bulk-current .row{display:grid;grid-template-columns:150px 1fr;gap:10px;border-bottom:1px dashed #e2e8f0;padding:8px 0}.bulk-current label{font-size:12px;color:#64748b}.bulk-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.bulk-log{margin-top:12px;max-height:220px;overflow:auto;background:#0f172a;color:#cbd5e1;border-radius:13px;padding:10px;font-size:11px;line-height:1.8}.log-ok{color:#86efac}.log-err{color:#fca5a5}.fixed-pass{font-family:monospace;direction:ltr}.settings-actions{display:grid;gap:10px}.log-select{width:100%;height:48px;border:1px solid var(--line);border-radius:13px;padding:0 12px;font:inherit;background:#fff}.small-note{font-size:12px;line-height:1.8;color:#64748b;margin-top:9px}.reader-live{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:#166534;background:#dcfce7;border-radius:14px;padding:10px 12px;font-size:13px}.pulse{width:10px;height:10px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 1.5s infinite}@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
@@ -47,7 +47,7 @@
 .pdf-render-root th{background:#eaf2ff;font-weight:900}.pdf-render-root .pdf-meta{text-align:center;color:#475569;font-size:12px;margin-bottom:18px}
 
 
-/* V11.8.13 - robust password visibility control for Android Chrome/PWA */
+/* V11.8.14 - robust password visibility control for Android Chrome/PWA */
 .password-wrap{
   position:relative !important;
   width:100%;
@@ -90,7 +90,7 @@
 }
 
 
-/* V11.8.13 */
+/* V11.8.14 */
 #lostCardOverlay .sub-alert{
   font-size:32px !important;
   font-weight:1000 !important;
@@ -118,7 +118,7 @@
 }
 
 
-/* V11.8.13 */
+/* V11.8.14 */
 .fields{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:12px !important}
 .field{grid-template-columns:1fr !important;align-items:stretch !important;gap:6px !important;min-width:0}
 .field label{min-height:20px;display:flex;align-items:flex-end}
@@ -136,7 +136,7 @@
 .erase-card-info .rowx:last-child{border-bottom:0}.erase-card-info label{font-size:12px;color:#64748b}.erase-card-info b{font-size:13px;word-break:break-word}
 
 
-/* V11.8.13 - Factory Reset UI + SQL compatibility */
+/* V11.8.14 - Factory Reset UI + SQL compatibility */
 .factory-warning{
   background:#fff1f2;border:1px solid #fecdd3;border-radius:18px;
   padding:18px;color:#991b1b;font-weight:800;line-height:2;text-align:center;margin-bottom:14px
@@ -154,7 +154,7 @@
 .factory-danger-btn:disabled{opacity:.45!important}
 
 
-/* V11.8.13 - NFC card identification */
+/* V11.8.14 - NFC card identification */
 .nfc-ident-box{
   display:grid;
   gap:10px;
@@ -197,7 +197,7 @@
 }
 
 
-/* V11.8.13 - card password eye + legacy password migration */
+/* V11.8.14 - card password eye + legacy password migration */
 #passwordOverlay .password-wrap{
   position:relative !important;
   width:100% !important;
@@ -277,7 +277,7 @@
   <div class="actions"><button class="btn primary" id="goRead">خواندن کارت</button><button class="btn secondary admin-only" id="goWrite">نوشتن / ویرایش کارت</button><button class="btn ghost admin-only" id="goBulk" style="grid-column:1/-1">تعریف پشت‌سرهم کارت‌ها از Excel</button></div>
   <div class="admin-tools"><button class="btn ghost admin-only" id="goSettings">⚙️ تنظیمات</button><button class="btn ghost" id="logoutBtn">خروج از حساب</button></div>
   <div class="security-note admin-only" id="defaultPassNotice" style="display:none"></div>
- </div><div class="app-version">Version 11.8.13</div>
+ </div><div class="app-version">Version 11.8.14</div>
  <div id="testPanel" class="test-panel"><div class="test-title"><strong>حالت آزمایش کارت مجازی</strong><span class="badge">TEST MODE</span></div><div class="test-grid"><button id="testCreateCard" class="btn secondary">ساخت کارت مجازی خالی</button><button id="testInsertCard" class="btn primary">نزدیک‌کردن کارت مجازی</button><button id="testRemoveCard" class="btn ghost">دورکردن کارت مجازی</button><button id="testDeleteCard" class="btn danger">پاک‌کردن کارت مجازی</button></div><input id="testUidInput" class="test-uid" value="04A1B2C3D4E5F6"/><div id="testState" class="test-state">کارت مجازی آماده است.</div><div class="test-note">این بخش فقط شبیه‌سازی است و به کاربر user دسترسی نوشتن روی NFC واقعی نمی‌دهد. برای خروج، دوباره ۵ بار روی لوگوی «م» بزنید.</div></div>
 </section>
 <section id="readScreen" class="screen"><div class="screen-head"><h2>خواندن کارت</h2><button class="back" data-home>←</button></div><div class="reader-live"><span class="pulse"></span><span id="readerLiveText">در انتظار نزدیک شدن کارت NFC…</span></div><div class="card has-card-membership"><div class="card-title"><strong id="readCardTitle">مشخصات کارت هوشمند قطعه —</strong><span id="readUid" class="uid">UID: —</span></div><div id="readCardMembership" class="membership-head card-membership"><span class="dot"></span><span class="membership-text">وضعیت: —</span></div><div id="readFields" class="fields"></div></div><div class="footer-actions"><button class="btn ghost" data-home>بازگشت</button></div><div id="readStatus" class="status"></div>
@@ -432,7 +432,7 @@
     <h2 class="settings-subtitle">توضیحات</h2>
     <div class="about-box">
       <div class="designer">طراح برنامه<br>مهندس علی عبدلی</div>
-      <div class="version">نسخه نرم‌افزار: V11.8.13</div>
+      <div class="version">نسخه نرم‌افزار: V11.8.14</div>
     </div>
     <button class="btn primary settings-bottom-back" data-settings-back>تأیید</button>
   </div>
@@ -582,11 +582,68 @@ async function updateDefaultNotice(){if(currentRole!=='admin')return;const a=awa
 let passChangeTarget='admin';function openChangePass(target){passChangeTarget=target;$('#changePassTitle').textContent=target==='admin'?'تغییر رمز مدیر':'تغییر رمز کاربر';$('#changePassText').textContent=target==='admin'?'رمز مدیر برای ورود مدیر و فایل‌های Excel رمزدار استفاده می‌شود.':'رمز جدید user از ورود بعدی کاربر اعمال می‌شود.';$('#changeOldPass').style.display=target==='admin'?'block':'none';$('#changeOldPass').value='';$('#changeNewPass').value='';$('#changeNewPass2').value='';$('#changePassError').textContent='';$('#changePassOverlay').classList.add('show');}
 $('#changeAdminPass').onclick=()=>openChangePass('admin');$('#changeUserPass').onclick=()=>openChangePass('user');$('#changePassCancel').onclick=()=>$('#changePassOverlay').classList.remove('show');$('#changePassSave').onclick=async()=>{const oldp=$('#changeOldPass').value,np=$('#changeNewPass').value,np2=$('#changeNewPass2').value;if(passChangeTarget==='admin'&&!(await verifyAccount('admin',oldp))){$('#changePassError').textContent='رمز فعلی مدیر اشتباه است.';return;}if(passChangeTarget==='user'&&!(await verifyAccount('admin',sessionPassword))){$('#changePassError').textContent='جلسه مدیر معتبر نیست.';return;}if(np.length<4){$('#changePassError').textContent='رمز جدید حداقل ۴ کاراکتر باشد.';return;}if(np!==np2){$('#changePassError').textContent='تکرار رمز مطابقت ندارد.';return;}await saveAccountPassword(passChangeTarget,np);$('#changePassOverlay').classList.remove('show');await updateDefaultNotice();alert('رمز با موفقیت تغییر کرد.');};
 async function makePasswordHash(password,salt,uid){return sha256Hex(`${salt}|${uid}|${password}|LANDCARD-V1`);}async function verifyPassword(password,p){if(!p?.security?.salt||!p?.security?.passwordHash)return false;return(await makePasswordHash(password,p.security.salt,currentUid))===p.security.passwordHash;}
-function parseNdefMessage(message){for(const record of message.records||[]){try{if(record.recordType==='mime'&&(record.mediaType||'').toLowerCase()===APP_MIME)return JSON.parse(new TextDecoder(record.encoding||'utf-8').decode(record.data));if(record.recordType==='text'){const o=JSON.parse(new TextDecoder(record.encoding||'utf-8').decode(record.data));if(o?.app==='landcard')return o;}}catch{}}return null;}function makePayload(data,security){return{app:'landcard',version:2,uid:currentUid,data,security,updatedAt:new Date().toISOString()};}
+const COMPACT_FIELD_ORDER=['fullName','nationalId','postalCode','mobile','plotNumber','streetName','membershipStatus','debtAmount'];
+
+function compactCardPayload(p){
+  const d=p?.data||{};
+  return {
+    a:3,
+    u:normalizeUid(p?.uid||currentUid),
+    d:COMPACT_FIELD_ORDER.map(k=>String(d[k]??'')),
+    s:[String(p?.security?.salt||''),String(p?.security?.passwordHash||'')],
+    t:Math.floor(Date.now()/1000)
+  };
+}
+function expandCompactCardPayload(o){
+  if(!o||o.a!==3||!Array.isArray(o.d))return null;
+  const data={};
+  COMPACT_FIELD_ORDER.forEach((k,i)=>data[k]=String(o.d[i]??''));
+  return {
+    app:'landcard',
+    version:3,
+    uid:normalizeUid(o.u),
+    data,
+    security:{
+      salt:String(o.s?.[0]||''),
+      passwordHash:String(o.s?.[1]||'')
+    },
+    updatedAt:o.t?new Date(Number(o.t)*1000).toISOString():''
+  };
+}
+function serializeCardPayload(p){
+  return JSON.stringify(compactCardPayload(p));
+}
+function compactPayloadByteSize(p){
+  return new TextEncoder().encode(serializeCardPayload(p)).length;
+}
+
+function parseCardJson(raw){
+  const o=JSON.parse(raw);
+  if(o?.a===3)return expandCompactCardPayload(o);
+  if(o?.app==='landcard')return o; // backward compatibility with V1/V2 cards
+  return null;
+}
+function parseNdefMessage(message){
+  for(const record of message.records||[]){
+    try{
+      const raw=new TextDecoder(record.encoding||'utf-8').decode(record.data);
+      if(record.recordType==='mime'&&(record.mediaType||'').toLowerCase()===APP_MIME){
+        const p=parseCardJson(raw); if(p)return p;
+      }
+      if(record.recordType==='text'){
+        const p=parseCardJson(raw); if(p)return p;
+      }
+    }catch{}
+  }
+  return null;
+}
+function makePayload(data,security){
+  return{app:'landcard',version:3,uid:currentUid,data,security,updatedAt:new Date().toISOString()};
+}
 function friendlyNfcError(err){const n=err?.name||'',m=String(err?.message||err||'');if(m.includes('WEB_NFC_UNSUPPORTED'))return'این مرورگر Web NFC را پشتیبانی نمی‌کند.';if(n==='NotAllowedError')return'مجوز NFC داده نشده یا دسترسی رد شده است.';if(n==='NotReadableError')return'NFC احتمالاً خاموش است.';if(n==='AbortError')return'عملیات NFC متوقف شد.';return'خطای NFC: '+(m||n||'نامشخص');}
 async function checkNfcCapability(){const b=$('#nfcBadge'),w=$('#nfcWarning');if(window.isSecureContext&&('NDEFReader'in window)){simulatorMode=false;b.textContent='NFC واقعی';b.className='badge ok';w.classList.remove('show');return;}simulatorMode=true;b.textContent='حالت شبیه‌ساز';b.className='badge';w.classList.add('show');w.textContent='این محیط NFC واقعی ندارد؛ برای تست از TEST MODE استفاده کنید.';}
 function getSimStore(){try{return JSON.parse(localStorage.getItem(SIM_STORE_KEY)||'{}')||{};}catch{return{};}}function saveSimStore(s){localStorage.setItem(SIM_STORE_KEY,JSON.stringify(s));}function getSimCard(uid=SIM_UID){return getSimStore()[normalizeUid(uid)]||null;}function setSimCard(p,uid=p?.uid||SIM_UID){const u=normalizeUid(uid),s=getSimStore();s[u]={...p,uid:u};saveSimStore(s);}function deleteSimCard(uid=SIM_UID){const u=normalizeUid(uid),s=getSimStore();delete s[u];saveSimStore(s);}
-function fakeEventForUid(uid){const u=normalizeUid(uid),p=getSimCard(u),records=p?[{recordType:'mime',mediaType:APP_MIME,encoding:'utf-8',data:new TextEncoder().encode(JSON.stringify(p))}]:[];return{serialNumber:u,message:{records}};}
+function fakeEventForUid(uid){const u=normalizeUid(uid),p=getSimCard(u),records=p?[{recordType:'mime',mediaType:APP_MIME,encoding:'utf-8',data:new TextEncoder().encode(serializeCardPayload(p))}]:[];return{serialNumber:u,message:{records}};}
 async function scanOnce(){if(testMode){await new Promise(r=>setTimeout(r,200));if(!virtualCardPresent)throw new Error('کارت مجازی نزدیک نشده است');return fakeEventForUid(SIM_UID);}if(!('NDEFReader'in window))throw new Error('WEB_NFC_UNSUPPORTED');const n=new NDEFReader(),c=new AbortController();return new Promise(async(res,rej)=>{let done=false;const f=(fn,v)=>{if(done)return;done=true;try{c.abort()}catch{}fn(v)};n.addEventListener('reading',e=>f(res,e),{once:true});n.addEventListener('readingerror',()=>f(rej,new Error('READ_ERROR')),{once:true});try{await n.scan({signal:c.signal})}catch(e){f(rej,e)}});}
 function persianDigits(x){return String(x).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)]);}function persianScanText(date=new Date()){return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{timeZone:'Asia/Tehran',weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}).format(date).replace('،',' -');}
 function getLogs(){try{return JSON.parse(localStorage.getItem(LOG_KEY)||'{}')||{};}catch{return{};}}function saveLogs(x){localStorage.setItem(LOG_KEY,JSON.stringify(x));}
@@ -1116,11 +1173,11 @@ $('#cardPasswordEye').onclick=()=>{const i=$('#passwordInput'),b=$('#cardPasswor
 $('#passwordConfirm').onclick=async()=>{const pass=$('#passwordInput').value;if(!pass)return;if(pendingPasswordAction==='create'){if(pass!=='110510'){$('#attemptsText').textContent='رمز اشتباه است.';return;}const salt=randomSalt();currentPayload=makePayload(collectWriteData(),{salt,passwordHash:await makePasswordHash('110510',salt,currentUid)});$('#passwordOverlay').classList.remove('show');setWriteEnabled(true);return;}if(pendingPasswordAction==='erase'){
 if(!erasePayload?.security?.salt||!erasePayload?.security?.passwordHash){$('#passwordOverlay').classList.remove('show');setStatus('#eraseStatus','این کارت فاقد رمز امنیتی معتبر نسخه جدید است و از داخل برنامه قابل پاک‌کردن نیست. ابتدا باید کارت با نسخه امن دوباره صادر شود.','err');return;}if(await verifyAnyCardPassword(pass,erasePayload)){$('#passwordOverlay').classList.remove('show');await eraseCardNow();}else{passwordAttempts++;if(passwordAttempts>=3){$('#passwordOverlay').classList.remove('show');setStatus('#eraseStatus','رمز امنیتی کارت معتبر نیست یا با نسخه‌های شناخته‌شده سامانه مطابقت ندارد. عملیات پاک‌کردن لغو شد.','err');}else $('#attemptsText').textContent=`رمز اشتباه است. ${3-passwordAttempts} فرصت باقی مانده.`;}return;}if(String(pass)==='110510' && await verifyAnyCardPassword(pass,currentPayload)){$('#passwordOverlay').classList.remove('show');setWriteEnabled(true);setStatus('#writeStatus',legacyCardPasswordUpgrade?'کارت دارای رمز قدیمی معتبر است؛ ویرایش فعال شد و هنگام ذخیره رمز کارت به 110510 ارتقا می‌یابد.':'رمز برنامه و رمز ثبت‌شده روی کارت تأیید شد؛ ویرایش فعال شد.','ok');}else{passwordAttempts++;if(passwordAttempts>=3){$('#passwordOverlay').classList.remove('show');showScreen('home');alert('رمز سه بار اشتباه بود.');}else $('#attemptsText').textContent=`رمز اشتباه است. ${3-passwordAttempts} فرصت باقی مانده.`;}};$('#passwordCancel').onclick=()=>$('#passwordOverlay').classList.remove('show');
 $('#scanForEdit').onclick=async()=>{setWriteEnabled(false);currentPayload=null;fillWrite(emptyData());setStatus('#writeStatus','کارت را نزدیک کنید…','info');try{const e=await scanOnce();setUid(e.serialNumber);const p=parseNdefMessage(e.message);if(!p){openCardPassword('create');return;}if(p.uid&&normalizeUid(p.uid)!==currentUid){setStatus('#writeStatus','UID کارت و داده مطابقت ندارد.','err');return;}currentPayload=p;fillWrite(p.data||{});if(p.security?.passwordHash)openCardPassword('unlock');else openCardPassword('create');}catch(e){setStatus('#writeStatus',friendlyNfcError(e),'err');}};
-$('#saveCard').onclick=async()=>{if(!editUnlocked||!currentUid)return;const data=collectWriteData();const allow=await assertPlotUidAllowed(data.plotNumber,currentUid);if(!allow.ok){showInvalidCard();setStatus('#writeStatus',`قطعه ${data.plotNumber} قبلاً با UID دیگری ثبت شده است؛ این کارت فاقد اعتبار است و کپی می‌باشد.`,'err');setWriteEnabled(false);return;}let nextSecurity=currentPayload.security;if(legacyCardPasswordUpgrade){const ns=randomSalt();nextSecurity={salt:ns,passwordHash:await makePasswordHash('110510',ns,currentUid)};}const payload=makePayload(data,nextSecurity);try{if(testMode||simulatorMode){setSimCard(payload,currentUid);}else{const n=new NDEFReader();await n.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});}currentPayload=payload;legacyCardPasswordUpgrade=false;try{await syncCardToServer(payload,currentUid);}catch(e){if(e?.code==='COPY_MISMATCH'||String(e?.message).includes('COPY_MISMATCH')){showInvalidCard();setStatus('#writeStatus','UID این کارت با UID معتبر این قطعه مطابقت ندارد.','err');return;}if(e?.code==='UID_ALREADY_ASSIGNED'||String(e?.message).includes('UID_ALREADY_ASSIGNED')){showInvalidCard();setStatus('#writeStatus','این UID قبلاً برای قطعه دیگری ثبت شده است.','err');return;}console.error('card central sync failed',e);const detail=String(e?.message||e?.details||e?.hint||e?.code||'UNKNOWN_SYNC_ERROR');setStatus('#writeStatus',`روی کارت نوشته شد، اما ثبت مرکزی ناموفق بود: ${detail}`,'err');return;}setWriteEnabled(false);setStatus('#writeStatus','اطلاعات روی کارت نوشته و در مرکز ثبت شد.','ok');}catch(e){setStatus('#writeStatus',friendlyNfcError(e),'err');}};
+$('#saveCard').onclick=async()=>{if(!editUnlocked||!currentUid)return;const data=collectWriteData();const allow=await assertPlotUidAllowed(data.plotNumber,currentUid);if(!allow.ok){showInvalidCard();setStatus('#writeStatus',`قطعه ${data.plotNumber} قبلاً با UID دیگری ثبت شده است؛ این کارت فاقد اعتبار است و کپی می‌باشد.`,'err');setWriteEnabled(false);return;}let nextSecurity=currentPayload.security;if(legacyCardPasswordUpgrade){const ns=randomSalt();nextSecurity={salt:ns,passwordHash:await makePasswordHash('110510',ns,currentUid)};}const payload=makePayload(data,nextSecurity);try{if(testMode||simulatorMode){setSimCard(payload,currentUid);}else{const n=new NDEFReader();await n.write({records:[{recordType:'mime',mediaType:APP_MIME,data:serializeCardPayload(payload)}]});}currentPayload=payload;legacyCardPasswordUpgrade=false;if(currentRole==='admin'&&testMode)console.info('[CARD STORAGE]',compactPayloadByteSize(payload),'bytes',serializeCardPayload(payload));try{await syncCardToServer(payload,currentUid);}catch(e){if(e?.code==='COPY_MISMATCH'||String(e?.message).includes('COPY_MISMATCH')){showInvalidCard();setStatus('#writeStatus','UID این کارت با UID معتبر این قطعه مطابقت ندارد.','err');return;}if(e?.code==='UID_ALREADY_ASSIGNED'||String(e?.message).includes('UID_ALREADY_ASSIGNED')){showInvalidCard();setStatus('#writeStatus','این UID قبلاً برای قطعه دیگری ثبت شده است.','err');return;}console.error('card central sync failed',e);const detail=String(e?.message||e?.details||e?.hint||e?.code||'UNKNOWN_SYNC_ERROR');setStatus('#writeStatus',`روی کارت نوشته شد، اما ثبت مرکزی ناموفق بود: ${detail}`,'err');return;}setWriteEnabled(false);setStatus('#writeStatus','اطلاعات روی کارت نوشته و در مرکز ثبت شد.','ok');}catch(e){setStatus('#writeStatus',friendlyNfcError(e),'err');}};
 function setTestMode(on){testMode=on;$('#testPanel').classList.toggle('show',on);$('#appLogo').classList.toggle('test-on',on);if(on){$('#nfcBadge').textContent='TEST MODE';$('#nfcBadge').className='badge';SIM_UID=normalizeUid($('#testUidInput').value);}else{virtualCardPresent=false;checkNfcCapability();}updateBulkSimButton();}
 function registerLogoTap(){logoTapCount++;clearTimeout(logoTapTimer);logoTapTimer=setTimeout(()=>logoTapCount=0,2200);if(logoTapCount>=5){logoTapCount=0;setTestMode(!testMode);}}let lastLogoPointer=0;$('#appLogo').addEventListener('pointerup',e=>{e.preventDefault();lastLogoPointer=Date.now();registerLogoTap();});$('#appLogo').addEventListener('click',e=>{if(Date.now()-lastLogoPointer<500)return;registerLogoTap();});$('#testUidInput').onchange=e=>SIM_UID=normalizeUid(e.target.value);$('#testCreateCard').onclick=()=>{SIM_UID=normalizeUid($('#testUidInput').value);deleteSimCard(SIM_UID);virtualCardPresent=true;$('#testState').textContent=`کارت خالی ${SIM_UID} ساخته و نزدیک شد.`;if(mode==='read')handleReadEvent(fakeEventForUid(SIM_UID));};$('#testInsertCard').onclick=()=>{SIM_UID=normalizeUid($('#testUidInput').value);virtualCardPresent=true;$('#testState').textContent=`کارت ${SIM_UID} نزدیک گوشی است.`;if(mode==='read')handleReadEvent(fakeEventForUid(SIM_UID));};$('#testRemoveCard').onclick=()=>{virtualCardPresent=false;$('#testState').textContent='کارت دور شد.';};$('#testDeleteCard').onclick=()=>{deleteSimCard(SIM_UID);$('#testState').textContent='داده کارت مجازی پاک شد.';};
 const HEADER_ALIASES={fullName:['نام و نام خانوادگی','نام خانوادگی و نام','نام'],nationalId:['کد ملی','کدملی'],postalCode:['کد پستی ملک','کد پستی','کدپستی'],mobile:['شماره تلفن موبایل','شماره موبایل','موبایل','تلفن همراه'],plotNumber:['شماره قطعه زمین','شماره قطعه','قطعه'],streetName:['اسم خیابان محل قطعه زمین','نام خیابان محل قطعه زمین','اسم خیابان','نام خیابان'],membershipStatus:['وضعیت عضویت','وضعیت','عضویت'],debtAmount:['میزان بدهی','بدهی','مبلغ بدهی']};function cleanHeader(s){return String(s??'').replace(/[\u200c\u200f\u202a-\u202e]/g,'').replace(/\s+/g,' ').trim();}function findHeader(h,a){const x=h.find(v=>a.some(z=>cleanHeader(v)===cleanHeader(z)));return x||'';}function mapBulkHeaders(h){const m={};for(const[k,a]of Object.entries(HEADER_ALIASES))m[k]=findHeader(h,a);return m;}function ev(v){return v==null?'':String(v).trim();}function bulkRowData(r){const d={};for(const[k]of FIELD_DEFS)d[k]=k==='debtAmount'?normalizeDebtValue(r[bulkMap[k]]):ev(r[bulkMap[k]]);return d;}function renderBulkCurrent(){const b=$('#bulkCurrent');if(!bulkQueue.length){b.innerHTML='<div class="bulk-current">فایل انتخاب نشده است.</div>';return;}if(bulkIndex>=bulkQueue.length){b.innerHTML='<div>تمام ردیف‌ها صادر شدند.</div>';return;}const i=bulkQueue[bulkIndex],d=bulkRowData(i.row);b.innerHTML=`<div class="row"><label>ردیف Excel</label><div>${i.excelRow}</div></div>`+FIELD_DEFS.map(([k,l])=>`<div class="row"><label>${l}</label><div>${esc(d[k])||'خالی'}</div></div>`).join('');}function updateBulkStats(){const t=bulkQueue.length,d=bulkIndex;$('#bulkTotal').textContent=t;$('#bulkDone').textContent=d;$('#bulkRemain').textContent=Math.max(0,t-d);$('#bulkProgress').style.width=(t?Math.round(d*100/t):0)+'%';$('#bulkDownload').disabled=!bulkWorkbook;renderBulkCurrent();}function bulkLog(m,type='info'){const el=$('#bulkLog');if(el.textContent.startsWith('گزارش'))el.innerHTML='';const x=document.createElement('div');x.className='log-'+type;x.textContent=`${new Date().toLocaleTimeString('fa-IR')} — ${m}`;el.prepend(x);}function updateBulkSimButton(){$('#bulkSimNext').style.display=testMode?'block':'none';}
-async function buildBulkPayload(uid,data){const salt=randomSalt(),u=normalizeUid(uid),hash=await makePasswordHash(BULK_PASSWORD,salt,u);return{app:'landcard',version:2,uid:u,data,security:{salt,passwordHash:hash},updatedAt:new Date().toISOString()};}function setBulkUidInSheet(row,uid){let headers=bulkHeaders,range=XLSX.utils.decode_range(bulkSheet['!ref']||'A1:A1'),c=headers.findIndex(h=>cleanHeader(h)===cleanHeader(bulkUidHeader));if(c<0){c=range.e.c+1;bulkHeaders.push(bulkUidHeader);bulkSheet[XLSX.utils.encode_cell({r:0,c})]={t:'s',v:bulkUidHeader};range.e.c=c;bulkSheet['!ref']=XLSX.utils.encode_range(range);}bulkSheet[XLSX.utils.encode_cell({r:row-1,c})]={t:'s',v:uid};}
+async function buildBulkPayload(uid,data){const salt=randomSalt(),u=normalizeUid(uid),hash=await makePasswordHash(BULK_PASSWORD,salt,u);return{app:'landcard',version:3,uid:u,data,security:{salt,passwordHash:hash},updatedAt:new Date().toISOString()};}function setBulkUidInSheet(row,uid){let headers=bulkHeaders,range=XLSX.utils.decode_range(bulkSheet['!ref']||'A1:A1'),c=headers.findIndex(h=>cleanHeader(h)===cleanHeader(bulkUidHeader));if(c<0){c=range.e.c+1;bulkHeaders.push(bulkUidHeader);bulkSheet[XLSX.utils.encode_cell({r:0,c})]={t:'s',v:bulkUidHeader};range.e.c=c;bulkSheet['!ref']=XLSX.utils.encode_range(range);}bulkSheet[XLSX.utils.encode_cell({r:row-1,c})]={t:'s',v:uid};}
 async function processBulkUid(uid,sim=false){
 if(!bulkRunning||bulkIndex>=bulkQueue.length)return;
 uid=normalizeUid(uid);
@@ -1135,7 +1192,7 @@ return;
 const p=await buildBulkPayload(uid,data);
 let cardWritten=false;
 try{
-if(sim||testMode){setSimCard(p,uid);}else{const n=new NDEFReader();await n.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(p)}]});}
+if(sim||testMode){setSimCard(p,uid);}else{const n=new NDEFReader();await n.write({records:[{recordType:'mime',mediaType:APP_MIME,data:serializeCardPayload(p)}]});}
 cardWritten=true;
 try{
 await syncCardToServer(p,uid);
@@ -1229,11 +1286,11 @@ try{
 await ensureAdminServerSession();
 const dupSalt=randomSalt();
 const dupHash=await makePasswordHash('110510',dupSalt,duplicateNewUid);
-const payload={app:'landcard',version:2,uid:duplicateNewUid,data:{...duplicateLoaded.data},security:{salt:dupSalt,passwordHash:dupHash},updatedAt:new Date().toISOString()};
+const payload={app:'landcard',version:3,uid:duplicateNewUid,data:{...duplicateLoaded.data},security:{salt:dupSalt,passwordHash:dupHash},updatedAt:new Date().toISOString()};
 if(testMode){setSimCard(payload,duplicateNewUid);}
 else{
 const n=new NDEFReader();
-await n.write({records:[{recordType:'mime',mediaType:APP_MIME,data:JSON.stringify(payload)}]});
+await n.write({records:[{recordType:'mime',mediaType:APP_MIME,data:serializeCardPayload(payload)}]});
 }
 const {error}=await sb.rpc('reissue_card',{p_plot_number:duplicateLoaded.data.plotNumber,p_old_uid:duplicateLoaded.uid,p_new_uid:duplicateNewUid});
 if(error)throw error;
